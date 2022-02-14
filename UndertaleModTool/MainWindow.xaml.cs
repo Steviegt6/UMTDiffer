@@ -43,6 +43,18 @@ using System.Net.Http.Headers;
 using Newtonsoft.Json.Linq;
 using System.Net;
 using System.Globalization;
+using System.Windows.Forms;
+using Application = System.Windows.Application;
+using DataFormats = System.Windows.DataFormats;
+using DataObject = System.Windows.DataObject;
+using DragDropEffects = System.Windows.DragDropEffects;
+using DragEventArgs = System.Windows.DragEventArgs;
+using KeyEventArgs = System.Windows.Input.KeyEventArgs;
+using Label = System.Windows.Controls.Label;
+using MessageBox = System.Windows.MessageBox;
+using MouseEventArgs = System.Windows.Input.MouseEventArgs;
+using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
+using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 
 namespace UndertaleModTool
 {
@@ -130,7 +142,7 @@ namespace UndertaleModTool
             ChangeSelection(Highlighted = new DescriptionView("Welcome to UndertaleModTool!", "Open data.win file to get started, then double click on the items on the left to view them"));
             SelectionHistory.Clear();
 
-            TitleMain = "UndertaleModTool by krzys_h v" + Version;
+            TitleMain = "UndertaleModTool by krzys_h, UMTDiffer by Tomat v" + Version;
 
             CanSave = false;
             CanSafelySave = false;
@@ -2129,7 +2141,7 @@ namespace UndertaleModTool
 
         private void MenuItem_About_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("UndertaleModTool by krzys_h\nVersion " + Version, "About", MessageBoxButton.OK);
+            MessageBox.Show("UndertaleModTool by krzys_h\nUMTDiffer by Tomat\nVersion " + Version, "About", MessageBoxButton.OK);
         }
 
         /// From https://github.com/AvaloniaUI/Avalonia/blob/master/src/Avalonia.Dialogs/AboutAvaloniaDialog.xaml.cs
@@ -2700,6 +2712,54 @@ result in loss of work.");
                         {
                             MessageBox.Show("An error occured while trying to load:\n" + ex.Message, "Load error", MessageBoxButton.OK, MessageBoxImage.Error);
                         }
+
+                        Dispatcher.Invoke(() =>
+                        {
+                            dialog.Hide();
+                        });
+                    });
+                    dialog.ShowDialog();
+                    await t;
+                }
+            }
+        }
+        
+        private async void MenuItem_Diff_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+
+            dlg.DefaultExt = "win";
+            dlg.Filter = "Game Maker Studio data files (.win, .unx, .ios, .droid)|*.win;*.unx;*.ios;*.droid|All files|*";
+
+            if (dlg.ShowDialog() == true)
+            {
+                FolderBrowserDialog dlgout = new FolderBrowserDialog();
+                DialogResult res = dlgout.ShowDialog();
+                
+                if (res == System.Windows.Forms.DialogResult.OK)
+                {
+                    LoaderDialog dialog = new LoaderDialog("Diffing", "Diffing files, please wait...");
+                    dialog.Owner = this;
+                    Task t = Task.Run(() =>
+                    {
+                        /*try
+                        {
+                            using (var stream = new FileStream(dlg.FileName, FileMode.Open, FileAccess.Read))
+                            {
+                                var offsets = UndertaleIO.GenerateOffsetMap(stream);
+                                using (var writer = File.CreateText(dlgout.FileName))
+                                {
+                                    foreach (var off in offsets.OrderBy((x) => x.Key))
+                                    {
+                                        writer.WriteLine(off.Key.ToString("X8") + " " + off.Value.ToString().Replace("\n", "\\\n"));
+                                    }
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("An error occured while trying to load:\n" + ex.Message, "Load error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }*/
 
                         Dispatcher.Invoke(() =>
                         {

@@ -85,6 +85,7 @@
                     </MenuItem>
                     <Separator/>
                     <MenuItem Header="Generate o_ffset map" Click="MenuItem_OffsetMap_Click"/>
+                    <MenuItem Header="_Diff modified data" Click="MenuItem_Diff_Click"/>
                     <Separator/>
                     <MenuItem Header="S_ettings" Command="Properties"/>
                     <MenuItem Header="_Close" Command="Close" InputGestureText="Ctrl+W"/>
