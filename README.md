@@ -1,6 +1,8 @@
 # UMTDiffer
 UMTDiffer is a fork of [UndertaleModTool](https://github.com/krzys-h/UndertaleModTool) with the ability to diff files and apply patches.
 
+Before modifying any data, *please* make a copy of the data file you would like to modify. You will need this to create diffs!
+
 # UndertaleModTool
 *(seeing such an amazing tool...<br/>
 ... fills you with DETERMINATION.)*
