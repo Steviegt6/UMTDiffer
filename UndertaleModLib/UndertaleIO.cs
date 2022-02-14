@@ -653,5 +653,13 @@ namespace UndertaleModLib
             string content = strings.Aggregate("v1", (current, diffData) => current + ("\n" + diffData));
             File.WriteAllText(Path.Combine(directory, "strings.strdiff"), content);
         }
+
+        public static void ApplyPatchDataFromDirectory(UndertaleData data, string directory)
+        {
+            string strDiffPath = Path.Combine(directory, "strings.strdiff");
+            
+            if (File.Exists(strDiffPath))
+                StringDiffer.ApplyStringDiff(data, StringDiffer.Deserialize(File.ReadLines(strDiffPath)));
+        }
     }
 }

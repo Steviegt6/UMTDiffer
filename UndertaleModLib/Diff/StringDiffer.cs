@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UndertaleModLib.Models;
 
@@ -35,7 +36,7 @@ namespace UndertaleModLib.Diff
             return diffData;
         }
 
-        public static List<StringDiffData> Deserialize(List<string> diffs)
+        public static List<StringDiffData> Deserialize(IEnumerable<string> diffs)
         {
             List<StringDiffData> diffData = new List<StringDiffData>();
 
@@ -47,6 +48,26 @@ namespace UndertaleModLib.Diff
             }
 
             return diffData;
+        }
+
+        public static void ApplyStringDiff(UndertaleData data, List<StringDiffData> diffs)
+        {
+            foreach (StringDiffData diffData in diffs)
+            {
+                switch (diffData.DiffType)
+                {
+                    case StringDiffType.Added:
+                        data.Strings.Add(new UndertaleString(diffData.Content));
+                        break;
+                    
+                    case StringDiffType.Removed:
+                        data.Strings.Remove(data.Strings.FirstOrDefault(x => x.Content == diffData.Content));
+                        break;
+                    
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(diffData.DiffType));
+                }
+            }
         }
     }
 }

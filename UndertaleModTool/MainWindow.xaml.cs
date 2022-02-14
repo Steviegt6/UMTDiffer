@@ -2738,7 +2738,7 @@ result in loss of work.");
                 
                 if (res == System.Windows.Forms.DialogResult.OK)
                 {
-                    LoaderDialog dialog = new LoaderDialog("Diffing", "Diffing files, please wait...");
+                    LoaderDialog dialog = new LoaderDialog("Diffing", "Diffing data, please wait...");
                     dialog.Owner = this;
 
                     if (Data?.GeneralInfo == null)
@@ -2772,6 +2772,41 @@ result in loss of work.");
                     dialog.ShowDialog();
                     await t;
                 }
+            }
+        }
+        
+        private async void MenuItem_Patch_Click(object sender, RoutedEventArgs e)
+        {
+            FolderBrowserDialog dlgout = new FolderBrowserDialog();
+            DialogResult res = dlgout.ShowDialog();
+                
+            if (res == System.Windows.Forms.DialogResult.OK)
+            {
+                LoaderDialog dialog = new LoaderDialog("Patching", "Patching data, please wait...");
+                dialog.Owner = this;
+
+                Task t = Task.Run(() =>
+                {
+                    try
+                    {
+                        Dispatcher.Invoke(() =>
+                        {
+                            UndertaleIO.ApplyPatchDataFromDirectory(Data, dlgout.SelectedPath);
+                        });
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("An error occured while trying to patch:\n" + ex.Message, "Patch error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+
+                    Dispatcher.Invoke(() =>
+                    {
+                        dialog.Hide();
+                    });
+                });
+                
+                dialog.ShowDialog();
+                await t;
             }
         }
     }
