@@ -1,3 +1,6 @@
+# UMTDiffer
+UMTDiffer is a fork of [UndertaleModTool](https://github.com/krzys-h/UndertaleModTool) with the ability to diff files and apply patches.
+
 # UndertaleModTool
 *(seeing such an amazing tool...<br/>
 ... fills you with DETERMINATION.)*
