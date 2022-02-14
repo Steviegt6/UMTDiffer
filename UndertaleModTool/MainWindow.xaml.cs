@@ -2740,26 +2740,26 @@ result in loss of work.");
                 {
                     LoaderDialog dialog = new LoaderDialog("Diffing", "Diffing files, please wait...");
                     dialog.Owner = this;
+
+                    if (Data?.GeneralInfo == null)
+                    {
+                        MessageBox.Show("An error occured while trying to diff:\nPlease load a modified game prior to attempting a diff!");
+                        return;
+                    }
+                    
                     Task t = Task.Run(() =>
                     {
-                        /*try
+                        try
                         {
                             using (var stream = new FileStream(dlg.FileName, FileMode.Open, FileAccess.Read))
                             {
-                                var offsets = UndertaleIO.GenerateOffsetMap(stream);
-                                using (var writer = File.CreateText(dlgout.FileName))
-                                {
-                                    foreach (var off in offsets.OrderBy((x) => x.Key))
-                                    {
-                                        writer.WriteLine(off.Key.ToString("X8") + " " + off.Value.ToString().Replace("\n", "\\\n"));
-                                    }
-                                }
+                                UndertaleIO.WriteDiffDataFromStream(Data, stream, dialog.Name);
                             }
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("An error occured while trying to load:\n" + ex.Message, "Load error", MessageBoxButton.OK, MessageBoxImage.Error);
-                        }*/
+                            MessageBox.Show("An error occured while trying to diff:\n" + ex.Message, "Diff error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
 
                         Dispatcher.Invoke(() =>
                         {

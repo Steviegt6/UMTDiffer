@@ -640,5 +640,13 @@ namespace UndertaleModLib
             reader.ThrowIfUnreadObjects();
             return reader.GetOffsetMap();
         }
+
+        public static void WriteDiffDataFromStream(UndertaleData data, Stream stream, string directory)
+        {
+            Directory.CreateDirectory(directory);
+            
+            UndertaleReader reader = new UndertaleReader(stream);
+            UndertaleData original = reader.ReadUndertaleData();
+        }
     }
 }
