@@ -2753,7 +2753,10 @@ result in loss of work.");
                         {
                             using (var stream = new FileStream(dlg.FileName, FileMode.Open, FileAccess.Read))
                             {
-                                UndertaleIO.WriteDiffDataFromStream(Data, stream, dialog.Name);
+                                Dispatcher.Invoke(() =>
+                                {
+                                    UndertaleIO.WriteDiffDataFromStream(Data, stream, dlgout.SelectedPath);
+                                });
                             }
                         }
                         catch (Exception ex)

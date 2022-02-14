@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UndertaleModLib.Compiler;
+using UndertaleModLib.Diff;
 using UndertaleModLib.Models;
 using UndertaleModLib.Util;
 
@@ -647,6 +648,10 @@ namespace UndertaleModLib
             
             UndertaleReader reader = new UndertaleReader(stream);
             UndertaleData original = reader.ReadUndertaleData();
+
+            List<StringDiffer.StringDiffData> strings = StringDiffer.DiffStrings(data, original);
+            string content = strings.Aggregate("v1", (current, diffData) => current + ("\n" + diffData));
+            File.WriteAllText(Path.Combine(directory, "strings.strdiff"), content);
         }
     }
 }
