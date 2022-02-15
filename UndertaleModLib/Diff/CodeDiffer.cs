@@ -92,7 +92,7 @@ namespace UndertaleModLib.Diff
                 File.Delete(patchPath);
         }
 
-        public static void Patch(string dir, string baseDir, string srcDir, string patchDir)
+        public static void Patch(string dir, string baseDir, string srcDir, string patchDir, UndertaleData data)
         {
             DirectoryInfo baseDirectory = new DirectoryInfo(baseDir);
             DirectoryInfo patchedDirectory = new DirectoryInfo(srcDir);
@@ -108,7 +108,7 @@ namespace UndertaleModLib.Diff
 
                 if (relativePath.EndsWith(".patch"))
                 {
-                    newFiles.Add(PatchDiff(file.ToString(), dir).PatchedPath);
+                    newFiles.Add(PatchDiff(file.ToString(), dir, data).PatchedPath);
                     noCopy.Add(relativePath.Substring(0, relativePath.Length - 6));
                 }
                 else if (relativePath != RemovedCodeList)
@@ -119,33 +119,17 @@ namespace UndertaleModLib.Diff
                     newFiles.Add(dest);
                 }
             }
-
-            foreach (FileInfo file in baseDirectory.EnumerateFiles("*", SearchOption.AllDirectories))
-            {
-                string relativePath = GetRelativePath(file.ToString(), baseDirectory.ToString());
-
-                if (!noCopy.Contains(relativePath))
-                {
-                    string dest = Path.Combine(patchedDirectory.ToString(), relativePath);
-                    
-                    File.Copy(file.ToString(), dest);
-                    newFiles.Add(dest);
-                }
-            }
-            
-            foreach (FileInfo file in patchedDirectory.EnumerateFiles("*", SearchOption.AllDirectories))
-                if (!newFiles.Contains(file.ToString()))
-                    file.Delete();
         }
 
-        private static FilePatcher PatchDiff(string patchPath, string dir)
+        private static FilePatcher PatchDiff(string patchPath, string dir, UndertaleData data)
         {
             FilePatcher patcher = FilePatcher.FromPatchFile(patchPath, dir);
             patcher.Patch(Patcher.Mode.EXACT);
 
             Directory.CreateDirectory(Directory.GetParent(patcher.PatchedPath)?.ToString() ?? "");
-            
-            patcher.Save();
+
+            string codeName = Path.GetFileNameWithoutExtension(patcher.BasePath);
+            data.Code.First(x => x.Name.Content == codeName).ReplaceGML(string.Join('\n', patcher.patchedLines), data);
 
             return patcher;
         }

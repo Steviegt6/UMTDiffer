@@ -670,7 +670,7 @@ namespace UndertaleModLib
             if (File.Exists(strDiffPath))
                 StringDiffer.ApplyStringDiff(data, StringDiffer.Deserialize(File.ReadLines(strDiffPath)));
             
-            CodeDiffer.Patch(directory, Path.Combine(directory, "original"), Path.Combine(directory, "modified"), Path.Combine(directory, "patched"));
+            CodeDiffer.Patch(directory, Path.Combine(directory, "original"), Path.Combine(directory, "modified"), Path.Combine(directory, "patched"), data);
         }
     }
 }
