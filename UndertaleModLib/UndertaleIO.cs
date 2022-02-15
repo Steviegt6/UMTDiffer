@@ -652,6 +652,15 @@ namespace UndertaleModLib
             List<StringDiffer.StringDiffData> strings = StringDiffer.DiffStrings(data, original);
             string content = strings.Aggregate("v1", (current, diffData) => current + ("\n" + diffData));
             File.WriteAllText(Path.Combine(directory, "strings.strdiff"), content);
+            
+            CodeDiffer.WriteDecompiled(data, Path.Combine(directory, "modified"));
+            CodeDiffer.WriteDecompiled(original, Path.Combine(directory, "original"));
+
+            Directory.CreateDirectory(Path.Combine(directory, "patched"));
+            
+            string[] removed = CodeDiffer.Diff(Path.Combine(directory, "original"), Path.Combine(directory, "modified"), Path.Combine(directory, "patched"));
+            
+            File.WriteAllLines(Path.Combine(directory, CodeDiffer.RemovedCodeList), removed);
         }
 
         public static void ApplyPatchDataFromDirectory(UndertaleData data, string directory)
