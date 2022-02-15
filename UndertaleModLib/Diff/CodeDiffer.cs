@@ -36,7 +36,7 @@ namespace UndertaleModLib.Diff
             }
         }
 
-        public static string[] Diff(string baseDir, string srcDir, string patchDir)
+        public static string[] Diff(string dir, string baseDir, string srcDir, string patchDir)
         {
             DirectoryInfo baseDirectory = new DirectoryInfo(baseDir);
             DirectoryInfo patchedDirectory = new DirectoryInfo(srcDir);
@@ -49,7 +49,7 @@ namespace UndertaleModLib.Diff
                 if (!File.Exists(Path.Combine(baseDirectory.ToString(), relativePath)))
                     File.Copy(file.ToString(), Path.Combine(patchDirectory.ToString(), relativePath));
                 else if (IsDiffable(relativePath))
-                    DiffFile(relativePath, baseDirectory.ToString(), patchedDirectory.ToString(), patchDirectory.ToString());
+                    DiffFile(dir, relativePath, baseDirectory.ToString(), patchedDirectory.ToString(), patchDirectory.ToString());
             }
 
             foreach (FileInfo file in patchDirectory.EnumerateFiles("*", SearchOption.AllDirectories))
@@ -70,11 +70,12 @@ namespace UndertaleModLib.Diff
                 .ToArray();
         }
 
-        private static void DiffFile(string relativePath, string baseDirectory, string patchedDirectory, string patchDirectory)
+        private static void DiffFile(string dir, string relativePath, string baseDirectory, string patchedDirectory, string patchDirectory)
         {
             PatchFile patchFile = Differ.DiffFiles(new LineMatchedDiffer(),
-                Path.Combine(baseDirectory, relativePath).Replace('\\', '/'),
-                Path.Combine(patchedDirectory, relativePath).Replace('\\', '/')
+                Path.Combine(GetRelativePath(baseDirectory, dir), relativePath).Replace('\\', '/'),
+                Path.Combine(GetRelativePath(patchedDirectory, dir), relativePath).Replace('\\', '/'),
+                dir
             );
 
             string patchPath = Path.Combine(patchDirectory, relativePath + ".patch");

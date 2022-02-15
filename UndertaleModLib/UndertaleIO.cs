@@ -658,7 +658,7 @@ namespace UndertaleModLib
 
             Directory.CreateDirectory(Path.Combine(directory, "patched"));
             
-            string[] removed = CodeDiffer.Diff(Path.Combine(directory, "original"), Path.Combine(directory, "modified"), Path.Combine(directory, "patched"));
+            string[] removed = CodeDiffer.Diff(directory, Path.Combine(directory, "original"), Path.Combine(directory, "modified"), Path.Combine(directory, "patched"));
             
             File.WriteAllLines(Path.Combine(directory, CodeDiffer.RemovedCodeList), removed);
         }
