@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -19,6 +20,8 @@ namespace UndertaleModLib.Diff
 
         public const string RemovedCodeList = "removed_code.list";
         public static readonly Regex HunkOffsetRegex = new Regex(@"@@ -(\d+),(\d+) \+([_\d]+),(\d+) @@", RegexOptions.Compiled);
+
+        private static readonly ConcurrentBag<FilePatcher> Results = new ConcurrentBag<FilePatcher>();
 
         public static readonly string[] AllowedExtensions =
         {
@@ -87,6 +90,64 @@ namespace UndertaleModLib.Diff
             }
             else if (File.Exists(patchPath))
                 File.Delete(patchPath);
+        }
+
+        public static void Patch(string dir, string baseDir, string srcDir, string patchDir)
+        {
+            DirectoryInfo baseDirectory = new DirectoryInfo(baseDir);
+            DirectoryInfo patchedDirectory = new DirectoryInfo(srcDir);
+            DirectoryInfo patchDirectory = new DirectoryInfo(patchDir);
+
+            string removedFileList = Path.Combine(dir, RemovedCodeList);
+            HashSet<string> noCopy = new HashSet<string>(File.ReadAllLines(removedFileList));
+            HashSet<string> newFiles = new HashSet<string>();
+
+            foreach (FileInfo file in patchDirectory.EnumerateFiles("*", SearchOption.AllDirectories))
+            {
+                string relativePath = GetRelativePath(file.ToString(), patchDirectory.ToString());
+
+                if (relativePath.EndsWith(".patch"))
+                {
+                    newFiles.Add(PatchDiff(file.ToString(), dir).PatchedPath);
+                    noCopy.Add(relativePath.Substring(0, relativePath.Length - 6));
+                }
+                else if (relativePath != RemovedCodeList)
+                {
+                    string dest = Path.Combine(patchedDirectory.ToString(), relativePath);
+                    
+                    File.Copy(file.ToString(), dest);
+                    newFiles.Add(dest);
+                }
+            }
+
+            foreach (FileInfo file in baseDirectory.EnumerateFiles("*", SearchOption.AllDirectories))
+            {
+                string relativePath = GetRelativePath(file.ToString(), baseDirectory.ToString());
+
+                if (!noCopy.Contains(relativePath))
+                {
+                    string dest = Path.Combine(patchedDirectory.ToString(), relativePath);
+                    
+                    File.Copy(file.ToString(), dest);
+                    newFiles.Add(dest);
+                }
+            }
+            
+            foreach (FileInfo file in patchedDirectory.EnumerateFiles("*", SearchOption.AllDirectories))
+                if (!newFiles.Contains(file.ToString()))
+                    file.Delete();
+        }
+
+        private static FilePatcher PatchDiff(string patchPath, string dir)
+        {
+            FilePatcher patcher = FilePatcher.FromPatchFile(patchPath, dir);
+            patcher.Patch(Patcher.Mode.EXACT);
+
+            Directory.CreateDirectory(Directory.GetParent(patcher.PatchedPath)?.ToString() ?? "");
+            
+            patcher.Save();
+
+            return patcher;
         }
 
         private static bool IsDiffable(string path) => AllowedExtensions.Contains(Path.GetExtension(path));
