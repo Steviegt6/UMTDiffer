@@ -3,6 +3,21 @@ UMTDiffer is a fork of [UndertaleModTool](https://github.com/krzys-h/UndertaleMo
 
 Before modifying any data, *please* make a copy of the data file you would like to modify. You will need this to create diffs!
 
+## Usage
+Using this tool is actually pretty easy. Currently, it can:
+* Add and remove strings
+* Modify existing code objects
+
+With this in mind, using this tool is quite simple.
+
+If you wish to use this to mod I.RULE, please read [this](https://gist.github.com/Steviegt6/43529df027b483c944825e62ba935fc3) first.
+
+Since different platforms use different extensions, I'll refer to all extensions as `.win`.
+
+After obtaining a data file, please rename it to `original.win` and create a copy named `data.win`. After doing so, open this program and open the `data.win`. Make whatever changes you'd like, then in the "File" dropdown, select "Diff modified data". After doing so, select `original.data` as well as the output folder you would like to use. That's all you have to do to diff!
+
+For applying patches, please delete `data.win` and create a new copy of `original.win` (of course, rename this copy to `data.win`). Then, open it with this tool and, in the "File" dropdown, select "Patch diff data". When prompted, select the root directory containing all diff data. The program will then apply diffs as needed.
+
 # UndertaleModTool
 *(seeing such an amazing tool...<br/>
 ... fills you with DETERMINATION.)*

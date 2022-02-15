@@ -10,7 +10,6 @@
   * Adding and modifying items
 * Paths (low priority)
 * Scripts (high priority)
-  * Diffing DECOMPILED code
   * Adding new scripts
 * Shaders (medium priority)
   * Diffing raw source (thank god lol)
@@ -25,7 +24,7 @@
 * Texture page items (low priority)
   * Adding and modifying items, adding additional atlases?
 * Code (high priority)
-  * Adding and modifying items (scripts)
+  * Adding new code objects
 * Variables (high priority)
   * Adding and modifying items
 * Functions (high priority)
@@ -36,5 +35,9 @@
 * Embedded audio (low priority)
 
 # Finished
+* Scripts
+  * Diffing DECOMPILED code
+* Code
+  * Diffing existing code
 * Strings
   * Adding and modifying items
