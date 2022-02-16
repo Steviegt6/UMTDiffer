@@ -1,4 +1,14 @@
-﻿# To-Do
+﻿# UMTDiffer To-Do List
+This article serves as a tracker for tasks that are completed, in progress, and need to be worked on.
+
+Illustrated here is the general scope of my fork, and its planned features.
+
+## Diffing
+The main focus of this tool is enabling collaborate mod development by implementing a tracking system for modified attributes and content in data files. This is called diffing and applying these diffs is called patching.
+
+Listed below is a list of features in their various stages of development.
+
+### To-Do
 * General info data (low priority)
   * Options stuff
 * Audio groups (low priority)
@@ -34,10 +44,13 @@
   * Adding and modifying items
 * Embedded audio (low priority)
 
-# Finished
+### Finished
 * Scripts
   * Diffing DECOMPILED code
 * Code
   * Diffing existing code
 * Strings
   * Adding and modifying items
+
+## Mod Loading
+Additionally, I plan to include a feature in the CLI program that lets you process the data file and make in-memory changes prior to running it. This is called mod loading, as it will load and interface with .NET assemblies, which will have access to a data file's various qualities, such as code and what-not. Additionally, a dynamic GML patching API will be provided, allowing you to write GML code that will be added to the data file, as well as writing GML code which can then be inserted at the beginning or end of functions as well as entirely replacing functions.
