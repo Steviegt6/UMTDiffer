@@ -56,7 +56,7 @@ namespace UndertaleModTool
 
         private void DiscoverGameExe(string dataFilePath, UndertaleData data)
         {
-            string gameExeName = data?.GeneralInfo?.Filename?.Content;
+            string gameExeName = data?.GeneralInfo?.FileName?.Content;
             if (gameExeName == null)
                 return;
 
@@ -106,7 +106,7 @@ namespace UndertaleModTool
             DiscoverRuntimes(dataFilePath, data);
             if (Runtimes.Count == 0)
             {
-                MessageBox.Show("Unable to find game EXE or any installed Studio runtime", "Run error", MessageBoxButton.OK, MessageBoxImage.Error);
+                this.ShowError("Unable to find game EXE or any installed Studio runtime", "Run error");
                 return null;
             }
             else if (Runtimes.Count == 1)

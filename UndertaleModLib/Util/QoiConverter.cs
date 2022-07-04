@@ -6,9 +6,15 @@ using System.IO;
 
 namespace UndertaleModLib.Util
 {
-    // NOTE: Ported over from DogScepter's QOI converter at https://github.com/colinator27/dog-scepter/
+    /// <summary>
+    /// A class that converts to and from the GM-custom QOI format.
+    /// </summary>
+    /// <remarks>Ported over from DogScepter's QOI converter at <see href="https://github.com/colinator27/dog-scepter/"/>.</remarks>
     public static class QoiConverter
     {
+        public const int MaxChunkSize = 5; // according to the QOI spec: https://qoiformat.org/qoi-specification.pdf
+        public const int HeaderSize = 12;
+
         private const byte QOI_INDEX = 0x00;
         private const byte QOI_RUN_8 = 0x40;
         private const byte QOI_RUN_16 = 0x60;
@@ -21,21 +27,70 @@ namespace UndertaleModLib.Util
         private const byte QOI_MASK_3 = 0xe0;
         private const byte QOI_MASK_4 = 0xf0;
 
-        public unsafe static Bitmap GetImageFromStream(Stream s)
+        private static byte[] sharedBuffer;
+        private static bool isBufferEmpty = true;
+
+        /// <summary>
+        /// Frees up <see cref="sharedBuffer"/> from memory.
+        /// </summary>
+        public static void ClearSharedBuffer() => sharedBuffer = null;
+
+        /// <summary>
+        /// Initializes <see cref="sharedBuffer"/> with a specified size.
+        /// </summary>
+        /// <param name="size">Size of <see cref="sharedBuffer"/> in bytes</param>
+        public static void InitSharedBuffer(int size)
         {
-            byte[] header = new byte[12];
-            s.Read(header, 0, 12);
-            if (header[0] != 102 /* f */ || header[1] != 105 /* o */ || header[2] != 111 /* i */ || header[3] != 113 /* q */)
+            isBufferEmpty = true;
+            sharedBuffer = new byte[size];
+        } 
+
+        /// <summary>
+        /// Creates a <see cref="Bitmap"/> from a <see cref="Stream"/>.
+        /// </summary>
+        /// <param name="s">The stream to create the PNG image from.</param>
+        /// <returns>The QOI image as a PNG.</returns>
+        /// <exception cref="Exception">If there is an invalid QOIF magic header or there was an error with stride width.</exception>
+        public static Bitmap GetImageFromStream(Stream s)
+        {
+            Span<byte> header = stackalloc byte[12];
+            s.Read(header);
+            int length = header[8] + (header[9] << 8) + (header[10] << 16) + (header[11] << 24);
+            byte[] bytes = new byte[12 + length];
+            s.Position -= 12;
+            s.Read(bytes, 0, bytes.Length);
+            return GetImageFromSpan(bytes);
+        }
+
+        /// <summary>
+        /// Creates a <see cref="Bitmap"/> from a <see cref="ReadOnlySpan"/>.
+        /// </summary>
+        /// <param name="bytes">The <see cref="Span"/> to create the PNG image from.</param>
+        /// <returns>The QOI image as a PNG.</returns>
+        /// <exception cref="Exception">If there is an invalid QOIF magic header or there was an error with stride width.</exception>
+        public static Bitmap GetImageFromSpan(ReadOnlySpan<byte> bytes) => GetImageFromSpan(bytes, out _);
+
+        /// <summary>
+        /// Creates a <see cref="Bitmap"/> from a <see cref="ReadOnlySpan"/>.
+        /// </summary>
+        /// <param name="bytes">The <see cref="Span"/> to create the PNG image from.</param>
+        /// <param name="length">The total amount of data read from the <see cref="Span"/>.</param>
+        /// <returns>The QOI image as a PNG.</returns>
+        /// <exception cref="Exception">If there is an invalid QOIF magic header or there was an error with stride width.</exception>
+        public unsafe static Bitmap GetImageFromSpan(ReadOnlySpan<byte> bytes, out int length)
+        {
+            ReadOnlySpan<byte> header = bytes[..12];
+            if (header[0] != (byte)'f' || header[1] != (byte)'i' || header[2] != (byte)'o' || header[3] != (byte)'q')
                 throw new Exception("Invalid little-endian QOIF image magic");
 
             int width = header[4] + (header[5] << 8);
             int height = header[6] + (header[7] << 8);
-            int length = header[8] + (header[9] << 8) + (header[10] << 16) + (header[11] << 24);
+            length = header[8] + (header[9] << 8) + (header[10] << 16) + (header[11] << 24);
 
-            byte[] pixelData = new byte[length];
-            s.Read(pixelData, 0, length);
+            ReadOnlySpan<byte> pixelData = bytes.Slice(12, length);
 
             Bitmap bmp = new Bitmap(width, height, PixelFormat.Format32bppArgb);
+            bmp.SetResolution(96.0f, 96.0f);
 
             BitmapData data = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb);
             if (data.Stride != width * 4)
@@ -47,7 +102,7 @@ namespace UndertaleModLib.Util
             int pos = 0;
             int run = 0;
             byte r = 0, g = 0, b = 0, a = 255;
-            byte[] index = new byte[64 * 4];
+            Span<byte> index = stackalloc byte[64 * 4];
             while (bmpPtr < bmpEnd)
             {
                 if (run > 0)
@@ -126,20 +181,40 @@ namespace UndertaleModLib.Util
 
             bmp.UnlockBits(data);
 
+            length += header.Length;
             return bmp;
         }
 
-        public unsafe static byte[] GetArrayFromImage(Bitmap bmp)
+        /// <summary>
+        /// Creates a QOI image as a byte array from a <see cref="Bitmap"/>.
+        /// </summary>
+        /// <param name="bmp">The <see cref="Bitmap"/> to create the QOI image from.</param>
+        /// <param name="padding">The amount of bytes of padding that should be used.</param>
+        /// <returns>A QOI Image as a byte array.</returns>
+        /// <exception cref="Exception">If there was an error with stride width.</exception>
+        public static byte[] GetArrayFromImage(Bitmap bmp, int padding = 4) => GetSpanFromImage(bmp, padding).ToArray();
+
+        /// <summary>
+        /// Creates a QOI image as a <see cref="Span"/> from a <see cref="Bitmap"/>.
+        /// </summary>
+        /// <param name="bmp">The <see cref="Bitmap"/> to create the QOI image from.</param>
+        /// <param name="padding">The amount of bytes of padding that should be used.</param>
+        /// <returns>A QOI Image as a byte array.</returns>
+        /// <exception cref="Exception">If there was an error with stride width.</exception>
+        public unsafe static Span<byte> GetSpanFromImage(Bitmap bmp, int padding = 4)
         {
-            byte[] res = new byte[(bmp.Width * bmp.Height * 4 * 12) + 4]; // default capacity
-            res[0] = 102; // f
-            res[1] = 105; // o
-            res[2] = 111; // i
-            res[3] = 113; // q
-            res[4] = (byte)(bmp.Width & 0xff);
-            res[5] = (byte)((bmp.Width >> 8) & 0xff);
-            res[6] = (byte)(bmp.Height & 0xff);
-            res[7] = (byte)((bmp.Height >> 8) & 0xff);
+            if (!isBufferEmpty)
+                Array.Clear(sharedBuffer);
+
+            // Little-endian QOIF image magic
+            sharedBuffer[0] = (byte)'f';
+            sharedBuffer[1] = (byte)'i';
+            sharedBuffer[2] = (byte)'o';
+            sharedBuffer[3] = (byte)'q';
+            sharedBuffer[4] = (byte)(bmp.Width & 0xff);
+            sharedBuffer[5] = (byte)((bmp.Width >> 8) & 0xff);
+            sharedBuffer[6] = (byte)(bmp.Height & 0xff);
+            sharedBuffer[7] = (byte)((bmp.Height >> 8) & 0xff);
 
             BitmapData data = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb);
             if (data.Stride != bmp.Width * 4)
@@ -148,17 +223,17 @@ namespace UndertaleModLib.Util
             byte* bmpPtr = (byte*)data.Scan0;
             byte* bmpEnd = bmpPtr + (4 * bmp.Width * bmp.Height);
 
-            int resPos = 12;
+            int resPos = HeaderSize;
             byte r = 0, g = 0, b = 0, a = 255;
             int run = 0;
             int v = 0, vPrev = 0xff;
-            int[] index = new int[64];
+            Span<int> index = stackalloc int[64];
             while (bmpPtr < bmpEnd)
             {
-                b = *bmpPtr++;
-                g = *bmpPtr++;
-                r = *bmpPtr++;
-                a = *bmpPtr++;
+                b = *bmpPtr;
+                g = *(bmpPtr + 1);
+                r = *(bmpPtr + 2);
+                a = *(bmpPtr + 3);
 
                 v = (r << 24) | (g << 16) | (b << 8) | a;
                 if (v == vPrev)
@@ -168,13 +243,13 @@ namespace UndertaleModLib.Util
                     if (run < 33)
                     {
                         run -= 1;
-                        res[resPos++] = (byte)(QOI_RUN_8 | run);
+                        sharedBuffer[resPos++] = (byte)(QOI_RUN_8 | run);
                     }
                     else
                     {
                         run -= 33;
-                        res[resPos++] = (byte)(QOI_RUN_16 | (run >> 8));
-                        res[resPos++] = (byte)run;
+                        sharedBuffer[resPos++] = (byte)(QOI_RUN_16 | (run >> 8));
+                        sharedBuffer[resPos++] = (byte)run;
                     }
                     run = 0;
                 }
@@ -183,7 +258,7 @@ namespace UndertaleModLib.Util
                     int indexPos = (r ^ g ^ b ^ a) & 63;
                     if (index[indexPos] == v)
                     {
-                        res[resPos++] = (byte)(QOI_INDEX | indexPos);
+                        sharedBuffer[resPos++] = (byte)(QOI_INDEX | indexPos);
                     }
                     else
                     {
@@ -203,53 +278,56 @@ namespace UndertaleModLib.Util
                                 vg > -3 && vg < 2 &&
                                 vb > -3 && vb < 2)
                             {
-                                res[resPos++] = (byte)(QOI_DIFF_8 | (vr << 4 & 48) | (vg << 2 & 12) | (vb & 3));
+                                sharedBuffer[resPos++] = (byte)(QOI_DIFF_8 | (vr << 4 & 48) | (vg << 2 & 12) | (vb & 3));
                             }
                             else if (va == 0 &&
                                      vg > -9 && vg < 8 &&
                                      vb > -9 && vb < 8)
                             {
-                                res[resPos++] = (byte)(QOI_DIFF_16 | (vr & 31));
-                                res[resPos++] = (byte)((vg << 4 & 240) | (vb & 15));
+                                sharedBuffer[resPos++] = (byte)(QOI_DIFF_16 | (vr & 31));
+                                sharedBuffer[resPos++] = (byte)((vg << 4 & 240) | (vb & 15));
                             }
                             else
                             {
-                                res[resPos++] = (byte)(QOI_DIFF_24 | (vr >> 1 & 15));
-                                res[resPos++] = (byte)((vr << 7 & 128) | (vg << 2 & 124) | (vb >> 3 & 3));
-                                res[resPos++] = (byte)((vb << 5 & 224) | (va & 31));
+                                sharedBuffer[resPos++] = (byte)(QOI_DIFF_24 | (vr >> 1 & 15));
+                                sharedBuffer[resPos++] = (byte)((vr << 7 & 128) | (vg << 2 & 124) | (vb >> 3 & 3));
+                                sharedBuffer[resPos++] = (byte)((vb << 5 & 224) | (va & 31));
                             }
                         }
                         else
                         {
-                            res[resPos++] = (byte)(QOI_COLOR | (vr != 0 ? 8 : 0) | (vg != 0 ? 4 : 0) | (vb != 0 ? 2 : 0) | (va != 0 ? 1 : 0));
+                            sharedBuffer[resPos++] = (byte)(QOI_COLOR | (vr != 0 ? 8 : 0) | (vg != 0 ? 4 : 0) | (vb != 0 ? 2 : 0) | (va != 0 ? 1 : 0));
                             if (vr != 0)
-                                res[resPos++] = r;
+                                sharedBuffer[resPos++] = r;
                             if (vg != 0)
-                                res[resPos++] = g;
+                                sharedBuffer[resPos++] = g;
                             if (vb != 0)
-                                res[resPos++] = b;
+                                sharedBuffer[resPos++] = b;
                             if (va != 0)
-                                res[resPos++] = a;
+                                sharedBuffer[resPos++] = a;
                         }
                     }
                 }
 
                 vPrev = v;
+                bmpPtr += 4;
             }
 
             bmp.UnlockBits(data);
 
             // Add padding
-            resPos += 4;
+            resPos += padding;
 
             // Write final length
-            int length = resPos - 12;
-            res[8] = (byte)(length & 0xff);
-            res[9] = (byte)((length >> 8) & 0xff);
-            res[10] = (byte)((length >> 16) & 0xff);
-            res[11] = (byte)((length >> 24) & 0xff);
+            int length = resPos - HeaderSize;
+            sharedBuffer[8] = (byte)(length & 0xff);
+            sharedBuffer[9] = (byte)((length >> 8) & 0xff);
+            sharedBuffer[10] = (byte)((length >> 16) & 0xff);
+            sharedBuffer[11] = (byte)((length >> 24) & 0xff);
 
-            return res[..resPos];
+            isBufferEmpty = false;
+
+            return sharedBuffer.AsSpan()[..resPos];
         }
     }
 }

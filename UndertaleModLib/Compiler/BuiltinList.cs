@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using UndertaleModLib.Models;
 using static UndertaleModLib.Models.UndertaleGeneralInfo;
 
-/// <summary>
-/// HUGE file containing definitions for most GameMaker builtin variables, functions, etc.
-/// </summary>
+
+// HUGE file containing definitions for most GameMaker builtin variables, functions, etc.
+
 
 namespace UndertaleModLib.Compiler
 {
@@ -105,9 +105,10 @@ namespace UndertaleModLib.Compiler
         }
     }
 
-    // This is a really long list of known constants and variables, taken from code analysis
-    // This deserves to be in its own file for that reason...
-    // This will likely need to be updated with every new GameMaker version with new features
+    /// <summary>
+    /// A really long list of known Game Maker: Studio constants and variables, taken from code analysis. <br/>
+    /// Will likely need to be updated on every new Game Maker version with new features.
+    /// </summary>
     public class BuiltinList
     {
         public Dictionary<string, double> Constants = null;
@@ -132,7 +133,7 @@ namespace UndertaleModLib.Compiler
         {
             Initialize(data);
         }
-        
+
         public void Initialize(UndertaleData data)
         {
             // Functions
@@ -843,6 +844,17 @@ namespace UndertaleModLib.Compiler
             Functions["texture_get_height"] = new FunctionInfo(this, 1);
             Functions["texture_global_scale"] = new FunctionInfo(this, 1);
             Functions["texture_get_uvs"] = new FunctionInfo(this, 1);
+            if (data?.GeneralInfo?.Major >= 2)
+            {
+                Functions["texture_prefetch"] = new FunctionInfo(this, 1);
+                Functions["texture_flush"] = new FunctionInfo(this, 1);
+                Functions["texture_debug_messages"] = new FunctionInfo(this, 1);
+                Functions["texture_is_ready"] = new FunctionInfo(this, 1);
+                Functions["texturegroup_get_textures"] = new FunctionInfo(this, 1);
+                Functions["texturegroup_get_sprites"] = new FunctionInfo(this, 1);
+                Functions["texturegroup_get_fonts"] = new FunctionInfo(this, 1);
+                Functions["texturegroup_get_tilesets"] = new FunctionInfo(this, 1);
+            }
             if (data?.GeneralInfo?.Major >= 2 || data?.GeneralInfo?.Minor >= 3) // Since 1.3?
             {
                 Functions["draw_enable_swf_aa"] = new FunctionInfo(this, 1);
@@ -1092,6 +1104,12 @@ namespace UndertaleModLib.Compiler
             Functions["array_equals"] = new FunctionInfo(this, 2);
             Functions["array_create"] = new FunctionInfo(this, -1);
             Functions["array_copy"] = new FunctionInfo(this, 5);
+            if (data?.GMS2_3 == true)
+            {
+                Functions["method"] = new FunctionInfo(this, 2);
+                Functions["method_get_self"] = new FunctionInfo(this, 1);
+                Functions["method_get_index"] = new FunctionInfo(this, 1);
+            }
             Functions["typeof"] = new FunctionInfo(this, 1);
             Functions["variable_global_exists"] = new FunctionInfo(this, 1);
             Functions["variable_global_get"] = new FunctionInfo(this, 1);

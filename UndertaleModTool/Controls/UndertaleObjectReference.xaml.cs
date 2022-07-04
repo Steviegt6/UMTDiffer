@@ -15,6 +15,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using UndertaleModLib;
+using UndertaleModLib.Models;
+using UndertaleModLib.Decompiler;
+using UndertaleModLib.Scripting;
 
 namespace UndertaleModTool
 {
@@ -39,6 +42,19 @@ namespace UndertaleModTool
                 new FrameworkPropertyMetadata(true,
                     FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
+        public static DependencyProperty ObjectEventTypeProperty =
+            DependencyProperty.Register("ObjectEventType", typeof(EventType),
+                typeof(UndertaleObjectReference),
+                new FrameworkPropertyMetadata(EventType.Create,
+                    FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+
+        public static DependencyProperty ObjectEventSubtypeProperty =
+            DependencyProperty.Register("ObjectEventSubtype", typeof(uint),
+                typeof(UndertaleObjectReference),
+                new FrameworkPropertyMetadata((uint) 0,
+                    FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+
+
         public object ObjectReference
         {
             get { return GetValue(ObjectReferenceProperty); }
@@ -57,14 +73,57 @@ namespace UndertaleModTool
             set { SetValue(ObjectTypeProperty, value); }
         }
 
+        public EventType ObjectEventType
+        {
+            get { return (EventType)GetValue(ObjectEventTypeProperty); }
+            set { SetValue(ObjectEventTypeProperty, value); }
+        }
+
+        public uint ObjectEventSubtype
+        {
+            get { return (uint)GetValue(ObjectEventSubtypeProperty); }
+            set { SetValue(ObjectEventSubtypeProperty, value); }
+        }
+
+
         public UndertaleObjectReference()
         {
             InitializeComponent();
         }
 
+        public void ClearRemoveClickHandler()
+        {
+            RemoveButton.Click -= Remove_Click;
+        }
+
         private void Details_Click(object sender, RoutedEventArgs e)
         {
-            (Application.Current.MainWindow as MainWindow).ChangeSelection(ObjectReference);
+            if (ObjectReference is null)
+            {
+                MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
+
+                if (mainWindow.Selected is null)
+                {
+                    mainWindow.ShowError("Nothing currently selected! This is currently unsupported.");
+                    return;
+                }
+                else if (mainWindow.Selected is UndertaleGameObject gameObject)
+                {
+                    // Generate the code entry
+                    UndertaleCode code = gameObject.EventHandlerFor(ObjectEventType, ObjectEventSubtype, mainWindow.Data.Strings, mainWindow.Data.Code, mainWindow.Data.CodeLocals);
+
+                    ObjectReference = code;
+                }
+                else
+                {
+                    mainWindow.ShowError("Adding to non-objects is currently unsupported.");
+                    return;
+                }
+            }
+            else
+            {
+                (Application.Current.MainWindow as MainWindow).ChangeSelection(ObjectReference);
+            }
         }
 
         private void Remove_Click(object sender, RoutedEventArgs e)

@@ -23,11 +23,13 @@ namespace UndertaleModTool
     /// <summary>
     /// Logika interakcji dla klasy UndertaleEmbeddedAudioEditor.xaml
     /// </summary>
-    public partial class UndertaleEmbeddedAudioEditor : UserControl
+    public partial class UndertaleEmbeddedAudioEditor : DataUserControl
     {
         private WaveOutEvent waveOut;
         private WaveFileReader wavReader;
         private VorbisWaveReader oggReader;
+
+        private static readonly MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
 
         public UndertaleEmbeddedAudioEditor()
         {
@@ -62,7 +64,7 @@ namespace UndertaleModTool
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Failed to import file: " + ex.Message, "Failed to import file", MessageBoxButton.OK, MessageBoxImage.Error);
+                    mainWindow.ShowError("Failed to import file: " + ex.Message, "Failed to import file");
                 }
             }
         }
@@ -84,7 +86,7 @@ namespace UndertaleModTool
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Failed to export file: " + ex.Message, "Failed to export file", MessageBoxButton.OK, MessageBoxImage.Error);
+                    mainWindow.ShowError("Failed to export file: " + ex.Message, "Failed to export file");
                 }
             }
         }
@@ -119,11 +121,11 @@ namespace UndertaleModTool
                         waveOut.Init(oggReader);
                         waveOut.Play();
                     } else
-                        MessageBox.Show("Failed to play audio!\r\nNot a WAV or OGG.", "Audio failure", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        mainWindow.ShowError("Failed to play audio!\r\nNot a WAV or OGG.", "Audio failure");
                 } catch (Exception ex)
                 {
                     waveOut = null;
-                    MessageBox.Show("Failed to play audio!\r\n" + ex.Message, "Audio failure", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    mainWindow.ShowError("Failed to play audio!\r\n" + ex.Message, "Audio failure");
                 }
             }
         }

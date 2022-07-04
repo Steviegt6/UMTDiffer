@@ -23,8 +23,10 @@ namespace UndertaleModTool
     /// <summary>
     /// Logika interakcji dla klasy UndertaleEmbeddedTextureEditor.xaml
     /// </summary>
-    public partial class UndertaleEmbeddedTextureEditor : UserControl
+    public partial class UndertaleEmbeddedTextureEditor : DataUserControl
     {
+        private static readonly MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
+
         public UndertaleEmbeddedTextureEditor()
         {
             InitializeComponent();
@@ -52,21 +54,24 @@ namespace UndertaleModTool
 
                     var width = (uint)bmp.Width;
                     var height = (uint)bmp.Height;
-                    
+
                     if ((width & (width - 1)) != 0 || (height & (height - 1)) != 0)
                     {
-                        MessageBox.Show("WARNING: texture page dimensions are not powers of 2. Sprite blurring is very likely in game.", "Unexpected texture dimensions", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        mainWindow.ShowWarning("WARNING: texture page dimensions are not powers of 2. Sprite blurring is very likely in game.", "Unexpected texture dimensions");
                     }
 
                     using (var stream = new MemoryStream())
                     {
                         bmp.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
                         target.TextureData.TextureBlob = stream.ToArray();
+
+                        TexWidth.GetBindingExpression(TextBox.TextProperty)?.UpdateTarget();
+                        TexHeight.GetBindingExpression(TextBox.TextProperty)?.UpdateTarget();
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Failed to import file: " + ex.Message, "Failed to import file", MessageBoxButton.OK, MessageBoxImage.Error);
+                    mainWindow.ShowError("Failed to import file: " + ex.Message, "Failed to import file");
                 }
             }
         }
@@ -88,7 +93,7 @@ namespace UndertaleModTool
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Failed to export file: " + ex.Message, "Failed to export file", MessageBoxButton.OK, MessageBoxImage.Error);
+                    mainWindow.ShowError("Failed to export file: " + ex.Message, "Failed to export file");
                 }
             }
         }
