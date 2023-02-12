@@ -3521,10 +3521,11 @@ namespace UndertaleModLib.Decompiler
                         if (block.ConditionStatement != null)
                         {
                             ExpressionCompare cmp = (ExpressionCompare)block.ConditionStatement;
-                            if (cmp.Argument1 != switchExpression &&
+                            // GMS update that allows this now? doesn't seem like a big deal
+                            /*if (cmp.Argument1 != switchExpression &&
                                 (!(cmp.Argument1 is ExpressionTempVar) || !(switchExpression is ExpressionTempVar) || (cmp.Argument1 as ExpressionTempVar).Var.Var != (switchExpression as ExpressionTempVar).Var.Var) &&
                                 (!(cmp.Argument1 is ExpressionTempVar) || (cmp.Argument1 as ExpressionTempVar).Var.Var != switchTempVar))
-                                throw new Exception("Malformed switch statement: bad condition var (" + cmp.Argument1.ToString(context) + ")");
+                                throw new Exception("Malformed switch statement: bad condition var (" + cmp.Argument1.ToString(context) + ")");*/
                             if (cmp.Opcode != UndertaleInstruction.ComparisonType.EQ)
                                 throw new Exception("Malformed switch statement: bad contition type (" + cmp.Opcode.ToString().ToUpper() + ")");
                             caseExpr = cmp.Argument2;
