@@ -3583,7 +3583,7 @@ namespace UndertaleModLib.Decompiler
                         // Handles default case.
                         UndertaleInstruction breakInstruction = context.TargetCode.GetInstructionFromAddress((uint)block.Address + 1);
 
-                        if (breakInstruction.Kind == UndertaleInstruction.Opcode.B)
+                        if (breakInstruction?.Kind == UndertaleInstruction.Opcode.B)
                         {
                             // This is the default-case meet-point if it is b.
                             uint instructionId = ((uint)block.Address + 1 + (uint)breakInstruction.JumpOffset);
