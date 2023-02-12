@@ -1395,11 +1395,13 @@ namespace UndertaleModLib.Decompiler
 
                                     string name = fDef.Function.Name.Content;
                                     name = name["gml_Script_".Length..];
-                                    name = name[..name.IndexOf("_gml_Object", StringComparison.InvariantCulture)];
+                                    if (name.Contains("_gml_Object"))
+                                        name = name[..name.IndexOf("_gml_Object", StringComparison.InvariantCulture)];
 
                                     string realName = Function.Name.Content;
                                     realName = realName["gml_Script_".Length..];
-                                    realName = realName[..realName.IndexOf("_gml_Object", StringComparison.InvariantCulture)];
+                                    if (realName.Contains("_gml_Object"))
+                                        realName = realName[..realName.IndexOf("_gml_Object", StringComparison.InvariantCulture)];
 
                                     return realName == name;
                                 }
