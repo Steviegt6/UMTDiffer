@@ -2101,9 +2101,15 @@ namespace UndertaleModLib.Decompiler
                         break;
 
                     case UndertaleInstruction.Opcode.Popz:
-                        Expression popped = stack.Pop();
-                        if (!popped.IsDuplicationSafe()) // <- not duplication safe = has side effects and needs to be listed in the output
-                            statements.Add(popped);
+                        try {
+                            Expression popped = stack.Pop();
+                            if (!popped.IsDuplicationSafe()) // <- not duplication safe = has side effects and needs to be listed in the output
+                                statements.Add(popped);
+                        }
+                        catch (InvalidOperationException)
+                        {
+                            statements.Add(new CommentStatement("Warning: Tried to pop from empty stack")); // trust the science
+                        }
                         break;
 
                     case UndertaleInstruction.Opcode.Conv:
