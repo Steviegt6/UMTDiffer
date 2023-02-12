@@ -1385,19 +1385,31 @@ namespace UndertaleModLib.Decompiler
                                 sb.Append(kvp.Key);
                             else
                             {
-                                bool assumedLast = false;
-                                AssignmentStatement stmt = context.Statements[0].LastOrDefault() as AssignmentStatement;
-                                if (stmt is null)
+                                bool Match(Statement stmt)
                                 {
-                                    assumedLast = true;
-                                    stmt = context.Statements[0].FindLast(x => x is AssignmentStatement) as AssignmentStatement;
+                                    if (stmt is not AssignmentStatement aStmt)
+                                        return false;
+                                    
+                                    if (aStmt.Value is not FunctionDefinition fDef)
+                                        return false;
+
+                                    string name = fDef.Function.Name.Content;
+                                    name = name["gml_Script_".Length..];
+                                    name = name[..name.IndexOf("_gml_Object", StringComparison.InvariantCulture)];
+
+                                    string realName = Function.Name.Content;
+                                    realName = realName["gml_Script_".Length..];
+                                    realName = realName[..realName.IndexOf("_gml_Object", StringComparison.InvariantCulture)];
+
+                                    return realName == name;
                                 }
+                                
+                                AssignmentStatement stmt = context.Statements[0].Find(Match) as AssignmentStatement;
 
                                 if (stmt != null)
                                 {
                                     sb.Append(stmt.Destination.Var.Name.Content);
-                                    if (assumedLast)
-                                        sb.Append(" /*(assumed)*/");
+                                    sb.Append(" /*(assumed)*/");
                                 }
                                 else
                                     sb.Append("/*unknown*/");
