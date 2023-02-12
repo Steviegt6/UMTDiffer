@@ -2,7 +2,7 @@ name: Publish GUI 32Bit
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, holocure ]
   workflow_dispatch:
 
 jobs:
