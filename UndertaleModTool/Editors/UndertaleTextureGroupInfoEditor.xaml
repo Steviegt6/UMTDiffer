@@ -144,7 +144,7 @@
               </Expander>
 
               <!--Spine Sprite List-->
-              <TextBlock Grid.Row="3" Grid.Column="0" Margin="3">Spine Sprites</TextBlock>
+              <!--<TextBlock Grid.Row="3" Grid.Column="0" Margin="3">Spine Sprites</TextBlock>
               <Expander Grid.Row="3" Grid.Column="1" Margin="3" Header="List">
                 <DataGrid ItemsSource="{Binding SpineSprites}" MaxHeight="370" AutoGenerateColumns="False" CanUserAddRows="True" CanUserDeleteRows="True" HorizontalGridLinesBrush="LightGray" VerticalGridLinesBrush="LightGray" HeadersVisibility="None" SelectionMode="Single" SelectionUnit="FullRow"
                           ScrollViewer.CanContentScroll="True"
@@ -185,7 +185,7 @@
                     </DataGridTemplateColumn>
                   </DataGrid.Columns>
                 </DataGrid>
-              </Expander>
+              </Expander>-->
 
               <!--Font List-->
               <TextBlock Grid.Row="4" Grid.Column="0" Margin="3">Fonts</TextBlock>
