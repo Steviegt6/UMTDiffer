@@ -211,6 +211,7 @@ namespace UndertaleModLib.Decompiler
             public Block nextBlockFalse;
             public List<Block> entryPoints = new List<Block>();
             internal List<TempVarReference> TempVarsOnEntry;
+            internal (int, int) TempVarCount = (-1, -1);
 
             public int _CachedIndex;
 
@@ -1957,7 +1958,8 @@ namespace UndertaleModLib.Decompiler
                 // Reroute tempvars to alias them to our ones
                 if (block.TempVarsOnEntry.Count != tempvars.Count)
                 {
-                    throw new Exception("Reentered block with different amount of vars on stack (Entry: " + block.TempVarsOnEntry.Count + ", Actual Count: " + tempvars.Count + ")");
+                    block.TempVarCount = (block.TempVarsOnEntry.Count, tempvars.Count);
+                    tempvars = block.TempVarsOnEntry;
                 }
                 else
                 {
@@ -1980,6 +1982,8 @@ namespace UndertaleModLib.Decompiler
 
             // Iterate through all of the sta
             List<Statement> statements = new List<Statement>();
+            if (block.TempVarCount.Item1 != -1 && block.TempVarCount.Item1 != block.TempVarCount.Item2)
+                statements.Add(new CommentStatement("Reentered block with different amount of vars on stack (Entry: " + block.TempVarCount.Item1 + ", Actual Count: " + block.TempVarCount.Item2 + ")"));
             bool end = false;
             bool returned = false;
             for (int i = 0; i < block.Instructions.Count; i++)
