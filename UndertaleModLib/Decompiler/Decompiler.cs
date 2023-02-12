@@ -2549,6 +2549,13 @@ namespace UndertaleModLib.Decompiler
                                     statements.Add(new CommentStatement("setowner: " + (owner ?? "<null>")));
                                     */
                                     break;
+                                case -6: // GMS2.3+, isstaticok
+                                    // TODO: TEMPORARY HACK
+                                    // isstaticok indicates whether static vars have been initialized
+                                    // I am lazy and decided to not care about this
+                                    statements.Add(new CommentStatement("isstaticok"));
+                                    stack.Push(new ExpressionConstant(UndertaleInstruction.DataType.Boolean, true));
+                                    break;
                                 case -10: // GMS2.3+, chknullish
 
                                     // TODO: Implement nullish operator in decompiled output.
