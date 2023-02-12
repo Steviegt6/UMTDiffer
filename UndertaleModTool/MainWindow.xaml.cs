@@ -2798,7 +2798,7 @@ namespace UndertaleModTool
                                       .First(x => x.GetName().Name.StartsWith("System.Collections")).Location; // any of currently used assemblies
             bool isBundled = !Regex.Match(assemblyLocation, @"C:\\Program Files( \(x86\))*\\dotnet\\shared\\").Success;
 
-            string baseUrl = "https://api.github.com/repos/krzys-h/UndertaleModTool/actions/";
+            string baseUrl = "https://api.github.com/repos/steviegt6/UndertaleModTool/actions/";
             string detectedActionName = "Publish GUI";
 
             // Fetch the latest workflow run
