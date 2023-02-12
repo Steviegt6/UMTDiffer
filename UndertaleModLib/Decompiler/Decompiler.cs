@@ -1045,7 +1045,7 @@ namespace UndertaleModLib.Decompiler
 
             public override Statement CleanStatement(DecompileContext context, BlockHLStatement block)
             {
-                TempVarAssignmentStatement tempVarStatement = context.TempVarMap[Var.Var.Name];
+                context.TempVarMap.TryGetValue(Var.Var.Name, out TempVarAssignmentStatement tempVarStatement);
                 if (tempVarStatement != null)
                 {
                     block.Statements.Remove(tempVarStatement);
