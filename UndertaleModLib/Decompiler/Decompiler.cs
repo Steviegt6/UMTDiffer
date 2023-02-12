@@ -1383,7 +1383,24 @@ namespace UndertaleModLib.Decompiler
                             if (kvp.Key != null)
                                 sb.Append(kvp.Key);
                             else
-                                sb.Append((context.Statements[0].Last() as AssignmentStatement).Destination.Var.Name.Content);
+                            {
+                                bool assumedLast = false;
+                                AssignmentStatement stmt = context.Statements[0].LastOrDefault() as AssignmentStatement;
+                                if (stmt is null)
+                                {
+                                    assumedLast = true;
+                                    stmt = context.Statements[0].FindLast(x => x is AssignmentStatement) as AssignmentStatement;
+                                }
+
+                                if (stmt != null)
+                                {
+                                    sb.Append(stmt.Destination.Var.Name.Content);
+                                    if (assumedLast)
+                                        sb.Append(" /*(assumed)*/");
+                                }
+                                else
+                                    sb.Append("/*unknown*/");
+                            }
                         }
                         sb.Append("(");
                         for (int i = 0; i < FunctionBodyCodeEntry.ArgumentsCount; ++i)
