@@ -174,6 +174,14 @@ namespace UndertaleModTool
 
                 title = "String - " + stringFirstLine;
             }
+            else if (obj is UndertaleExtensionFile file)
+            {
+                title = $"Extension file - {file.Filename}";
+            }
+            else if (obj is UndertaleExtensionFunction func)
+            {
+                title = $"Extension function - {func.Name}";
+            }
             else if (obj is UndertaleChunkVARI)
             {
                 title = "Variables Overview";
@@ -1017,6 +1025,11 @@ namespace UndertaleModTool
                         data = UndertaleIO.Read(stream, warning =>
                         {
                             this.ShowWarning(warning, "Loading warning");
+
+                            if (warning.Contains("unserializeCountError.txt")
+                                || warning.Contains("object pool size"))
+                                return;
+
                             hadWarnings = true;
                         }, message =>
                         {
