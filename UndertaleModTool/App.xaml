@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:UndertaleModTool"
              xmlns:showcase="clr-namespace:AakStudio.Shell.UI.Showcase"
-             xmlns:converters="clr-namespace:AakStudio.Shell.UI.Showcase.Converters"
-             xmlns:markup="clr-namespace:AakStudio.Shell.UI.Showcase.Markup"
+             xmlns:converters1="clr-namespace:UndertaleModTool.Aak.Converters"
+             xmlns:markup="clr-namespace:UndertaleModTool.Aak.Markup"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
@@ -13,9 +13,9 @@
             </ResourceDictionary.MergedDictionaries>
             <BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
 
-            <converters:AakThemeIsEqualsConverter x:Key="AakThemeIsEqualsConverter" />
-            <converters:AakActiveDocumentConverter x:Key="AakActiveDocumentConverter" />
-            <converters:AakViewElementToStringConverter x:Key="AakViewElementToStringConverter" />
+            <converters1:AakThemeIsEqualsConverter x:Key="AakThemeIsEqualsConverter" />
+            <converters1:AakActiveDocumentConverter x:Key="AakActiveDocumentConverter" />
+            <converters1:AakViewElementToStringConverter x:Key="AakViewElementToStringConverter" />
 
             <Style x:Key="WindowIconRectangle" TargetType="{x:Type Rectangle}">
                 <Setter Property="Fill">

@@ -3,24 +3,20 @@ using System.Windows.Data;
 
 using AakStudio.Shell.UI.Showcase.ViewModels.Collection;
 
-namespace AakStudio.Shell.UI.Showcase.Converters
+namespace UndertaleModTool.Aak.Converters;
+
+/// <summary>
+///     Filters out non-document wells.
+/// </summary>
+internal sealed class AakActiveDocumentConverter : IValueConverter
 {
-    internal sealed class AakActiveDocumentConverter : IValueConverter
+    public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
     {
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            if (value is AakDocumentWellViewModel || value is AakCollectionViewModel)
-                return value;
+        return value is AakDocumentWellViewModel or AakCollectionViewModel ? value : Binding.DoNothing;
+    }
 
-            return Binding.DoNothing;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            if (value is AakDocumentWellViewModel || value is AakCollectionViewModel)
-                return value;
-
-            return Binding.DoNothing;
-        }
+    public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+    {
+        return value is AakDocumentWellViewModel or AakCollectionViewModel ? value : Binding.DoNothing;
     }
 }

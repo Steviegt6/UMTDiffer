@@ -4,29 +4,25 @@ using System.Windows.Data;
 
 using AakStudio.Shell.UI.Showcase.Shell;
 
-namespace AakStudio.Shell.UI.Showcase.Converters
-{
-    internal sealed class AakViewElementToStringConverter : IValueConverter
-    {
-        public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value is AakCollection aakCollection)
-            {
-                return aakCollection.DisplayName;
-            }
-            else if (value is AakDocumentWell aakDocumentWell)
-            {
-                return aakDocumentWell.Title;
-            }
-            else
-            {
-                return Binding.DoNothing;
-            }
-        }
+namespace UndertaleModTool.Aak.Converters;
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+/// <summary>
+///     Fetches a display string (such as the title or name) of an Aak element.
+/// </summary>
+internal sealed class AakViewElementToStringConverter : IValueConverter
+{
+    public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        return value switch
         {
-            throw new NotImplementedException();
-        }
+            AakCollection aakCollection     => aakCollection.DisplayName,
+            AakDocumentWell aakDocumentWell => aakDocumentWell.Title,
+            _                               => Binding.DoNothing,
+        };
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
     }
 }

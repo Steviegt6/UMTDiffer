@@ -3,9 +3,11 @@ using System.Linq;
 using System.Windows.Input;
 
 using AakStudio.Shell.UI.Showcase;
-using AakStudio.Shell.UI.Showcase.Commands;
 using AakStudio.Shell.UI.Showcase.Shell;
 using AakStudio.Shell.UI.Showcase.ViewModels;
+
+using UndertaleModTool.Aak.Commands;
+using UndertaleModTool.Aak.Shell;
 
 namespace UndertaleModTool.ViewModels;
 
