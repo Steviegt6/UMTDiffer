@@ -21,10 +21,10 @@ namespace AakStudio.Shell.UI.Showcase.ViewModels
             this.workSpaceViewModel = workSpaceViewModel;
             collections = new ObservableCollection<AakCollectionViewModel>
             {
-                new DataCollectionViewModel(this)
+                new DataCollectionViewModel(this),
             };
 
-            Title = "Wpf Base Styles";
+            Title = "Project Explorer";
             View = new StyleSelectorView { DataContext = this };
         }
 
