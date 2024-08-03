@@ -1,4 +1,4 @@
-﻿<Window x:Class="UndertaleModTool.Windows.FindReferencesTypesDialog"
+﻿<CustomChromeWindow x:Class="UndertaleModTool.Windows.FindReferencesTypesDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -40,4 +40,4 @@
 
         <Button Grid.Row="4" Content="Search" FontSize="18" Width="134" Height="40" Click="SearchButton_Click" Margin="0,15,0,15"/>
     </Grid>
-</Window>
+</CustomChromeWindow>

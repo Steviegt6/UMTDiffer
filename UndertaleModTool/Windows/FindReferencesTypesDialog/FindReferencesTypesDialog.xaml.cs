@@ -12,6 +12,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+
+using AakStudio.Shell.UI.Controls;
+
 using UndertaleModLib;
 using UndertaleModLib.Models;
 
@@ -20,7 +23,7 @@ namespace UndertaleModTool.Windows
     /// <summary>
     /// Interaction logic for FindReferencesTypesDialog.xaml
     /// </summary>
-    public partial class FindReferencesTypesDialog : Window
+    public partial class FindReferencesTypesDialog : CustomChromeWindow
     {
         private readonly UndertaleResource sourceObj;
         private readonly UndertaleData data;

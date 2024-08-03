@@ -12,12 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+using AakStudio.Shell.UI.Controls;
+
 namespace UndertaleModTool
 {
     /// <summary>
     /// Logika interakcji dla klasy StringUpdateWindow.xaml
     /// </summary>
-    public partial class StringUpdateWindow : Window
+    public partial class StringUpdateWindow : CustomChromeWindow
     {
         public enum ResultType
         {

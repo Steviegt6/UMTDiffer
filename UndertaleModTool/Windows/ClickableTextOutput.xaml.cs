@@ -13,6 +13,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+
+using AakStudio.Shell.UI.Controls;
+
 using static UndertaleModTool.UndertaleCodeEditor;
 
 namespace UndertaleModTool.Windows
@@ -20,7 +23,7 @@ namespace UndertaleModTool.Windows
     /// <summary>
     /// Interaction logic for ClickableTextOutput.xaml
     /// </summary>
-    public partial class ClickableTextOutput : Window
+    public partial class ClickableTextOutput : CustomChromeWindow
     {
         private static readonly MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
         private static ContextMenu linkContextMenu;

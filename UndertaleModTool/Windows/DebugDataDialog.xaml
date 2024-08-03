@@ -1,12 +1,12 @@
-﻿<Window x:Class="UndertaleModTool.DebugDataDialog"
-        IsVisibleChanged="Window_IsVisibleChanged"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:UndertaleModTool"
-        mc:Ignorable="d"
-        Title="Debug data" Height="Auto" Width="400" SizeToContent="Height" WindowStartupLocation="CenterOwner">
+﻿<CustomChromeWindow x:Class="UndertaleModTool.DebugDataDialog"
+                    IsVisibleChanged="Window_IsVisibleChanged"
+                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:local="clr-namespace:UndertaleModTool"
+                    mc:Ignorable="d"
+                    Title="Debug data" Height="Auto" Width="400" SizeToContent="Height" WindowStartupLocation="CenterOwner">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -29,4 +29,4 @@
         <TextBlock Grid.Row="7" Margin="3" TextWrapping="Wrap">Gave up after like 15 minutes of waiting, don't even try this</TextBlock>
         <Button Grid.Row="8" Margin="3" Click="Button4_Click">No debug data</Button>
     </Grid>
-</Window>
+</CustomChromeWindow>

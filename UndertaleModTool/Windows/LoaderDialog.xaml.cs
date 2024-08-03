@@ -18,13 +18,15 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using System.Windows.Shell;
 
+using AakStudio.Shell.UI.Controls;
+
 namespace UndertaleModTool
 {
     /// <summary>
     /// Logika interakcji dla klasy LoaderDialog.xaml
     /// </summary>
     [PropertyChanged.AddINotifyPropertyChangedInterface]
-    public partial class LoaderDialog : Window
+    public partial class LoaderDialog : CustomChromeWindow
     {
         public string MessageTitle { get; set; }
         public string Message { get; set; }
