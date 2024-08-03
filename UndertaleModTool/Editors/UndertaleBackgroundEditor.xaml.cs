@@ -76,14 +76,15 @@ namespace UndertaleModTool
             tileListViewer.ScrollToVerticalOffset(tileIndex + 1 - (tileListViewer.ViewportHeight / 2)); // DataGrid offset is logical
             tileListViewer.UpdateLayout();
 
-            ScrollViewer dataEditorViewer = mainWindow.DataEditor.Parent as ScrollViewer;
+            // TODO: AAA PORT
+            /*ScrollViewer dataEditorViewer = mainWindow.DataEditor.Parent as ScrollViewer;
             double initOffset = dataEditorViewer?.VerticalOffset ?? 0;
 
             TileIdList.SelectedIndex = tileIndex;
             (TileIdList.ItemContainerGenerator.ContainerFromIndex(tileIndex) as DataGridRow)?.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
 
             dataEditorViewer.UpdateLayout();
-            dataEditorViewer.ScrollToVerticalOffset(initOffset);
+            dataEditorViewer.ScrollToVerticalOffset(initOffset);*/
 
             return true;
         }

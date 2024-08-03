@@ -7,6 +7,8 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
 
+using UndertaleModTool.ViewModels;
+
 namespace UndertaleModTool
 {
     public class Settings
@@ -51,7 +53,12 @@ namespace UndertaleModTool
         public double GlobalGridThickness { get; set; } = 1;
         public bool GridThicknessEnabled { get; set; } = false;
 
-        public bool EnableDarkMode { get; set; } = false;
+        // public bool EnableDarkMode { get; set; } = false;
+        public string Theme
+        {
+            get => WorkSpaceViewModel.Default.CurrentTheme.Name;
+            set => WorkSpaceViewModel.Default.CurrentTheme = UmtThemeCollection.AllThemes.FirstOrDefault(x => x.Name == value) ?? UmtThemeCollection.AllThemes[^2];
+        }
         public bool ShowDebuggerOption { get; set; } = false;
 
         public static Settings Instance;

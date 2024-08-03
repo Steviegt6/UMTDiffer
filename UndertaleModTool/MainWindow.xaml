@@ -8,6 +8,7 @@
                     xmlns:local="clr-namespace:UndertaleModTool"
                     xmlns:styles="clr-namespace:UndertaleModTool.Styles"
                     xmlns:shell="clr-namespace:UndertaleModTool.Shell"
+                    xmlns:viewModels="clr-namespace:UndertaleModTool.ViewModels"
                     Height="450" Width="800" Loaded="Window_Loaded"
                     AllowDrop="True" Drop="Window_Drop"
                     Icon="pack://application:,,,/icon.ico"
@@ -22,6 +23,8 @@
                     UseLayoutRounding="True"
                     WindowStartupLocation="CenterScreen"
                     Activated="MetroWindow_Activated"
+                    d:DataContext="{d:DesignInstance Type=viewModels:WorkSpaceViewModel}"
+                    DataContext="{x:Static viewModels:WorkSpaceViewModel.Default}"
                     mc:Ignorable="d">
     <CustomChromeWindow.LeftWindowCommands>
         <Grid Margin="2,3">
@@ -80,6 +83,12 @@
                     <Separator />
                     <MenuItem Header="S_ettings" Command="Properties" />
                     <MenuItem Header="_Close" Command="Close" InputGestureText="Ctrl+Q" />
+                </MenuItem>
+                <MenuItem Header="_View">
+                    <MenuItem
+                        Header="{Binding StyleSelector.Title}"
+                        IsCheckable="True"
+                        IsChecked="{Binding StyleSelector.IsVisible, Mode=TwoWay}" />
                 </MenuItem>
                 <MenuItem x:Name="RootScriptItem" Header="_Scripts" SubmenuOpened="RootMenuItem_SubmenuOpened">
                     <MenuItem Header="(...loading...)" IsEnabled="False" />
@@ -168,7 +177,7 @@
         <local:NullToVisibilityConverter x:Key="VisibleIfNotNull" nullValue="Collapsed" notNullValue="Visible" />
         <local:CompareNumbersConverter x:Key="CompareNumbersConverter" />
         <BooleanToVisibilityConverter x:Key="BoolToVisConverter" /> <!-- (built-in converter) -->
-        <local:TabTitleConverter x:Key="TabTitleConverter" />
+        <!--<local:TabTitleConverter x:Key="TabTitleConverter" />-->
         <local:StringTitleConverter x:Key="StringTitleConverter" />
         <local:ForwardButtonEnabledConverter x:Key="ForwardButtonEnabledConverter" />
         <local:MainWindowTitleConverter x:Key="MainWindowTitleConverter" />

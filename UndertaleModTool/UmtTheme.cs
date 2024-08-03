@@ -4,7 +4,7 @@ using System.Windows;
 
 namespace UndertaleModTool;
 
-internal abstract class UmtTheme : ResourceDictionary
+public abstract class UmtTheme : ResourceDictionary
 {
     public abstract string Name { get; }
 

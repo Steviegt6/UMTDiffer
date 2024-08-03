@@ -5,6 +5,7 @@
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     xmlns:local="clr-namespace:UndertaleModTool"
+                    xmlns:viewModels="clr-namespace:UndertaleModTool.ViewModels"
                     mc:Ignorable="d"
                     Title="Settings" Height="Auto" Width="800" SizeToContent="Height" WindowStartupLocation="CenterOwner">
     <ScrollViewer VerticalScrollBarVisibility="Auto">
@@ -62,8 +63,11 @@
 
             <Separator Grid.Row="6" Grid.ColumnSpan="4" Margin="10"/>
 
-            <CheckBox Grid.Row="7" Grid.Column="0" Margin="3" Content="" IsChecked="{Binding EnableDarkMode}"/>
-            <TextBlock Grid.Row="7" Grid.Column="0" Margin="25 2 2 2" Text="Enable dark mode" ToolTip="Makes the program interface dark. Disabled by default."/>
+            <ComboBox Grid.Row="7" Grid.Column="0" Width="160" HorizontalAlignment="Left" DisplayMemberPath="Name" ItemsSource="{x:Static local:UmtThemeCollection.AllThemes}" SelectedItem="{Binding Theme, Mode=TwoWay}" />
+            <TextBlock Grid.Row="7" Grid.Column="0" Margin="168 2 2 2" Text="Theme" ToolTip="Changes the program theme."/>
+            
+            <!--<CheckBox Grid.Row="7" Grid.Column="0" Margin="3" Content="" IsChecked="{Binding EnableDarkMode}"/>
+            <TextBlock Grid.Row="7" Grid.Column="0" Margin="25 2 2 2" Text="Enable dark mode" ToolTip="Makes the program interface dark. Disabled by default."/>-->
 
             <Separator Grid.Row="8" Grid.ColumnSpan="4" Margin="10"/>
 

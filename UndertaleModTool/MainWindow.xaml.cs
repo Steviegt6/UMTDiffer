@@ -64,8 +64,6 @@ namespace UndertaleModTool
         /// it automatically adds "OnPropertyChanged()" to every property (or modify existing) of the class that implements INotifyPropertyChanged.
         /// It does that on code compilation.
 
-        private Tab _currentTab;
-
         public UndertaleData Data { get; set; }
         public string FilePath { get; set; }
         public string ScriptPath { get; set; } // For the scripting interface specifically
@@ -77,35 +75,14 @@ namespace UndertaleModTool
         public static RoutedUICommand RestoreClosedTabCommand = new RoutedUICommand("Restore last closed tab", "RestoreClosedTab", typeof(MainWindow));
         public static RoutedUICommand SwitchToNextTabCommand = new RoutedUICommand("Switch to the next tab", "SwitchToNextTab", typeof(MainWindow));
         public static RoutedUICommand SwitchToPrevTabCommand = new RoutedUICommand("Switch to the previous tab", "SwitchToPrevTab", typeof(MainWindow));
-        public ObservableCollection<Tab> Tabs { get; set; } = new();
-        public Tab CurrentTab
-        {
-            get => _currentTab;
-            set
-            {
-                _currentTab = value;
-                OnPropertyChanged();
-                OnPropertyChanged("Selected");
-            }
-        }
+
         public int CurrentTabIndex { get; set; } = 0;
 
         public object Highlighted { get; set; }
-        public object Selected
-        {
-            get => CurrentTab?.CurrentObject;
-            set
-            {
-                OnPropertyChanged();
-                OpenInTab(value);
-            } 
-        }
 
         public Visibility IsGMS2 => (Data?.GeneralInfo?.Major ?? 0) >= 2 ? Visibility.Visible : Visibility.Collapsed;
         // God this is so ugly, if there's a better way, please, put in a pull request
         public Visibility IsExtProductIDEligible => (((Data?.GeneralInfo?.Major ?? 0) >= 2) || (((Data?.GeneralInfo?.Major ?? 0) == 1) && (((Data?.GeneralInfo?.Build ?? 0) >= 1773) || ((Data?.GeneralInfo?.Build ?? 0) == 1539)))) ? Visibility.Visible : Visibility.Collapsed;
-
-        public List<Tab> ClosedTabsHistory { get; } = new();
 
         public bool CanSave { get; set; }
         public bool CanSafelySave = false;
@@ -139,31 +116,6 @@ namespace UndertaleModTool
 
         public bool GMLCacheEnabled => SettingsWindow.UseGMLCache;
 
-        public bool RoomRendererEnabled
-        {
-            get => _roomRendererEnabled;
-            set
-            {
-                if (UndertaleRoomRenderer.RoomRendererTemplate is null)
-                    UndertaleRoomRenderer.RoomRendererTemplate = (DataTemplate)DataEditor.FindResource("roomRendererTemplate");
-
-                if (value)
-                {
-                    DataEditor.ContentTemplate = UndertaleRoomRenderer.RoomRendererTemplate;
-                    UndertaleCachedImageLoader.ReuseTileBuffer = true;
-                }
-                else
-                {
-                    DataEditor.ContentTemplate = null;
-                    CurrentTab.CurrentObject = LastOpenedObject;
-                    LastOpenedObject = null;
-                    UndertaleCachedImageLoader.Reset();
-                    CachedTileDataLoader.Reset();
-                }
-
-                _roomRendererEnabled = value;
-            }
-        }
         public object LastOpenedObject { get; set; } // for restoring the object that was opened before room rendering
 
         public bool IsAppClosed { get; set; }
@@ -327,12 +279,7 @@ namespace UndertaleModTool
 
         [DllImport("user32.dll", SetLastError = true)]
         private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
-
-        private void UpdateTree()
-        {
-            foreach (var child in (MainTree.Items[0] as TreeViewItem).Items)
-                ((child as TreeViewItem).ItemsSource as ICollectionView)?.Refresh();
-        }
+        
         /*
         private static bool IsLikelyRunFromZipFolder()
         {
@@ -603,9 +550,10 @@ namespace UndertaleModTool
             OnPropertyChanged("FilePath");
             OnPropertyChanged("IsGMS2");
 
-            BackgroundsItemsList.Header = IsGMS2 == Visibility.Visible
+            // TODO: AAA PORT
+            /*BackgroundsItemsList.Header = IsGMS2 == Visibility.Visible
                                           ? "Tile sets"
-                                          : "Backgrounds & Tile sets";
+                                          : "Backgrounds & Tile sets";*/
 
             Highlighted = new DescriptionView("Welcome to UndertaleModTool!", "New file created, have fun making a game out of nothing\nI TOLD YOU to open a data.win, not create a new file! :P");
             OpenInTab(Highlighted);
@@ -679,7 +627,8 @@ namespace UndertaleModTool
             UndertaleCodeEditor codeEditor;
             try
             {
-                DependencyObject child = VisualTreeHelper.GetChild(DataEditor, 0);
+                // TODO: AAA PORT
+                DependencyObject child = null; /*VisualTreeHelper.GetChild(DataEditor, 0);*/
                 var editor = VisualTreeHelper.GetChild(child, 0);
                 if (editor is null)
                     return SaveResult.Error;
@@ -809,7 +758,8 @@ namespace UndertaleModTool
         }
         private void Command_CloseAllTabs(object sender, ExecutedRoutedEventArgs e)
         {
-            if (Tabs.Count == 1 && CurrentTab.TabTitle == "Welcome!")
+            // TODO: AAA PORT
+            /*if (Tabs.Count == 1 && CurrentTab.TabTitle == "Welcome!")
                 return;
 
             ClosedTabsHistory.Clear();
@@ -820,11 +770,12 @@ namespace UndertaleModTool
                                           "Open data.win file to get started, then double click on the items on the left to view them"));
             CurrentTab = Tabs[CurrentTabIndex];
 
-            UpdateObjectLabel(CurrentTab.CurrentObject);
+            UpdateObjectLabel(CurrentTab.CurrentObject);*/
         }
         private void Command_RestoreClosedTab(object sender, ExecutedRoutedEventArgs e)
         {
-            if (ClosedTabsHistory.Count > 0)
+            // TODO: AAA PORT
+            /*if (ClosedTabsHistory.Count > 0)
             {
                 Tab lastTab = ClosedTabsHistory.Last();
                 ClosedTabsHistory.RemoveAt(ClosedTabsHistory.Count - 1);
@@ -841,12 +792,13 @@ namespace UndertaleModTool
                 ScrollToTab(CurrentTabIndex);
 
                 UpdateObjectLabel(lastTab.CurrentObject);
-            }
+            }*/
         }
         private void Command_SwitchToNextTab(object sender, ExecutedRoutedEventArgs e)
         {
-            if (CurrentTabIndex < Tabs.Count - 1)
-                CurrentTabIndex++;
+            // TODO: AAA PORT
+            /*if (CurrentTabIndex < Tabs.Count - 1)
+                CurrentTabIndex++;*/
         }
         private void Command_SwitchToPrevTab(object sender, ExecutedRoutedEventArgs e)
         {
@@ -867,9 +819,10 @@ namespace UndertaleModTool
             if (Data is not null)
             {
                 // This also clears all their game object references
-                CurrentTab = null;
+                /*CurrentTab = null;
                 Tabs.Clear();
-                ClosedTabsHistory.Clear();
+                ClosedTabsHistory.Clear();*/
+                // TODO: AAA PORT
 
                 // Update GUI and wait for all background processes to finish
                 UpdateLayout();
@@ -996,9 +949,10 @@ namespace UndertaleModTool
                         OnPropertyChanged("FilePath");
                         OnPropertyChanged("IsGMS2");
 
-                        BackgroundsItemsList.Header = IsGMS2 == Visibility.Visible
+                        // TODO: AAA PORT
+                        /*BackgroundsItemsList.Header = IsGMS2 == Visibility.Visible
                                                       ? "Tile sets"
-                                                      : "Backgrounds & Tile sets";
+                                                      : "Backgrounds & Tile sets";*/
 
                         #pragma warning disable CA1416
                         UndertaleCodeEditor.gettext = null;
@@ -1573,7 +1527,7 @@ namespace UndertaleModTool
                 // which led to "ghost" hits on empty space.
 
                 // Updated: why I simply didn't use "e.OriginalSource"?
-                DependencyObject obj = MainTree.InputHitTest(e.GetPosition(MainTree)) as DependencyObject;
+                DependencyObject obj = null;  // TODO: AAA PORT /*MainTree.InputHitTest(e.GetPosition(MainTree)) as DependencyObject;*/
                 if (obj is not TextBlock)
                     return;
 
@@ -1621,7 +1575,8 @@ namespace UndertaleModTool
 
                     try
                     {
-                        DragDrop.DoDragDrop(MainTree, data, effects);
+                        // TODO: AAA PORT
+                        /*DragDrop.DoDragDrop(MainTree, data, effects);*/
                     }
                     catch (Exception ex)
                     {
@@ -1724,12 +1679,13 @@ namespace UndertaleModTool
 
         private TreeViewItem GetTreeViewItemFor(UndertaleObject obj)
         {
-            foreach (var child in (MainTree.Items[0] as TreeViewItem).Items)
+            // TODO: AAA PORT
+            /*foreach (var child in (MainTree.Items[0] as TreeViewItem).Items)
             {
                 var twi = (child as TreeViewItem).ItemContainerGenerator.ContainerFromItem(obj) as TreeViewItem;
                 if (twi != null)
                     return twi;
-            }
+            }*/
             return null;
         }
 
@@ -1752,7 +1708,8 @@ namespace UndertaleModTool
                 }
 
                 while (CloseTab(obj)) ;
-                UpdateTree();
+                // TODO: AAA PORT
+                /*UpdateTree();
 
                 // remove all tabs with deleted object occurrences from the closed tabs history
                 for (int i = 0; i < ClosedTabsHistory.Count; i++)
@@ -1796,7 +1753,7 @@ namespace UndertaleModTool
                             i--;
                         } 
                     }
-                }
+                }*/
             }
         }
         private void CopyItemName(object obj)
@@ -1871,12 +1828,12 @@ namespace UndertaleModTool
 
             if (command != null && command.Command.CanExecute(e.Parameter))
                 command.Command.Execute(e.Parameter);*/
-            FindVisualChild<UndertaleRoomEditor>(DataEditor)?.Command_Copy(sender, e);
+            // TODO: AAA PORT FindVisualChild<UndertaleRoomEditor>(DataEditor)?.Command_Copy(sender, e);
         }
 
         private void Command_Paste(object sender, ExecutedRoutedEventArgs e)
         {
-            FindVisualChild<UndertaleRoomEditor>(DataEditor)?.Command_Paste(sender, e);
+            // TODO: AAA PORT  FindVisualChild<UndertaleRoomEditor>(DataEditor)?.Command_Paste(sender, e);
         }
 
         private void MainTree_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
@@ -1968,7 +1925,7 @@ namespace UndertaleModTool
             object source;
             try
             {
-                source = (MainTree.SelectedItem as TreeViewItem).ItemsSource;
+                source = null; // TODO: AAA PORT (MainTree.SelectedItem as TreeViewItem).ItemsSource;
             }
             catch (Exception ex)
             {
@@ -2061,7 +2018,7 @@ namespace UndertaleModTool
             else if (obj is UndertaleString str)
                 str.Content = "string" + list.Count;
             list.Add(obj);
-            UpdateTree();
+            // TODO: AAA PORT UpdateTree();
             HighlightObject(obj);
             OpenInTab(obj, true);
         }
@@ -2395,7 +2352,8 @@ namespace UndertaleModTool
                 Focus();
 
                 #pragma warning disable CA1416
-                if (Selected == code)
+                // TODO: AAA PORT
+                /*if (Selected == code)
                 {
                     var codeEditor = FindVisualChild<UndertaleCodeEditor>(DataEditor);
                     if (codeEditor is null)
@@ -2428,7 +2386,7 @@ namespace UndertaleModTool
 
                     UndertaleCodeEditor.EditorTab = editorTab;
                     UndertaleCodeEditor.ChangeLineNumber(lineNum, editorTab);
-                }
+                }*/
                 #pragma warning restore CA1416
 
                 HighlightObject(code);
@@ -3324,7 +3282,7 @@ result in loss of work.");
 
         private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            UpdateTree();
+            // TODO: AAA PORT UpdateTree();
         }
 
         public void UpdateObjectLabel(object obj)
@@ -3344,7 +3302,8 @@ result in loss of work.");
 
         public void HighlightObject(object obj, bool silent = true)
         {
-            UndertaleResource res = obj as UndertaleResource;
+            // TODO: AAA PORT
+            /*UndertaleResource res = obj as UndertaleResource;
             if (res is null)
             {
                 string msg = $"Can't highlight the object - it's null or isn't an UndertaleResource.";
@@ -3432,28 +3391,30 @@ result in loss of work.");
                 mainTreeViewer.ScrollToVerticalOffset(initOffsetV);
                 mainTreeViewer.ScrollToHorizontalOffset(initOffsetH);
                 resListView.UpdateLayout();
-            }
+            }*/
         }
 
         private void GoBack()
         {
-            if (CurrentTab.HistoryPosition == 0)
+            // TODO: AAA PORT
+            /*if (CurrentTab.HistoryPosition == 0)
                 return;
 
             CurrentTab.HistoryPosition--;
             CurrentTab.CurrentObject = CurrentTab.History[CurrentTab.HistoryPosition];
 
-            UpdateObjectLabel(CurrentTab.CurrentObject);
+            UpdateObjectLabel(CurrentTab.CurrentObject);*/
         }
         private void GoForward()
         {
-            if (CurrentTab.HistoryPosition == CurrentTab.History.Count - 1)
+            // TODO: AAA PORT
+            /*if (CurrentTab.HistoryPosition == CurrentTab.History.Count - 1)
                 return;
 
             CurrentTab.HistoryPosition++;
             CurrentTab.CurrentObject = CurrentTab.History[CurrentTab.HistoryPosition];
 
-            UpdateObjectLabel(CurrentTab.CurrentObject);
+            UpdateObjectLabel(CurrentTab.CurrentObject);*/
         }
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
@@ -3525,7 +3486,8 @@ result in loss of work.");
 
         private void OpenInTab(object obj, bool isNewTab = false, string tabTitle = null)
         {
-            if (obj is null)
+            // TODO: AAA PORT
+            /*if (obj is null)
                 return;
 
             if (obj is DescriptionView && CurrentTab is not null && !CurrentTab.AutoClose)
@@ -3566,7 +3528,7 @@ result in loss of work.");
             }
 
             if (DataEditor.IsLoaded)
-                GetNearestParent<ScrollViewer>(DataEditor)?.ScrollToTop();
+                GetNearestParent<ScrollViewer>(DataEditor)?.ScrollToTop();*/
         }
 
         public void CloseTab(bool addDefaultTab = true) // close the current tab
@@ -3575,7 +3537,8 @@ result in loss of work.");
         }
         public void CloseTab(int tabIndex, bool addDefaultTab = true)
         {
-            if (tabIndex >= 0 && tabIndex < Tabs.Count)
+            // TODO: AAA PORT
+            /*if (tabIndex >= 0 && tabIndex < Tabs.Count)
             {
                 Tab closingTab = Tabs[tabIndex];
 
@@ -3661,11 +3624,12 @@ result in loss of work.");
                     if (tabIsChanged)
                         CurrentTab.RestoreTabContentState();
                 }
-            }
+            }*/
         }
         public bool CloseTab(object obj, bool addDefaultTab = true)
         {
-            if (obj is not null)
+            // TODO: AAA PORT
+            /*if (obj is not null)
             {
                 int tabIndex = Tabs.FirstOrDefault(x => x.CurrentObject == obj)?.TabIndex ?? -1;
                 if (tabIndex != -1)
@@ -3675,7 +3639,7 @@ result in loss of work.");
                 }
             }
             else
-                Debug.WriteLine("Can't close the tab - object is null.");
+                Debug.WriteLine("Can't close the tab - object is null.");*/
 
             return false;
         }
@@ -3687,7 +3651,8 @@ result in loss of work.");
 
         private void TabController_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (TabController.SelectedIndex >= 0)
+            // TODO: AAA PORT
+            /*if (TabController.SelectedIndex >= 0)
             {
                 CurrentTab?.SaveTabContentState();
 
@@ -3703,12 +3668,13 @@ result in loss of work.");
                 CurrentTab.RestoreTabContentState();
 
                 ScrollToTab(CurrentTabIndex);
-            }
+            }*/
         }
 
         private void ScrollTabs(ScrollDirection dir)
         {
-            double offset = TabScrollViewer.HorizontalOffset;
+            // TODO: AAA PORT
+            /*double offset = TabScrollViewer.HorizontalOffset;
             double clearOffset = 0;
             TabPanel tabPanel = FindVisualChild<TabPanel>(TabController);
 
@@ -3753,11 +3719,12 @@ result in loss of work.");
                     TabScrollViewer.ScrollToHorizontalOffset(clearOffset - tabItems[i - 1].ActualWidth);
                 else
                     TabScrollViewer.ScrollToHorizontalOffset(clearOffset);
-            }
+            }*/
         }
         private void ScrollToTab(int tabIndex)
         {
-            TabScrollViewer.UpdateLayout();
+            // TODO: AAA PORT
+            /*TabScrollViewer.UpdateLayout();
 
             if (tabIndex == 0)
                 TabScrollViewer.ScrollToLeftEnd();
@@ -3793,7 +3760,7 @@ result in loss of work.");
                 double endOffset = TabScrollViewer.HorizontalOffset + TabScrollViewer.ViewportWidth;
                 if (offset < TabScrollViewer.HorizontalOffset || offset > endOffset)
                     TabScrollViewer.ScrollToHorizontalOffset(offset);
-            }
+            }*/
         }
         private void TabScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
@@ -3802,7 +3769,7 @@ result in loss of work.");
         }
         private void TabScrollViewer_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            initTabContPos = e.GetPosition(TabScrollViewer);
+            // TODO: AAA PORT initTabContPos = e.GetPosition(TabScrollViewer);
         }
         private void TabsScrollLeftButton_Click(object sender, RoutedEventArgs e)
         {
@@ -3815,23 +3782,25 @@ result in loss of work.");
 
         private void TabCloseButton_OnClick(object sender, RoutedEventArgs e)
         {
-            Button button = (Button)sender;
+            // TODO: AAA PORT
+            /*Button button = (Button)sender;
             int tabIndex = (button.DataContext as Tab).TabIndex;
 
-            CloseTab(tabIndex);
+            CloseTab(tabIndex);*/
         }
         private void TabCloseButton_MouseEnter(object sender, MouseEventArgs e)
         {
-            (sender as Button).Content = new Image() { Source = Tab.ClosedHoverIcon };
+            // TODO: AAA PORT (sender as Button).Content = new Image() { Source = Tab.ClosedHoverIcon };
         }
         private void TabCloseButton_MouseLeave(object sender, MouseEventArgs e)
         {
-            (sender as Button).Content = new Image() { Source = Tab.ClosedIcon };
+            // TODO: AAA PORT (sender as Button).Content = new Image() { Source = Tab.ClosedIcon };
         }
 
         private void TabItem_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            if (e.ChangedButton == System.Windows.Input.MouseButton.Middle)
+            // TODO: AAA PORT
+            /*if (e.ChangedButton == System.Windows.Input.MouseButton.Middle)
             {
                 TabItem tabItem = sender as TabItem;
                 Tab tab = tabItem?.DataContext as Tab;
@@ -3840,14 +3809,15 @@ result in loss of work.");
 
                 if (tab.TabTitle != "Welcome!")
                     CloseTab(tab.TabIndex);
-            }
+            }*/
         }
 
         private Point initTabContPos;
         // source - https://stackoverflow.com/a/10738247/12136394
         private void TabItem_PreviewMouseMove(object sender, MouseEventArgs e)
         {
-            if (e.Source is not TabItem tabItem || e.OriginalSource is Button)
+            // TODO: AAA PORT
+            /*if (e.Source is not TabItem tabItem || e.OriginalSource is Button)
                 return;
 
             if (Mouse.PrimaryDevice.LeftButton == MouseButtonState.Pressed)
@@ -3867,11 +3837,12 @@ result in loss of work.");
                 {
                     Debug.WriteLine($"Error on handling \"TabItem\" drag&drop:\n{ex}");
                 }
-            }
+            }*/
         }
         private void TabItem_Drop(object sender, DragEventArgs e)
         {
-            if (e.Source is TabItem tabItemTarget &&
+            // TODO: AAA PORT
+            /*if (e.Source is TabItem tabItemTarget &&
                 e.Data.GetData(typeof(TabItem)) is TabItem tabItemSource &&
                 !tabItemTarget.Equals(tabItemSource))
             {
@@ -3892,20 +3863,22 @@ result in loss of work.");
                 CurrentTabIndex = targetIndex;
 
                 TabController.SelectionChanged += TabController_SelectionChanged;
-            }
+            }*/
         }
 
         private void CloseTabMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            Tab tab = (sender as MenuItem).DataContext as Tab;
+            // TODO: AAA PORT
+            /*Tab tab = (sender as MenuItem).DataContext as Tab;
             if (tab is null)
                 return;
 
-            CloseTab(tab.TabIndex);
+            CloseTab(tab.TabIndex);*/
         }
         private void CloseOtherTabsMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            Tab tab = (sender as MenuItem).DataContext as Tab;
+            // TODO: AAA PORT
+            /*Tab tab = (sender as MenuItem).DataContext as Tab;
             if (tab is null)
                 return;
 
@@ -3919,12 +3892,12 @@ result in loss of work.");
 
             tab.TabIndex = 0;
             Tabs = new() { tab };
-            CurrentTabIndex = 0;
+            CurrentTabIndex = 0;*/
         }
 
         private void TabTitleText_Initialized(object sender, EventArgs e)
         {
-            Tab.SetTabTitleBinding(null, null, sender as TextBlock);
+            // TODO: AAA PORT Tab.SetTabTitleBinding(null, null, sender as TextBlock);
         }
 
         private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
@@ -3943,11 +3916,12 @@ result in loss of work.");
                 return false;
 
             Type objType = asset.GetType();
-            foreach (var key in DataEditor.Resources.Keys)
+            // TODO: AAA PORT
+            /*foreach (var key in DataEditor.Resources.Keys)
             {
                 if (key is DataTemplateKey templateKey && (templateKey.DataType as Type) == objType)
                     return true;
-            }
+            }*/
 
             return false;
         }

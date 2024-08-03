@@ -59,11 +59,6 @@ public interface IScriptInterface
     object Highlighted { get; }
 
     /// <summary>
-    /// The object that's currently selected in the GUI.
-    /// </summary>
-    object Selected { get; }
-
-    /// <summary>
     /// Indicates whether saving is currently enabled.
     /// </summary>
     bool CanSave { get; }

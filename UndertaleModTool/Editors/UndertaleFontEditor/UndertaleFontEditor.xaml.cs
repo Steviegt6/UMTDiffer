@@ -97,14 +97,15 @@ namespace UndertaleModTool
             glyphListViewer.ScrollToVerticalOffset(glyphIndex + 1 - (glyphListViewer.ViewportHeight / 2)); // DataGrid offset is logical
             glyphListViewer.UpdateLayout();
 
-            ScrollViewer dataEditorViewer = mainWindow.DataEditor.Parent as ScrollViewer;
+            // TODO: AAA PORT
+            /*ScrollViewer dataEditorViewer = mainWindow.DataEditor.Parent as ScrollViewer;
             if (dataEditorViewer is not null)
             {
                 double initOffset = dataEditorViewer.VerticalOffset;
 
                 dataEditorViewer.UpdateLayout();
                 dataEditorViewer.ScrollToVerticalOffset(initOffset);
-            }
+            }*/
         }
 
         private void EditRectangleButton_Click(object sender, RoutedEventArgs e)

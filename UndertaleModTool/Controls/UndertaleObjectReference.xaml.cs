@@ -147,7 +147,8 @@ namespace UndertaleModTool
 
         private void Details_Click(object sender, RoutedEventArgs e)
         {
-            if (ObjectReference is null)
+            // TODO: AAA PORT
+            /*if (ObjectReference is null)
             {
                 if (mainWindow.Selected is null)
                 {
@@ -170,7 +171,7 @@ namespace UndertaleModTool
             else
             {
                 mainWindow.ChangeSelection(ObjectReference);
-            }
+            }*/
         }
 
         private void Details_MouseDown(object sender, MouseButtonEventArgs e)

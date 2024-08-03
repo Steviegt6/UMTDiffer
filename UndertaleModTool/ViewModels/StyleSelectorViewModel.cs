@@ -19,7 +19,7 @@ internal sealed class StyleSelectorViewModel : UmtToolWell
         this.workSpaceViewModel = workSpaceViewModel;
         collections = new ObservableCollection<UmtCollectionViewModel>
         {
-            new BasicCollectionViewModel(this),
+            new DataCollectionViewModel(this),
         };
 
         Title = "Wpf Base Styles";

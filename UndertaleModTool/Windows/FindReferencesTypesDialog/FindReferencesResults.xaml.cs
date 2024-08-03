@@ -238,11 +238,12 @@ namespace UndertaleModTool.Windows
                     mainWindow.Focus();
 
                     mainWindow.ChangeSelection(room, inNewTab);
-                    mainWindow.CurrentTab.LastContentState = new RoomTabState()
+                    // TODO: AAA PORT
+                    /*mainWindow.CurrentTab.LastContentState = new RoomTabState()
                     {
                         SelectedObject = inst[0]
                     };
-                    mainWindow.CurrentTab.RestoreTabContentState();
+                    mainWindow.CurrentTab.RestoreTabContentState();*/
                 }
                 else
                 {

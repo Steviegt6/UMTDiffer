@@ -9,7 +9,7 @@ namespace UndertaleModTool.ViewModels;
 
 internal sealed class WorkSpaceViewModel : ViewModelBase
 {
-    public static WorkSpaceViewModel Default { get; } = new WorkSpaceViewModel();
+    public static WorkSpaceViewModel Default { get; } = new();
 
     public ObservableCollection<UmtToolWell> Anchorables
     {

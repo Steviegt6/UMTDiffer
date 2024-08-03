@@ -359,22 +359,7 @@ namespace UndertaleModTool
         {
             await CompileCommandBody(null, null);
         }
-
-        public void RestoreState(CodeTabState tabState)
-        {
-            if (tabState.IsDecompiledOpen)
-                CodeModeTabs.SelectedItem = DecompiledTab;
-            else
-                CodeModeTabs.SelectedItem = DisassemblyTab;
-
-            TextEditor textEditor = DecompiledEditor;
-            (int linePos, int columnPos, double scrollPos) = tabState.DecompiledCodePosition;
-            RestoreCaretPosition(textEditor, linePos, columnPos, scrollPos);
-
-            textEditor = DisassemblyEditor;
-            (linePos, columnPos, scrollPos) = tabState.DisassemblyCodePosition;
-            RestoreCaretPosition(textEditor, linePos, columnPos, scrollPos);
-        }
+        
         private static void RestoreCaretPosition(TextEditor textEditor, int linePos, int columnPos, double scrollPos)
         {
             if (linePos <= textEditor.LineCount)

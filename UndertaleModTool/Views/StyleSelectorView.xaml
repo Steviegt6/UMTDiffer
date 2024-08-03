@@ -7,8 +7,9 @@
              xmlns:attaches="clr-namespace:UndertaleModTool.Attaches"
              xmlns:umtCollection="clr-namespace:UndertaleModTool.ViewModels.Collection"
              xmlns:shell="clr-namespace:UndertaleModTool.Shell"
+             xmlns:viewModels="clr-namespace:UndertaleModTool.ViewModels"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DataContext="{d:DesignInstance Type=viewModels:StyleSelectorViewModel}">
     <UserControl.Resources>
         <HierarchicalDataTemplate DataType="{x:Type umtCollection:UmtCollectionViewModel}" ItemsSource="{Binding Items}">
             <TextBlock Text="{Binding DisplayName}" />

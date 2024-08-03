@@ -16,6 +16,8 @@ using System.Windows.Shapes;
 
 using AakStudio.Shell.UI.Controls;
 
+using UndertaleModTool.ViewModels;
+
 namespace UndertaleModTool
 {
     /// <summary>
@@ -179,6 +181,18 @@ namespace UndertaleModTool
             set
             {
                 Settings.Instance.GridThicknessEnabled = value;
+                Settings.Save();
+            }
+        }
+
+        public static UmtTheme Theme
+        {
+            get => WorkSpaceViewModel.Default.CurrentTheme;
+
+            set
+            {
+                WorkSpaceViewModel.Default.CurrentTheme = value;
+                Settings.Instance.Theme                 = value.Name;
                 Settings.Save();
             }
         }

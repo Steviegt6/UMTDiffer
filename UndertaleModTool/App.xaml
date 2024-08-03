@@ -2,9 +2,10 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:UndertaleModTool"
+             xmlns:markup="clr-namespace:UndertaleModTool.Markup"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <ResourceDictionary>
+        <ResourceDictionary x:Key="Stuff">
             <Style x:Key="WindowIconRectangle" TargetType="{x:Type Rectangle}">
                 <Setter Property="Fill">
                     <Setter.Value>
@@ -34,6 +35,32 @@
                 </Style.Triggers>
             </Style>
 
+            <DataTemplate x:Key="UmtDocumentWellTitleTemplate">
+                <StackPanel Orientation="Horizontal">
+                    <Viewbox
+                        Width="16"
+                        Height="16"
+                        Margin="0,2,8,0"
+                        IsHitTestVisible="False">
+                        <Rectangle
+                            Width="16"
+                            Height="16"
+                            Style="{StaticResource WindowIconRectangle}" />
+                    </Viewbox>
+                    <TextBlock
+                        x:Name="TitleTextBlock"
+                        VerticalAlignment="Center"
+                        Text="{markup:UmtDocumentWellTitle IsChangeWindowTitle=True}"
+                        TextTrimming="CharacterEllipsis" />
+                </StackPanel>
+            </DataTemplate>
+
+            <BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+
+            <local:UmtThemeIsEqualsConverter x:Key="UmtThemeIsEqualsConverter" />
+            <local:UmtActiveDocumentConverter x:Key="UmtActiveDocumentConverter" />
+            <local:UmtViewElementToStringConverter x:Key="UmtViewElementToStringConverter" />
+
             <ContextMenu x:Key="textBoxContextMenu">
                 <MenuItem Command="ApplicationCommands.Cut" />
                 <MenuItem Command="ApplicationCommands.Copy" />
@@ -43,12 +70,6 @@
             <ResourceDictionary.MergedDictionaries>
                 <local:UmtXamlUIResource />
             </ResourceDictionary.MergedDictionaries>
-            
-            <BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-
-            <local:UmtThemeIsEqualsConverter x:Key="UmtThemeIsEqualsConverter" />
-            <local:UmtActiveDocumentConverter x:Key="UmtActiveDocumentConverter" />
-            <local:UmtViewElementToStringConverter x:Key="UmtViewElementToStringConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

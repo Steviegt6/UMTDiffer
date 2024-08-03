@@ -2166,7 +2166,8 @@ namespace UndertaleModTool
                     {
                         suspended = true;
 
-                        var roomEditor = MainWindow.FindVisualChild<UndertaleRoomEditor>((Application.Current.MainWindow as MainWindow).DataEditor);
+                        // TODO: AAA PORT
+                        /*var roomEditor = MainWindow.FindVisualChild<UndertaleRoomEditor>((Application.Current.MainWindow as MainWindow).DataEditor);
                         selectedLayer = roomEditor?.RoomObjectsTree.SelectedItem as Layer;
                         
                         if (selectedLayer is not null)
@@ -2175,7 +2176,7 @@ namespace UndertaleModTool
                             selectedLayerIndex = Array.IndexOf(orderedLayers, selectedLayer);
                             room.RearrangeLayers(new(selectedLayer, orderedLayers, selectedLayerIndex));
                             selectedLayerIndex = -1;
-                        }
+                        }*/
 
                         suspended = false;
                     }
