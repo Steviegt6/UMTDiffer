@@ -198,7 +198,7 @@ namespace UndertaleModTool
         
         private void DockingManager_ActiveContentChanged(object sender, System.EventArgs e)
         {
-            if (!isCleanValue && IsNotToolWell(dockingManager.ActiveContent))
+            if (!isCleanValue && IsNotToolWell(DockingManager.ActiveContent))
             {
                 ClearValue(ActiveGlowBrushProperty);
 
@@ -208,7 +208,7 @@ namespace UndertaleModTool
                 isCleanValue = true;
             }
             // On Theme Changed
-            else if (IsActive && IsNotToolWell(dockingManager.ActiveContent))
+            else if (IsActive && IsNotToolWell(DockingManager.ActiveContent))
             {
                 ActiveContentOfDockingManager();
             }
@@ -230,7 +230,7 @@ namespace UndertaleModTool
             // if the window is activated, then active the last actived item in docking manager
             var hasFloatingWindow = false;
 
-            var items = dockingManager.Layout.Descendents().OfType<LayoutContent>().ToList();
+            var items = DockingManager.Layout.Descendents().OfType<LayoutContent>().ToList();
             for (var i = 0; i < items.Count; i++)
             {
                 var item = items[i];

@@ -39,9 +39,12 @@ internal abstract class UmtViewElement : INotifyPropertyChanged
     }
 
     protected void SetProperty<T>(
-        [NotNullIfNotNull("newValue")] ref T property,
-        T                                          newValue,
-        [CallerMemberName] string                  propertyName = ""
+#if NETCOREAPP
+        [NotNullIfNotNull(nameof(newValue))]
+#endif
+        ref T property,
+        T                         newValue,
+        [CallerMemberName] string propertyName = ""
     )
     {
         property = newValue;
