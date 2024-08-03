@@ -12,7 +12,6 @@
         xmlns:cmod="clr-namespace:System.ComponentModel;assembly=WindowsBase"
         Height="450" Width="800" Loaded="Window_Loaded"
         AllowDrop="True" Drop="Window_Drop"
-        ActiveGlowBrush="Gray"
         Icon="pack://application:,,,/icon.ico"
         IsShowIcon="false"
         IsShowTitle="false"
