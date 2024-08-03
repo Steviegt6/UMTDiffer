@@ -101,15 +101,15 @@
             </Border>
         </Grid>
     </CustomChromeWindow.LeftWindowCommands>
-    <CustomChromeWindow.RightWindowCommands>
+    <!--<CustomChromeWindow.RightWindowCommands>
         <StackPanel Orientation="Horizontal">
-            <!--<ComboBox
+            <ComboBox
                 Width="160"
                 Margin="6"
                 VerticalAlignment="Top"
                 DisplayMemberPath="Name"
                 ItemsSource="{x:Static local:AakThemeCollection.AllThemes}"
-                SelectedItem="{Binding CurrentTheme, Mode=TwoWay}" />-->
+                SelectedItem="{Binding CurrentTheme, Mode=TwoWay}" />
             <Button
                 Width="45"
                 Height="32"
@@ -117,7 +117,7 @@
                 BorderBrush="{Binding Background, RelativeSource={RelativeSource Self}}"
                 Content="✨" />
         </StackPanel>
-    </CustomChromeWindow.RightWindowCommands>
+    </CustomChromeWindow.RightWindowCommands>-->
     <!--<Window.Title>
         <MultiBinding StringFormat="{}{0} - {1} [{2}]">
             <Binding Path="TitleMain"/>
