@@ -6,6 +6,8 @@ using System.Windows.Documents;
 using AakStudio.Shell.UI.Showcase.Commands;
 using AakStudio.Shell.UI.Showcase.Shell;
 
+using UndertaleModTool.ViewModels;
+
 namespace AakStudio.Shell.UI.Showcase.ViewModels.Collection
 {
     internal abstract class AakCollectionViewModel : AakCollection

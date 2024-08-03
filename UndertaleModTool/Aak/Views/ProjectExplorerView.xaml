@@ -9,7 +9,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:shell="clr-namespace:AakStudio.Shell.UI.Showcase.Shell"
     xmlns:viewmodels="clr-namespace:AakStudio.Shell.UI.Showcase.ViewModels"
-    d:DataContext="{d:DesignInstance Type=viewmodels:ProjectExplorerViewModel}"
+    xmlns:viewModels="clr-namespace:UndertaleModTool.ViewModels"
+    d:DataContext="{d:DesignInstance Type=viewModels:ProjectExplorerViewModel}"
     mc:Ignorable="d">
     <UserControl.Resources>
         <HierarchicalDataTemplate DataType="{x:Type aakCollection:AakCollectionViewModel}" ItemsSource="{Binding Items}">

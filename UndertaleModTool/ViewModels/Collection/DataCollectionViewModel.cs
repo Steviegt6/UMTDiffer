@@ -11,6 +11,8 @@ internal sealed class DataCollectionViewModel : AakCollectionViewModel
     public DataCollectionViewModel(ProjectExplorerViewModel parent) : base(parent, "Welcome to UnderaleModTool!", "Data", true)
     {
         Items = new ObservableCollection<AakDocumentWell>
-            { };
+        {
+            
+        };
     }
 }

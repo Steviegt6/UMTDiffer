@@ -2,10 +2,12 @@
 using System.Linq;
 using System.Windows.Input;
 
+using AakStudio.Shell.UI.Showcase;
 using AakStudio.Shell.UI.Showcase.Commands;
 using AakStudio.Shell.UI.Showcase.Shell;
+using AakStudio.Shell.UI.Showcase.ViewModels;
 
-namespace AakStudio.Shell.UI.Showcase.ViewModels
+namespace UndertaleModTool.ViewModels
 {
     internal sealed class WorkSpaceViewModel : ViewModelBase
     {

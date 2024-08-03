@@ -10,6 +10,8 @@ using System.Windows;
 using AakStudio.Shell.UI.Showcase;
 using AakStudio.Shell.UI.Showcase.ViewModels;
 
+using UndertaleModTool.ViewModels;
+
 namespace UndertaleModTool
 {
     public class Settings

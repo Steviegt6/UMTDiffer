@@ -6,7 +6,7 @@ using AakStudio.Shell.UI.Showcase.Views;
 
 using UndertaleModTool.ViewModels.Collection;
 
-namespace AakStudio.Shell.UI.Showcase.ViewModels
+namespace UndertaleModTool.ViewModels
 {
     internal sealed class ProjectExplorerViewModel : AakToolWell
     {
