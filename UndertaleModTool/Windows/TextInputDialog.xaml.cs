@@ -15,13 +15,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+using AakStudio.Shell.UI.Controls;
+
 namespace UndertaleModTool
 {
     /// <summary>
     /// Interaction logic for TextInputDialog.xaml
     /// </summary>
     [PropertyChanged.AddINotifyPropertyChangedInterface]
-    public partial class TextInputDialog : Window
+    public partial class TextInputDialog : CustomChromeWindow
     {
 
         public Visibility CancelButtonVisibility { get => PreventClose ? Visibility.Hidden : Visibility.Visible; }
@@ -51,8 +53,8 @@ namespace UndertaleModTool
             if (!IsVisible || IsLoaded)
                 return;
 
-            if (Settings.Instance.EnableDarkMode)
-                MainWindow.SetDarkTitleBarForWindow(this, true, false);
+            /*if (Settings.Instance.EnableDarkMode)
+                MainWindow.SetDarkTitleBarForWindow(this, true, false);*/
         }
 
         protected override void OnClosing(CancelEventArgs e)

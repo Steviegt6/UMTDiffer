@@ -15,6 +15,9 @@ using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+
+using AakStudio.Shell.UI.Controls;
+
 using UndertaleModLib;
 using UndertaleModLib.Models;
 
@@ -23,7 +26,7 @@ namespace UndertaleModTool.Windows
     /// <summary>
     /// Interaction logic for FindReferencesResults.xaml
     /// </summary>
-    public partial class FindReferencesResults : Window
+    public partial class FindReferencesResults : CustomChromeWindow
     {
         private static readonly MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
         private object highlighted;
@@ -35,8 +38,8 @@ namespace UndertaleModTool.Windows
             if (!IsVisible || IsLoaded)
                 return;
 
-            if (Settings.Instance.EnableDarkMode)
-                MainWindow.SetDarkTitleBarForWindow(this, true, false);
+            /*if (Settings.Instance.EnableDarkMode)
+                MainWindow.SetDarkTitleBarForWindow(this, true, false);*/
         }
 
         public FindReferencesResults(object sourceObj, UndertaleData data, Dictionary<string, List<object>> results)

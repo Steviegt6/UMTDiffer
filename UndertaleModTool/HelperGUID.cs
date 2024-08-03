@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
+
+using AakStudio.Shell.UI.Controls;
+
 using UndertaleModLib.Models;
 using UndertaleModLib.Scripting;
 
 namespace UndertaleModTool
 {
     // GUID helper functions for collision events
-    public partial class MainWindow : Window, INotifyPropertyChanged, IScriptInterface
+    public partial class MainWindow : CustomChromeWindow, INotifyPropertyChanged, IScriptInterface
     {
         public void ReassignGUIDs(string GUID, uint ObjectIndex)
         {

@@ -4,10 +4,46 @@
              xmlns:local="clr-namespace:UndertaleModTool"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <local:ContextMenuDark x:Key="textBoxContextMenu">
-            <MenuItem Command="ApplicationCommands.Cut" />
-            <MenuItem Command="ApplicationCommands.Copy" />
-            <MenuItem Command="ApplicationCommands.Paste" />
-        </local:ContextMenuDark>
+        <ResourceDictionary x:Key="AakStudio">
+            <Style x:Key="WindowIconRectangle" TargetType="{x:Type Rectangle}">
+                <Setter Property="Fill">
+                    <Setter.Value>
+                        <DrawingBrush Stretch="None">
+                            <DrawingBrush.Drawing>
+                                <DrawingGroup>
+                                    <DrawingGroup Opacity="0.75">
+                                        <GeometryDrawing Brush="#FF2E2E2E" Geometry="F1M15.5,5.5v8H9V7.086L7.914,6H7V5.5Z" />
+                                        <GeometryDrawing Brush="#FFD8D8D8" Geometry="F1M15.5,5H3.5L3,5.5l.5.5H11v7H9v1h6.5l.5-.5v-8ZM15,13H12V6h3Z" />
+                                    </DrawingGroup>
+                                    <DrawingGroup>
+                                        <GeometryDrawing Brush="#FF2E2E2E" Geometry="F1M.5,7.5h7v8H.5Z" />
+                                        <GeometryDrawing Brush="#FF2E2E2E" Geometry="F1M15.5,2.5v3H3.5v-3Z" />
+                                        <GeometryDrawing Brush="#FFD8D8D8" Geometry="F1M15.5,6H3.5L3,5.5v-3L3.5,2h12l.5.5v3ZM4,5H15V3H4Z" />
+                                        <GeometryDrawing Brush="#FFD8D8D8" Geometry="F1M7.5,7H.5L0,7.5v8l.5.5h7l.5-.5v-8ZM7,15H1V8H7Z" />
+                                        <GeometryDrawing Brush="#FFD8D8D8" Geometry="F1M6,10H2V9H6Zm0,2H2V11H6Zm0,2H2V13H6Z" />
+                                    </DrawingGroup>
+                                </DrawingGroup>
+                            </DrawingBrush.Drawing>
+                        </DrawingBrush>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" Value="False">
+                        <Setter Property="Opacity" Value=".34" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            
+            <ContextMenu x:Key="textBoxContextMenu">
+                <MenuItem Command="ApplicationCommands.Cut" />
+                <MenuItem Command="ApplicationCommands.Copy" />
+                <MenuItem Command="ApplicationCommands.Paste" />
+            </ContextMenu>
+            
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/AakStudio.Shell.UI;component/themes/visualstudio2022/darktheme.xaml" />
+                <!--<ResourceDictionary Source="/AakStudio.Shell.UI.Themes.AvalonDock;component/Themes/VisualStudio2022/DarkTheme.xaml" />-->
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -1,4 +1,4 @@
-﻿<Window x:Class="UndertaleModTool.Windows.FindReferencesTypesDialog"
+﻿<CustomChromeWindow x:Class="UndertaleModTool.Windows.FindReferencesTypesDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -24,7 +24,7 @@
                     <DynamicResource ResourceKey="{x:Static SystemColors.ControlLightBrushKey}"/>
                 </ItemsControl.Background>
                 <ItemsControl.Resources>
-                    <Style TargetType="CheckBox">
+                    <Style TargetType="CheckBox" BasedOn="{StaticResource {x:Type CheckBox}}">
                         <Setter Property="FontSize" Value="16"/>
                         <Setter Property="VerticalContentAlignment" Value="Center"/>
                         <Setter Property="Margin" Value="5,2"/>
@@ -34,10 +34,10 @@
         </ScrollViewer>
         
         <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="10,7,0,0">
-            <local:ButtonDark Content="Select all" Click="SelectAllButton_Click" Height="26" Width="63"/>
-            <local:ButtonDark Content="Deselect all" Margin="5,0,0,0" Click="DeselectAllButton_Click" Height="26" Width="71"/>
+            <Button Content="Select all" Click="SelectAllButton_Click" Height="26" Width="63"/>
+            <Button Content="Deselect all" Margin="5,0,0,0" Click="DeselectAllButton_Click" Height="26" Width="71"/>
         </StackPanel>
 
-        <local:ButtonDark Grid.Row="4" Content="Search" FontSize="18" Width="134" Height="40" Click="SearchButton_Click" Margin="0,15,0,15"/>
+        <Button Grid.Row="4" Content="Search" FontSize="18" Width="134" Height="40" Click="SearchButton_Click" Margin="0,15,0,15"/>
     </Grid>
-</Window>
+</CustomChromeWindow>

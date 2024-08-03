@@ -14,12 +14,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+using AakStudio.Shell.UI.Controls;
+
 namespace UndertaleModTool
 {
     /// <summary>
     /// Logika interakcji dla klasy SettingsWindow.xaml
     /// </summary>
-    public partial class SettingsWindow : Window
+    public partial class SettingsWindow : CustomChromeWindow
     {
         private static readonly MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
 
@@ -181,7 +183,7 @@ namespace UndertaleModTool
             }
         }
 
-        public static bool EnableDarkMode
+        /*public static bool EnableDarkMode
         {
             get => Settings.Instance.EnableDarkMode;
             set
@@ -195,7 +197,7 @@ namespace UndertaleModTool
                     mainWindow.ShowWarning("The message boxes (like this one) aren't compatible with the dark mode.\n" +
                                            "This will be fixed in future versions.");
             }
-        }
+        }*/
 
         public static bool ShowDebuggerOption
         {
@@ -226,8 +228,8 @@ namespace UndertaleModTool
             if (!IsVisible || IsLoaded)
                 return;
 
-            if (Settings.Instance.EnableDarkMode)
-                MainWindow.SetDarkTitleBarForWindow(this, true, false);
+            /*if (Settings.Instance.EnableDarkMode)
+                MainWindow.SetDarkTitleBarForWindow(this, true, false);*/
         }
 
         private void AppDataButton_Click(object sender, RoutedEventArgs e)

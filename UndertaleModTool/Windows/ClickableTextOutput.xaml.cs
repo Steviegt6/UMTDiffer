@@ -13,6 +13,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+
+using AakStudio.Shell.UI.Controls;
+
 using static UndertaleModTool.UndertaleCodeEditor;
 
 namespace UndertaleModTool.Windows
@@ -20,10 +23,10 @@ namespace UndertaleModTool.Windows
     /// <summary>
     /// Interaction logic for ClickableTextOutput.xaml
     /// </summary>
-    public partial class ClickableTextOutput : Window
+    public partial class ClickableTextOutput : CustomChromeWindow
     {
         private static readonly MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
-        private static ContextMenuDark linkContextMenu;
+        private static ContextMenu linkContextMenu;
 
         public string Query { get; }
         public int ResultsCount { get; }
@@ -37,7 +40,7 @@ namespace UndertaleModTool.Windows
             #pragma warning disable CA1416
             InitializeComponent();
 
-            linkContextMenu = FindResource("linkContextMenu") as ContextMenuDark;
+            linkContextMenu = FindResource("linkContextMenu") as ContextMenu;
 
             Title = title;
             Query = query;
@@ -52,7 +55,7 @@ namespace UndertaleModTool.Windows
             #pragma warning disable CA1416
             InitializeComponent();
 
-            linkContextMenu = FindResource("linkContextMenu") as ContextMenuDark;
+            linkContextMenu = FindResource("linkContextMenu") as ContextMenu;
 
             Title = title;
             Query = query;
@@ -67,8 +70,8 @@ namespace UndertaleModTool.Windows
             if (!IsVisible || IsLoaded)
                 return;
 
-            if (Settings.Instance.EnableDarkMode)
-                MainWindow.SetDarkTitleBarForWindow(this, true, false);
+            /*if (Settings.Instance.EnableDarkMode)
+                MainWindow.SetDarkTitleBarForWindow(this, true, false);*/
         }
 
         public void GenerateResults()
