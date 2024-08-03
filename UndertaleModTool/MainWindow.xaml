@@ -118,13 +118,13 @@
                 Content="✨" />
         </StackPanel>
     </CustomChromeWindow.RightWindowCommands>
-    <Window.Title>
+    <!--<Window.Title>
         <MultiBinding StringFormat="{}{0} - {1} [{2}]">
             <Binding Path="TitleMain"/>
             <Binding Path="Data.GeneralInfo" FallbackValue="No game loaded"/>
             <Binding Path="FilePath"/>
         </MultiBinding>
-    </Window.Title>
+    </Window.Title>-->
     <Window.Resources>
         <local:ImplementsInterfaceConverter x:Key="ImplementsInterfaceConverter"/>
         <local:FilteredViewConverter x:Key="FilteredViewConverter" Filter="{Binding Text, Source={x:Reference SearchBox}, UpdateSourceTrigger=PropertyChanged}"/>
