@@ -55,14 +55,14 @@
         </Border>
         <ItemsControl Grid.Column="0" Grid.Row="1" Panel.ZIndex="0" Name="RoomGraphics" Background="Gray" ClipToBounds="True">
             <ItemsControl.Style>
-                <Style TargetType="ItemsControl">
+                <Style TargetType="ItemsControl" BasedOn="{StaticResource {x:Type ItemsControl}}">
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding Flags, Mode=OneTime, Converter={StaticResource IsGMS2Converter}}" Value="False">
                             <DataTrigger.Setters>
                                 <Setter Property="ItemsSource" Value="{Binding Layers, Mode=OneTime, Converter={StaticResource LayersOrderedConverter}}"/>
                                 <Setter Property="ItemContainerStyle">
                                     <Setter.Value>
-                                        <Style TargetType="ContentPresenter">
+                                        <Style TargetType="ContentPresenter" BasedOn="{StaticResource {x:Type ContentPresenter}}">
                                             <Setter Property="Visibility" Value="{Binding IsVisible, Mode=OneTime, Converter={StaticResource BoolToVisConverter}}"/>
                                         </Style>
                                     </Setter.Value>
@@ -155,7 +155,7 @@
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.Style>
-                            <Style TargetType="ItemsControl">
+                            <Style TargetType="ItemsControl" BasedOn="{StaticResource {x:Type ItemsControl}}">
                                 <Style.Triggers>
                                     <!-- Offset doesn't work for instances layer; BG layer has its own translate transform -->
                                     <DataTrigger Binding="{Binding LayerType, Mode=OneTime, Converter={StaticResource LayerTypeConverter}, ConverterParameter=Canvas}" Value="Visible">
