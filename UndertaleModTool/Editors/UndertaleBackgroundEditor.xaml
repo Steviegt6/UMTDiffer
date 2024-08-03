@@ -137,7 +137,7 @@
                     Width="{Binding Texture.BoundingWidth, Mode=OneWay}" Height="{Binding Texture.BoundingHeight, Mode=OneWay}"
                     MouseLeftButtonDown="BGTexture_MouseLeftButtonDown" PreviewMouseRightButtonDown="BGTexture_PreviewMouseRightButtonDown">
                 <Canvas.Style>
-                    <Style TargetType="Canvas" BasedOn="{StaticResource {x:Type Canvas}}">
+                    <Style TargetType="Canvas">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding Mode=OneTime, Converter={StaticResource IsVersionAtLeastConverter}, ConverterParameter=2.0}"
                                          Value="Visible">
