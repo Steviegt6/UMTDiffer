@@ -32,7 +32,7 @@
                     Style="{StaticResource WindowIconRectangle}" />
             </Viewbox>
             <Menu Grid.Column="1" Margin="0,2,0,0">
-                <local:MenuItemDark Header="_File">
+                <MenuItem Header="_File">
                     <MenuItem Header="_New" Command="New" InputGestureText="Ctrl+N"/>
                     <MenuItem Header="_Open" Command="Open" InputGestureText="Ctrl+O"/>
                     <MenuItem Header="_Save" Command="Save" InputGestureText="Ctrl+S">
@@ -70,11 +70,11 @@
                     <Separator/>
                     <MenuItem Header="S_ettings" Command="Properties"/>
                     <MenuItem Header="_Close" Command="Close" InputGestureText="Ctrl+Q"/>
-                </local:MenuItemDark>
-                <local:MenuItemDark x:Name="RootScriptItem" Header="_Scripts" SubmenuOpened="RootMenuItem_SubmenuOpened">
+                </MenuItem>
+                <MenuItem x:Name="RootScriptItem" Header="_Scripts" SubmenuOpened="RootMenuItem_SubmenuOpened">
                     <MenuItem Header="(...loading...)" IsEnabled="False"/>
-                </local:MenuItemDark>
-                <local:MenuItemDark Header="_Find">
+                </MenuItem>
+                <MenuItem Header="_Find">
                     <MenuItem.Resources>
                         <Style TargetType="MenuItem">
                             <Style.Triggers>
@@ -94,11 +94,11 @@
                               Click="MenuItem_RunBuiltinScript_Item_Click" CommandParameter="Scripts\Builtin Scripts\SearchASM.csx"/>
                     <MenuItem Header="Search in _specific code (&quot;SearchLimited.csx&quot;)"
                               Click="MenuItem_RunBuiltinScript_Item_Click" CommandParameter="Scripts\Builtin Scripts\SearchLimited.csx"/>
-                </local:MenuItemDark>
-                <local:MenuItemDark Header="_Help">
+                </MenuItem>
+                <MenuItem Header="_Help">
                     <MenuItem Header="_GitHub" Click="MenuItem_GitHub_Click"/>
                     <MenuItem Header="_About" Click="MenuItem_About_Click"/>
-                </local:MenuItemDark>
+                </MenuItem>
             </Menu>
             <Border
                 Grid.Column="2"
