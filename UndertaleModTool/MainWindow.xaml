@@ -244,18 +244,12 @@
                             </Style.Triggers>
                         </Style>
                     </Button.Style>
-                    <Image Name="BackButtonImage">
+                    <Image Name="BackButtonImage" Source="/Resources/Backwards.png">
                         <Image.Style>
                             <Style TargetType="Image">
                                 <Style.Triggers>
                                     <Trigger Property="IsEnabled" Value="False">
                                         <Setter Property="Opacity" Value="0.2" />
-                                    </Trigger>
-                                    <Trigger Property="IsMouseOver" Value="False">
-                                        <Setter Property="Source" Value="/Resources/arrow_blue.png" />
-                                    </Trigger>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Source" Value="/Resources/arrow_red.png" />
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>
@@ -269,21 +263,12 @@
                             <Binding Path="CurrentTab.History.Count" Mode="OneWay" />
                         </MultiBinding>
                     </Button.IsEnabled>
-                    <Image Name="ForwardButtonImage" RenderTransformOrigin="0.5,0.5">
-                        <Image.RenderTransform>
-                            <ScaleTransform ScaleX="-1" ScaleY="-1" />
-                        </Image.RenderTransform>
+                    <Image Name="ForwardButtonImage" Source="/Resources/Forwards.png">
                         <Image.Style>
                             <Style TargetType="Image">
                                 <Style.Triggers>
                                     <Trigger Property="IsEnabled" Value="False">
                                         <Setter Property="Opacity" Value="0.2" />
-                                    </Trigger>
-                                    <Trigger Property="IsMouseOver" Value="False">
-                                        <Setter Property="Source" Value="/Resources/arrow_blue.png" />
-                                    </Trigger>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Source" Value="/Resources/arrow_red.png" />
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>
