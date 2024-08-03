@@ -294,6 +294,7 @@
             </ToolBar>
         </ToolBarTray>
         <DockingManager
+            Grid.Row="1"
             x:Name="dockingManager"
             ActiveContent="{Binding ActiveDocument, Mode=TwoWay, Converter={StaticResource AakActiveDocumentConverter}}"
             ActiveContentChanged="DockingManager_ActiveContentChanged"
