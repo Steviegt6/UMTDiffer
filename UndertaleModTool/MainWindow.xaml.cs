@@ -165,7 +165,7 @@ namespace UndertaleModTool
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = this;
+            // this.DataContext = this;
 
             Highlighted = new DescriptionView("Welcome to UndertaleModTool!", "Open a data.win file to get started, then double click on the items on the left to view them.");
             OpenInTab(Highlighted);
