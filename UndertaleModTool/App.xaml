@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:UndertaleModTool"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <ResourceDictionary x:Key="AakStudio">
+        <ResourceDictionary>
             <Style x:Key="WindowIconRectangle" TargetType="{x:Type Rectangle}">
                 <Setter Property="Fill">
                     <Setter.Value>
@@ -33,17 +33,22 @@
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
-            
+
             <ContextMenu x:Key="textBoxContextMenu">
                 <MenuItem Command="ApplicationCommands.Cut" />
                 <MenuItem Command="ApplicationCommands.Copy" />
                 <MenuItem Command="ApplicationCommands.Paste" />
             </ContextMenu>
-            
+
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/AakStudio.Shell.UI;component/themes/visualstudio2022/darktheme.xaml" />
-                <!--<ResourceDictionary Source="/AakStudio.Shell.UI.Themes.AvalonDock;component/Themes/VisualStudio2022/DarkTheme.xaml" />-->
+                <local:UmtXamlUIResource />
             </ResourceDictionary.MergedDictionaries>
+            
+            <BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+
+            <local:UmtThemeIsEqualsConverter x:Key="UmtThemeIsEqualsConverter" />
+            <local:UmtActiveDocumentConverter x:Key="UmtActiveDocumentConverter" />
+            <local:UmtViewElementToStringConverter x:Key="UmtViewElementToStringConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>
