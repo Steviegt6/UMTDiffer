@@ -13,7 +13,6 @@
                     Height="720"
                     d:DataContext="{d:DesignInstance Type=viewModels:WorkSpaceViewModel}"
                     Activated="MetroWindow_Activated"
-                    ActiveGlowBrush="Gray"
                     DataContext="{x:Static viewModels:WorkSpaceViewModel.Default}"
                     Icon="pack://application:,,,/icon.ico"
                     IsShowIcon="False"
