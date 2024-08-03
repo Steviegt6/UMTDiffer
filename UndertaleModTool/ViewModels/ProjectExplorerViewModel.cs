@@ -25,12 +25,11 @@ namespace UndertaleModTool.ViewModels
             };
 
             Title = "Project Explorer";
-            View = new ProjectExplorerView { DataContext = this };
+            View  = new ProjectExplorerView { DataContext = this };
         }
 
-        private readonly WorkSpaceViewModel workSpaceViewModel;
-        private ObservableCollection<AakCollectionViewModel> collections;
-
+        private readonly WorkSpaceViewModel                           workSpaceViewModel;
+        private          ObservableCollection<AakCollectionViewModel> collections;
 
         internal void ActiveDocument(AakDocumentWell view)
         {

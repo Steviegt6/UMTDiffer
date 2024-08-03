@@ -13,6 +13,7 @@
     d:DataContext="{d:DesignInstance Type=viewModels:ProjectExplorerViewModel}"
     mc:Ignorable="d">
     <UserControl.Resources>
+        <!-- Template for AakCollectionViewModel -->
         <HierarchicalDataTemplate DataType="{x:Type aakCollection:AakCollectionViewModel}" ItemsSource="{Binding Items}">
             <TextBlock Text="{Binding DisplayName}" />
             <HierarchicalDataTemplate.ItemTemplate>
@@ -21,6 +22,11 @@
                 </DataTemplate>
             </HierarchicalDataTemplate.ItemTemplate>
         </HierarchicalDataTemplate>
+
+        <!-- Template for AakDocumentWell -->
+        <DataTemplate DataType="{x:Type shell:AakDocumentWell}">
+            <TextBlock Text="{Binding Title}" />
+        </DataTemplate>
     </UserControl.Resources>
     <TreeView
         x:Name="MainTreeView"

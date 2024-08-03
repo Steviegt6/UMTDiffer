@@ -25,17 +25,28 @@ namespace AakStudio.Shell.UI.Showcase.ViewModels.Collection
 
                 foreach (var item in Items)
                 {
-                    Label linkLabel = new();
-                    Hyperlink hyperlink = new(new Run(item.Title))
+                    /*if (item is AakCollection collection)
                     {
-                        Command = new RelayCommand(() =>
+                        TreeView treeView = new()
                         {
-                            item.IsSelected = true;
-                            ActiveDocument(item);
-                        })
-                    };
-                    linkLabel.Content = hyperlink;
-                    yield return linkLabel;
+                            ItemsSource = collection.Views,
+                        };
+                        yield return treeView;
+                    }
+                    else
+                    {
+                        Label linkLabel = new();
+                        Hyperlink hyperlink = new(new Run(item.Title))
+                        {
+                            Command = new RelayCommand(() =>
+                            {
+                                item.IsSelected = true;
+                                ActiveDocument(item);
+                            })
+                        };
+                        linkLabel.Content = hyperlink;
+                        yield return linkLabel;
+                    }*/
                 }
             }
         }
