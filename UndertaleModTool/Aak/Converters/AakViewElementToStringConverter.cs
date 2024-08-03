@@ -15,8 +15,7 @@ internal sealed class AakViewElementToStringConverter : IValueConverter
     {
         return value switch
         {
-            AakCollection aakCollection     => aakCollection.DisplayName,
-            AakDocumentWell aakDocumentWell => aakDocumentWell.Title,
+            AakDocument aakDocumentWell => aakDocumentWell.Title,
             _                               => Binding.DoNothing,
         };
     }

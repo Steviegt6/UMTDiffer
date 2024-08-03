@@ -9,6 +9,9 @@ namespace UndertaleModTool.Aak.Shell;
 ///     A view element, which is the minimum viable object that may be shown in
 ///     the UI.
 /// </summary>
+/// <remarks>
+///     View elements may be anchorables or documents.
+/// </remarks>
 internal abstract class AakViewElement : INotifyPropertyChanged
 {
     /// <summary>
@@ -52,26 +55,19 @@ internal abstract class AakViewElement : INotifyPropertyChanged
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
+    private UIElement? view;
+    private string?    title;
+    private bool       isActive;
+    private bool       isSelected;
+
     protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
-    protected void SetProperty<T>(
-#if NETCOREAPP
-        [NotNullIfNotNull(nameof(newValue))]
-#endif
-        ref T property,
-        T                         newValue,
-        [CallerMemberName] string propertyName = ""
-    )
+    protected void SetProperty<T>(ref T property, T newValue, [CallerMemberName] string propertyName = "")
     {
         property = newValue;
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
-
-    private UIElement? view;
-    private string?    title;
-    private bool       isActive;
-    private bool       isSelected;
 }

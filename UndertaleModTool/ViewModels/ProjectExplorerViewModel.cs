@@ -9,7 +9,7 @@ using UndertaleModTool.ViewModels.Collection;
 
 namespace UndertaleModTool.ViewModels
 {
-    internal sealed class ProjectExplorerViewModel : AakToolWell
+    internal sealed class ProjectExplorerViewModel : AakAnchorable
     {
         public ObservableCollection<AakCollectionViewModel> Collections
         {
@@ -32,12 +32,12 @@ namespace UndertaleModTool.ViewModels
         private readonly WorkSpaceViewModel                           workSpaceViewModel;
         private          ObservableCollection<AakCollectionViewModel> collections;
 
-        internal void ActiveDocument(AakDocumentWell view)
+        internal void ActiveDocument(AakDocument view)
         {
             workSpaceViewModel.AddOrActiveDocument(view);
         }
 
-        internal void CloseTab(AakDocumentWell view)
+        internal void CloseTab(AakDocument view)
         {
             workSpaceViewModel.CloseDocument(view);
         }

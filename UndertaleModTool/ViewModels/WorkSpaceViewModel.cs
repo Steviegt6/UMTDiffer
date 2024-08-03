@@ -8,6 +8,7 @@ using AakStudio.Shell.UI.Showcase.ViewModels;
 
 using UndertaleModTool.Aak.Commands;
 using UndertaleModTool.Aak.Shell;
+using UndertaleModTool.Aak.ViewModels;
 
 namespace UndertaleModTool.ViewModels;
 
@@ -15,13 +16,13 @@ internal sealed class WorkSpaceViewModel : ViewModelBase
 {
     public static WorkSpaceViewModel Default { get; } = new();
 
-    public ObservableCollection<AakToolWell> Anchorables
+    public ObservableCollection<AakAnchorable> Anchorables
     {
         get => anchorables;
         set => OnPropertyChanged(ref anchorables, value, nameof(Anchorables));
     }
 
-    public ObservableCollection<AakDocumentWell> DocumentViews
+    public ObservableCollection<AakDocument> DocumentViews
     {
         get => documentViews;
         set => OnPropertyChanged(ref documentViews, value, nameof(DocumentViews));
@@ -54,14 +55,14 @@ internal sealed class WorkSpaceViewModel : ViewModelBase
         ProjectExplorer = new ProjectExplorerViewModel(this);
         currentTheme    = AakXamlUIResource.Instance.Theme;
 
-        anchorables   = new ObservableCollection<AakToolWell>() { ProjectExplorer };
-        documentViews = new ObservableCollection<AakDocumentWell>();
+        anchorables   = new ObservableCollection<AakAnchorable>() { ProjectExplorer };
+        documentViews = new ObservableCollection<AakDocument>();
     }
 
     public ProjectExplorerViewModel ProjectExplorer { get; }
 
-    private ObservableCollection<AakToolWell>     anchorables;
-    private ObservableCollection<AakDocumentWell> documentViews;
+    private ObservableCollection<AakAnchorable>     anchorables;
+    private ObservableCollection<AakDocument> documentViews;
     private AakTheme                              currentTheme;
 
     private AakViewElement? activeDocument;
@@ -75,7 +76,7 @@ internal sealed class WorkSpaceViewModel : ViewModelBase
         }
     }
 
-    public void AddOrActiveDocument(AakDocumentWell view)
+    public void AddOrActiveDocument(AakDocument view)
     {
         var item = DocumentViews.FirstOrDefault(x => x == view);
         if (item == null)
@@ -86,7 +87,7 @@ internal sealed class WorkSpaceViewModel : ViewModelBase
         ActiveDocument = item;
     }
 
-    public void CloseDocument(AakDocumentWell view)
+    public void CloseDocument(AakDocument view)
     {
         if (DocumentViews.Contains(view))
         {
@@ -95,7 +96,7 @@ internal sealed class WorkSpaceViewModel : ViewModelBase
         }
     }
 
-    public void AddOrActiveAnchor(AakToolWell view)
+    public void AddOrActiveAnchor(AakAnchorable view)
     {
         var item = Anchorables.FirstOrDefault(x => x == view);
         if (item == null)
@@ -106,7 +107,7 @@ internal sealed class WorkSpaceViewModel : ViewModelBase
         ActiveDocument = item;
     }
 
-    public void CloseAnchor(AakToolWell view)
+    public void CloseAnchor(AakAnchorable view)
     {
         if (Anchorables.Contains(view))
         {

@@ -7,9 +7,9 @@
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     xmlns:local="clr-namespace:UndertaleModTool"
                     xmlns:viewModels="clr-namespace:AakStudio.Shell.UI.Showcase.ViewModels"
-                    xmlns:styles="clr-namespace:AakStudio.Shell.UI.Showcase.Styles"
                     xmlns:shell="clr-namespace:AakStudio.Shell.UI.Showcase.Shell"
                     xmlns:viewModels1="clr-namespace:UndertaleModTool.ViewModels"
+                    xmlns:styles1="clr-namespace:UndertaleModTool.Aak.Styles"
                     Width="1280"
                     Height="720"
                     d:DataContext="{d:DesignInstance Type=viewModels1:WorkSpaceViewModel}"
@@ -287,9 +287,9 @@
             DocumentTitleTemplate="{StaticResource AakDocumentWellTitleTemplate}"
             DocumentsSource="{Binding DocumentViews}">
             <DockingManager.LayoutItemTemplateSelector>
-                <styles:AakTemplateSelector>
-                    <styles:AakTemplateSelector.AakDocumentWellTemplate>
-                        <DataTemplate DataType="{x:Type shell:AakDocumentWell}">
+                <styles1:AakTemplateSelector>
+                    <styles1:AakTemplateSelector.AakDocumentWellTemplate>
+                        <DataTemplate DataType="{x:Type shell:AakDocument}">
                             <ScrollViewer HorizontalScrollBarVisibility="Auto">
                                 <Grid Margin="15">
                                     <Grid.RowDefinitions>
@@ -305,13 +305,13 @@
                                 </Grid>
                             </ScrollViewer>
                         </DataTemplate>
-                    </styles:AakTemplateSelector.AakDocumentWellTemplate>
-                    <styles:AakTemplateSelector.AakToolWellTemplate>
-                        <DataTemplate DataType="{x:Type shell:AakToolWell}">
+                    </styles1:AakTemplateSelector.AakDocumentWellTemplate>
+                    <styles1:AakTemplateSelector.AakToolWellTemplate>
+                        <DataTemplate DataType="{x:Type shell:AakAnchorable}">
                             <ContentPresenter Content="{Binding View}" />
                         </DataTemplate>
-                    </styles:AakTemplateSelector.AakToolWellTemplate>
-                    <styles:AakTemplateSelector.AakCollectionTemplate>
+                    </styles1:AakTemplateSelector.AakToolWellTemplate>
+                    <styles1:AakTemplateSelector.AakCollectionTemplate>
                         <DataTemplate DataType="{x:Type shell:AakCollection}">
                             <ScrollViewer HorizontalScrollBarVisibility="Auto">
                                 <Grid Margin="15">
@@ -322,19 +322,19 @@
                                 </Grid>
                             </ScrollViewer>
                         </DataTemplate>
-                    </styles:AakTemplateSelector.AakCollectionTemplate>
-                </styles:AakTemplateSelector>
+                    </styles1:AakTemplateSelector.AakCollectionTemplate>
+                </styles1:AakTemplateSelector>
             </DockingManager.LayoutItemTemplateSelector>
             <DockingManager.LayoutItemContainerStyleSelector>
-                <styles:AakStyleSelector>
-                    <styles:AakStyleSelector.AakDocumentWellStyle>
+                <styles1:AakStyleSelector>
+                    <styles1:AakStyleSelector.AakDocumentWellStyle>
                         <Style TargetType="{x:Type LayoutItem}">
                             <Setter Property="Title" Value="{Binding Model.Title}" />
                             <Setter Property="ToolTip" Value="{Binding Model.ToolTip}" />
                             <Setter Property="CloseCommand" Value="{Binding Model.CloseCommand}" />
                         </Style>
-                    </styles:AakStyleSelector.AakDocumentWellStyle>
-                    <styles:AakStyleSelector.AakToolWellStyle>
+                    </styles1:AakStyleSelector.AakDocumentWellStyle>
+                    <styles1:AakStyleSelector.AakToolWellStyle>
                         <Style TargetType="{x:Type LayoutAnchorableItem}">
                             <Setter Property="Title" Value="{Binding Model.Title}" />
                             <Setter Property="CanHide" Value="{Binding Model.CanHide, Mode=TwoWay}" />
@@ -342,8 +342,8 @@
                             <Setter Property="IsSelected" Value="{Binding Model.IsSelected, Mode=TwoWay}" />
                             <Setter Property="IsActive" Value="{Binding Model.IsActive, Mode=TwoWay}" />
                         </Style>
-                    </styles:AakStyleSelector.AakToolWellStyle>
-                </styles:AakStyleSelector>
+                    </styles1:AakStyleSelector.AakToolWellStyle>
+                </styles1:AakStyleSelector>
             </DockingManager.LayoutItemContainerStyleSelector>
             <LayoutRoot>
                 <LayoutPanel Orientation="Horizontal">

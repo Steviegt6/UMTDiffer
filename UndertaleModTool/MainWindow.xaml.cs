@@ -52,6 +52,7 @@ using AakStudio.Shell.UI.Showcase.ViewModels.Collection;
 
 using AvalonDock.Layout;
 
+using UndertaleModTool.Aak.ViewModels.Collection;
 using UndertaleModTool.ViewModels.Collection;
 
 namespace UndertaleModTool
@@ -218,7 +219,7 @@ namespace UndertaleModTool
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private bool IsNotToolWell(object value)
         {
-            return value is AakCollectionViewModel || value is AakDocumentWellViewModel;
+            return value is AakCollectionViewModel || value is AakDocumentViewModel;
         }
 
         private void MetroWindow_Activated(object sender, System.EventArgs e)

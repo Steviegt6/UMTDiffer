@@ -17,14 +17,14 @@
         <HierarchicalDataTemplate DataType="{x:Type aakCollection:AakCollectionViewModel}" ItemsSource="{Binding Items}">
             <TextBlock Text="{Binding DisplayName}" />
             <HierarchicalDataTemplate.ItemTemplate>
-                <DataTemplate DataType="{x:Type shell:AakDocumentWell}">
+                <DataTemplate DataType="{x:Type shell:AakDocument}">
                     <TextBlock Text="{Binding Title}" />
                 </DataTemplate>
             </HierarchicalDataTemplate.ItemTemplate>
         </HierarchicalDataTemplate>
 
         <!-- Template for AakDocumentWell -->
-        <DataTemplate DataType="{x:Type shell:AakDocumentWell}">
+        <DataTemplate DataType="{x:Type shell:AakDocument}">
             <TextBlock Text="{Binding Title}" />
         </DataTemplate>
     </UserControl.Resources>

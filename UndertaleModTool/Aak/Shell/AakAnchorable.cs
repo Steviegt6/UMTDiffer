@@ -3,10 +3,10 @@
 namespace AakStudio.Shell.UI.Showcase.Shell;
 
 /// <summary>
-///     A tool well, also known as a tool window, which is a hide-able view
-///     element that may be docked on the sides of the document views.
+///     An anchorable, which may be anchored alongside documents. Often in the
+///     form of tool windows.
 /// </summary>
-internal abstract class AakToolWell : AakViewElement
+internal abstract class AakAnchorable : AakViewElement
 {
     /// <summary>
     ///     Whether this view can be hidden.

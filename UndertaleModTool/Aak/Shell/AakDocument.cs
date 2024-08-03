@@ -8,7 +8,7 @@ namespace AakStudio.Shell.UI.Showcase.Shell;
 /// <summary>
 ///     A document well, which is a view element that may 
 /// </summary>
-internal abstract class AakDocumentWell : AakViewElement
+internal abstract class AakDocument : AakViewElement
 {
     public ICommand ActiveCommand
     {
