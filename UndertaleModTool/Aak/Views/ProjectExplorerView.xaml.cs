@@ -5,9 +5,9 @@ namespace AakStudio.Shell.UI.Showcase.Views
     /// <summary>
     /// StyleSelectorView.xaml 的交互逻辑
     /// </summary>
-    public partial class StyleSelectorView : UserControl
+    public partial class ProjectExplorerView : UserControl
     {
-        public StyleSelectorView()
+        public ProjectExplorerView()
         {
             InitializeComponent();
         }

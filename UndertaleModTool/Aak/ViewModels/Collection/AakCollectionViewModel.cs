@@ -10,7 +10,7 @@ namespace AakStudio.Shell.UI.Showcase.ViewModels.Collection
 {
     internal abstract class AakCollectionViewModel : AakCollection
     {
-        public StyleSelectorViewModel Parent { get; }
+        public ProjectExplorerViewModel Parent { get; }
 
         public override IEnumerable<UIElement>? Views
         {
@@ -38,7 +38,7 @@ namespace AakStudio.Shell.UI.Showcase.ViewModels.Collection
             }
         }
 
-        public AakCollectionViewModel(StyleSelectorViewModel parent, string title, string displayName, bool isExpanded = false)
+        public AakCollectionViewModel(ProjectExplorerViewModel parent, string title, string displayName, bool isExpanded = false)
         {
             Parent = parent;
 

@@ -8,7 +8,7 @@ using UndertaleModTool.ViewModels.Collection;
 
 namespace AakStudio.Shell.UI.Showcase.ViewModels
 {
-    internal sealed class StyleSelectorViewModel : AakToolWell
+    internal sealed class ProjectExplorerViewModel : AakToolWell
     {
         public ObservableCollection<AakCollectionViewModel> Collections
         {
@@ -16,7 +16,7 @@ namespace AakStudio.Shell.UI.Showcase.ViewModels
             set => SetProperty(ref collections, value);
         }
 
-        public StyleSelectorViewModel(WorkSpaceViewModel workSpaceViewModel)
+        public ProjectExplorerViewModel(WorkSpaceViewModel workSpaceViewModel)
         {
             this.workSpaceViewModel = workSpaceViewModel;
             collections = new ObservableCollection<AakCollectionViewModel>
@@ -25,7 +25,7 @@ namespace AakStudio.Shell.UI.Showcase.ViewModels
             };
 
             Title = "Project Explorer";
-            View = new StyleSelectorView { DataContext = this };
+            View = new ProjectExplorerView { DataContext = this };
         }
 
         private readonly WorkSpaceViewModel workSpaceViewModel;

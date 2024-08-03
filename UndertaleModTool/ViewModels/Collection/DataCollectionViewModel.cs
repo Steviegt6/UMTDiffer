@@ -8,7 +8,7 @@ namespace UndertaleModTool.ViewModels.Collection;
 
 internal sealed class DataCollectionViewModel : AakCollectionViewModel
 {
-    public DataCollectionViewModel(StyleSelectorViewModel parent) : base(parent, "Welcome to UnderaleModTool!", "Data", true)
+    public DataCollectionViewModel(ProjectExplorerViewModel parent) : base(parent, "Welcome to UnderaleModTool!", "Data", true)
     {
         Items = new ObservableCollection<AakDocumentWell>
             { };

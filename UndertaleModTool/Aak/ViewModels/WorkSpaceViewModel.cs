@@ -46,14 +46,14 @@ namespace AakStudio.Shell.UI.Showcase.ViewModels
 
         private WorkSpaceViewModel()
         {
-            StyleSelector = new StyleSelectorViewModel(this);
+            ProjectExplorer = new ProjectExplorerViewModel(this);
             currentTheme = AakXamlUIResource.Instance.Theme;
 
-            anchorables = new ObservableCollection<AakToolWell>() { StyleSelector };
+            anchorables = new ObservableCollection<AakToolWell>() { ProjectExplorer };
             documentViews = new ObservableCollection<AakDocumentWell>();
         }
 
-        public StyleSelectorViewModel StyleSelector { get; }
+        public ProjectExplorerViewModel ProjectExplorer { get; }
 
         private ObservableCollection<AakToolWell> anchorables;
         private ObservableCollection<AakDocumentWell> documentViews;

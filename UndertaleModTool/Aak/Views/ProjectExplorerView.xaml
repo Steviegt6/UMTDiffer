@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="AakStudio.Shell.UI.Showcase.Views.StyleSelectorView"
+    x:Class="AakStudio.Shell.UI.Showcase.Views.ProjectExplorerView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:aakCollection="clr-namespace:AakStudio.Shell.UI.Showcase.ViewModels.Collection"
@@ -9,7 +9,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:shell="clr-namespace:AakStudio.Shell.UI.Showcase.Shell"
     xmlns:viewmodels="clr-namespace:AakStudio.Shell.UI.Showcase.ViewModels"
-    d:DataContext="{d:DesignInstance Type=viewmodels:StyleSelectorViewModel}"
+    d:DataContext="{d:DesignInstance Type=viewmodels:ProjectExplorerViewModel}"
     mc:Ignorable="d">
     <UserControl.Resources>
         <HierarchicalDataTemplate DataType="{x:Type aakCollection:AakCollectionViewModel}" ItemsSource="{Binding Items}">

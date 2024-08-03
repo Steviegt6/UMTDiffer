@@ -89,9 +89,9 @@
                 </MenuItem>
                 <MenuItem Header="_View">
                     <MenuItem
-                        Header="{Binding StyleSelector.Title}"
+                        Header="{Binding ProjectExplorer.Title}"
                         IsCheckable="True"
-                        IsChecked="{Binding StyleSelector.IsVisible, Mode=TwoWay}" />
+                        IsChecked="{Binding ProjectExplorer.IsVisible, Mode=TwoWay}" />
                 </MenuItem>
                 <MenuItem x:Name="RootScriptItem" Header="_Scripts" SubmenuOpened="RootMenuItem_SubmenuOpened">
                     <MenuItem Header="(...loading...)" IsEnabled="False" />
