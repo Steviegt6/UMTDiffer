@@ -75,7 +75,7 @@
                     <MenuItem Header="(...loading...)" IsEnabled="False"/>
                 </MenuItem>
                 <MenuItem Header="_Find">
-                    <MenuItem.Resources>
+                    <!--<MenuItem.Resources>
                         <Style TargetType="MenuItem">
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding Data, Mode=OneWay}" Value="{x:Null}">
@@ -83,17 +83,67 @@
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
-                    </MenuItem.Resources>
+                    </MenuItem.Resources>-->
 
-                    <MenuItem Header="Find unreferenced _assets" Name="FindUnreferencedAssetsItem" Click="MenuItem_FindUnreferencedAssets_Click"/>
+                    <MenuItem Header="Find unreferenced _assets" Name="FindUnreferencedAssetsItem" Click="MenuItem_FindUnreferencedAssets_Click">
+                        <MenuItem.Resources>
+                            <Style TargetType="MenuItem">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Data, Mode=OneWay}" Value="{x:Null}">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </MenuItem.Resources>
+                    </MenuItem>
                     <Separator/>
-                    <MenuItem Header="(script links)" FontStyle="Italic" IsEnabled="False"/>
+                    <MenuItem Header="(script links)" FontStyle="Italic" IsEnabled="False">
+                        <MenuItem.Resources>
+                            <Style TargetType="MenuItem">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Data, Mode=OneWay}" Value="{x:Null}">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </MenuItem.Resources>
+                    </MenuItem>
                     <MenuItem Header="Search in _code (&quot;Search.csx&quot;)"
-                              Click="MenuItem_RunBuiltinScript_Item_Click" CommandParameter="Scripts\Builtin Scripts\Search.csx"/>
+                              Click="MenuItem_RunBuiltinScript_Item_Click" CommandParameter="Scripts\Builtin Scripts\Search.csx">
+                        <MenuItem.Resources>
+                            <Style TargetType="MenuItem">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Data, Mode=OneWay}" Value="{x:Null}">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </MenuItem.Resources>
+                    </MenuItem>
                     <MenuItem Header="Search in _assembly (&quot;SearchASM.csx&quot;)"
-                              Click="MenuItem_RunBuiltinScript_Item_Click" CommandParameter="Scripts\Builtin Scripts\SearchASM.csx"/>
+                              Click="MenuItem_RunBuiltinScript_Item_Click" CommandParameter="Scripts\Builtin Scripts\SearchASM.csx">
+                        <MenuItem.Resources>
+                            <Style TargetType="MenuItem">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Data, Mode=OneWay}" Value="{x:Null}">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </MenuItem.Resources>
+                    </MenuItem>
                     <MenuItem Header="Search in _specific code (&quot;SearchLimited.csx&quot;)"
-                              Click="MenuItem_RunBuiltinScript_Item_Click" CommandParameter="Scripts\Builtin Scripts\SearchLimited.csx"/>
+                              Click="MenuItem_RunBuiltinScript_Item_Click" CommandParameter="Scripts\Builtin Scripts\SearchLimited.csx">
+                        <MenuItem.Resources>
+                            <Style TargetType="MenuItem">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Data, Mode=OneWay}" Value="{x:Null}">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </MenuItem.Resources>
+                    </MenuItem>
                 </MenuItem>
                 <MenuItem Header="_Help">
                     <MenuItem Header="_GitHub" Click="MenuItem_GitHub_Click"/>
