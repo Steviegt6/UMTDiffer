@@ -260,12 +260,6 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <DockPanel>
-            <Grid DockPanel.Dock="Bottom">
-                <TextBox x:Name="CommandBox" AcceptsReturn="True" PreviewKeyDown="CommandBox_PreviewKeyDown" Margin="0,0,35,0"/>
-                <Label Content="None" HorizontalAlignment="Right" VerticalAlignment="Top" VerticalContentAlignment="Top" Name="ObjectLabel"
-                       ToolTip="This is an ID (index) of the currently open object. It starts from 0."
-                       ToolTipService.InitialShowDelay="200"/>
-            </Grid>
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -840,12 +834,30 @@
             Grid.Row="1"
             Background="{x:Null}"
             Foreground="{DynamicResource SystemColorsWindowText}">
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
             <StatusBarItem Margin="2,0,0,0" Content="Ready" />
-            <!--<StatusBarItem
-                Margin="0,0,20,0"
-                HorizontalAlignment="Right"
-                Content="{Binding ActiveDocument, Converter={StaticResource AakViewElementToStringConverter}}"
-                ContentStringFormat="Selected: {0}" />-->
+            <Separator Grid.Column="1"/>
+            <StatusBarItem Grid.Column="2" HorizontalContentAlignment="Stretch">
+                <TextBox x:Name="CommandBox" AcceptsReturn="True" PreviewKeyDown="CommandBox_PreviewKeyDown" />
+            </StatusBarItem>
+            <Separator Grid.Column="3"/>
+            <StatusBarItem Grid.Column="4">
+                <Label Content="None" HorizontalAlignment="Right" VerticalAlignment="Top" VerticalContentAlignment="Top" Name="ObjectLabel"
+                       ToolTip="This is an ID (index) of the currently open object. It starts from 0."
+                       ToolTipService.InitialShowDelay="200"/>
+            </StatusBarItem>
         </StatusBar>
     </Grid>
 </CustomChromeWindow>
