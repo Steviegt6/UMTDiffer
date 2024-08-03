@@ -20,7 +20,7 @@
         </Grid.ColumnDefinitions>
         <TextBox Grid.Column="0" Text="{Binding AudioID}">
             <TextBox.Style>
-                <Style TargetType="{x:Type TextBox}">
+                <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding GroupID}" Value="0">
                             <DataTrigger.Setters>
@@ -69,7 +69,7 @@
         </TextBox>
         <Button Grid.Column="2" Click="Details_Click" MouseDown="Details_MouseDown" Content=" ... " ToolTip="Open referenced object">
             <Button.Style>
-                <Style TargetType="{x:Type Button}">
+                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding AudioReference, RelativeSource={RelativeSource AncestorType=UserControl}}" Value="{x:Null}">
                             <Setter Property="IsEnabled" Value="False"/>

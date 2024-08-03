@@ -27,7 +27,7 @@
                            PreviewDragOver="TextBox_DragOver" PreviewDrop="TextBox_Drop" PreviewMouseDoubleClick="TextBox_MouseDoubleClick" PreviewMouseDown="Details_MouseDown"
                            Text="{Binding ObjectReference, ElementName=objectReference}">
             <TextBox.Style>
-                <Style TargetType="{x:Type TextBox}">
+                <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding ObjectReference, ElementName=objectReference}" Value="{x:Null}">
                             <Setter Property="Background">

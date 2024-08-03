@@ -38,7 +38,7 @@
                           Margin="10,15,20,0" FontSize="14">
             <!-- Source - https://stackoverflow.com/a/7433840/12136394 -->
             <TextBox.Style>
-                <Style TargetType="TextBox">
+                <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
                     <Style.Resources>
                         <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
                             <VisualBrush.Visual>

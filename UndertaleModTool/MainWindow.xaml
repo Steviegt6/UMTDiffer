@@ -341,7 +341,7 @@
                                 <Style.Resources>
                                     <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
                                         <VisualBrush.Visual>
-                                            <Label Content="Filter by name..." Foreground="Gray" />
+                                            <Label Content="Filter by name..." />
                                         </VisualBrush.Visual>
                                     </VisualBrush>
                                 </Style.Resources>

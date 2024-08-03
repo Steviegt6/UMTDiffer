@@ -47,13 +47,13 @@
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemContainerStyle>
-                            <Style TargetType="ContentPresenter">
+                            <Style TargetType="ContentPresenter" BasedOn="{StaticResource {x:Type ContentPresenter}}">
                                 <Setter Property="Canvas.Left" Value="{Binding SourceX, Mode=OneWay}"/>
                                 <Setter Property="Canvas.Top" Value="{Binding SourceY, Mode=OneWay}"/>
                             </Style>
                         </ItemsControl.ItemContainerStyle>
                         <ItemsControl.Resources>
-                            <Style TargetType="TextBlock">
+                            <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
                                 <!-- Hide "{NewItemPlaceholder}" -->
                                 <Setter Property="Visibility" Value="Collapsed"/>
                             </Style>
@@ -82,7 +82,7 @@
 
                                     <Grid Panel.ZIndex="2">
                                         <Grid.Style>
-                                            <Style TargetType="Grid">
+                                            <Style TargetType="Grid" BasedOn="{StaticResource {x:Type Grid}}">
                                                 <Style.Triggers>
                                                     <EventTrigger RoutedEvent="Loaded">
                                                         <BeginStoryboard>
@@ -140,7 +140,7 @@
                                     </Rectangle.Fill>
                                 </Rectangle>
                             </DataTemplate>
-                            <Style x:Key="contentControlStyle" TargetType="ContentControl">
+                            <Style x:Key="contentControlStyle" TargetType="ContentControl" BasedOn="{StaticResource {x:Type ContentControl}}">
                                 <Setter Property="ContentTemplate" Value="{StaticResource glyphTemplate}"/>
                                 <Style.Triggers>
                                     <DataTrigger Value="True">

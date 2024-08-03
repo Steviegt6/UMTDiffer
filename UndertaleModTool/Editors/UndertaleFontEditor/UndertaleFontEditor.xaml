@@ -11,7 +11,7 @@
         <Grid.Resources>
             <local:CharConverter x:Key="CharConverter"/>
             <local:IsVersionAtLeastConverter x:Key="IsVersionAtLeastConverter"/>
-            <Style x:Key="glyphsOperationButtonStyle" TargetType="Button">
+            <Style x:Key="glyphsOperationButtonStyle" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding Glyphs.Count, Mode=OneWay, FallbackValue=0}" Value="0">
                         <Setter Property="IsEnabled" Value="False"/>
@@ -157,7 +157,7 @@
 
                         <Grid Panel.ZIndex="1">
                             <Grid.Style>
-                                <Style TargetType="Grid">
+                                <Style TargetType="Grid" BasedOn="{StaticResource {x:Type Grid}}">
                                     <Style.Triggers>
                                         <EventTrigger RoutedEvent="Loaded">
                                             <BeginStoryboard>
@@ -207,7 +207,7 @@
         <StackPanel Grid.Row="16" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
             <Button Margin="3" Width="220" Click="EditRectangleButton_Click">
                 <Button.Style>
-                    <Style TargetType="Button">
+                    <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding SelectedItem, ElementName=GlyphsGrid, Mode=OneWay}"
                                          Value="{x:Null}">

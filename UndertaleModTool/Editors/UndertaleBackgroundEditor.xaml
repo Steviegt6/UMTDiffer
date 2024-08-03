@@ -93,7 +93,7 @@
                                 SelectionChanged="DataGrid_SelectionChanged">
                 <DataGrid.Resources>
                     <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FF26A0DA"/>
-                    <Style TargetType="{x:Type DataGridCell}">
+                    <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource {x:Type DataGridCell}}">
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type DataGridCell}">
@@ -137,7 +137,7 @@
                     Width="{Binding Texture.BoundingWidth, Mode=OneWay}" Height="{Binding Texture.BoundingHeight, Mode=OneWay}"
                     MouseLeftButtonDown="BGTexture_MouseLeftButtonDown" PreviewMouseRightButtonDown="BGTexture_PreviewMouseRightButtonDown">
                 <Canvas.Style>
-                    <Style TargetType="Canvas">
+                    <Style TargetType="Canvas" BasedOn="{StaticResource {x:Type Canvas}}">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding Mode=OneTime, Converter={StaticResource IsVersionAtLeastConverter}, ConverterParameter=2.0}"
                                          Value="Visible">

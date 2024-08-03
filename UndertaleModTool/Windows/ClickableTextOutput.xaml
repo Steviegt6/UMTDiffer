@@ -26,7 +26,7 @@
                 <DynamicResource ResourceKey="{x:Static SystemColors.ControlLightBrushKey}"/>
             </RichTextBox.Background>
             <RichTextBox.Resources>
-                <Style TargetType="Paragraph">
+                <Style TargetType="Paragraph" BasedOn="{StaticResource {x:Type Paragraph}}">
                     <Setter Property="Margin" Value="0"/>
                 </Style>
             </RichTextBox.Resources>
