@@ -255,6 +255,10 @@
         <KeyBinding Gesture="Ctrl+Shift+Tab" Command="{x:Static local:MainWindow.SwitchToPrevTabCommand}"/>
     </Window.InputBindings>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
         <DockPanel>
             <Grid DockPanel.Dock="Bottom">
                 <TextBox x:Name="CommandBox" AcceptsReturn="True" PreviewKeyDown="CommandBox_PreviewKeyDown" Margin="0,0,35,0"/>
@@ -831,5 +835,17 @@
                 </Grid>
             </Grid>
         </DockPanel>
+        <StatusBar
+            x:Name="mainStatusBar"
+            Grid.Row="1"
+            Background="{x:Null}"
+            Foreground="{DynamicResource SystemColorsWindowText}">
+            <StatusBarItem Margin="2,0,0,0" Content="Ready" />
+            <!--<StatusBarItem
+                Margin="0,0,20,0"
+                HorizontalAlignment="Right"
+                Content="{Binding ActiveDocument, Converter={StaticResource AakViewElementToStringConverter}}"
+                ContentStringFormat="Selected: {0}" />-->
+        </StatusBar>
     </Grid>
 </CustomChromeWindow>
