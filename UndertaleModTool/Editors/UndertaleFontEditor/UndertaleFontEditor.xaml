@@ -157,7 +157,7 @@
 
                         <Grid Panel.ZIndex="1">
                             <Grid.Style>
-                                <Style TargetType="Grid" BasedOn="{StaticResource {x:Type Grid}}">
+                                <Style TargetType="Grid">
                                     <Style.Triggers>
                                         <EventTrigger RoutedEvent="Loaded">
                                             <BeginStoryboard>
