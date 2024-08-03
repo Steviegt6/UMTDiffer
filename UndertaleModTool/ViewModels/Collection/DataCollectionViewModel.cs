@@ -1,17 +1,16 @@
 using System.Collections.ObjectModel;
-using System.Windows.Controls;
 
-using UndertaleModTool.Shell;
+using AakStudio.Shell.UI.Showcase.Shell;
+using AakStudio.Shell.UI.Showcase.ViewModels;
+using AakStudio.Shell.UI.Showcase.ViewModels.Collection;
 
 namespace UndertaleModTool.ViewModels.Collection;
 
-internal sealed class DataCollectionViewModel : UmtCollectionViewModel
+internal sealed class DataCollectionViewModel : AakCollectionViewModel
 {
-    public DataCollectionViewModel(StyleSelectorViewModel parent) : base(parent, "Welcome to UndertaleModTool!", "Data", true)
+    public DataCollectionViewModel(StyleSelectorViewModel parent) : base(parent, "Welcome to UnderaleModTool!", "Data", true)
     {
-        Items = new ObservableCollection<UmtDocumentWell>
-        {
-            new UmtDocumentWellViewModel(new Border(), "A", this),
-        };
+        Items = new ObservableCollection<AakDocumentWell>
+            { };
     }
 }

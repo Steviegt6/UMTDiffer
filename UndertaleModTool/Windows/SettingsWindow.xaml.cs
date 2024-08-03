@@ -15,6 +15,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 using AakStudio.Shell.UI.Controls;
+using AakStudio.Shell.UI.Showcase;
+using AakStudio.Shell.UI.Showcase.ViewModels;
 
 using UndertaleModTool.ViewModels;
 
@@ -185,7 +187,7 @@ namespace UndertaleModTool
             }
         }
 
-        public static UmtTheme Theme
+        public static AakTheme Theme
         {
             get => WorkSpaceViewModel.Default.CurrentTheme;
 

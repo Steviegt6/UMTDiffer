@@ -48,6 +48,7 @@ using System.Runtime.CompilerServices;
 using System.Windows.Interop;
 
 using AakStudio.Shell.UI.Controls;
+using AakStudio.Shell.UI.Showcase.ViewModels.Collection;
 
 using AvalonDock.Layout;
 
@@ -195,10 +196,10 @@ namespace UndertaleModTool
         }
         
         private bool isCleanValue;
-        
+
         private void DockingManager_ActiveContentChanged(object sender, System.EventArgs e)
         {
-            if (!isCleanValue && IsNotToolWell(DockingManager.ActiveContent))
+            if (!isCleanValue && IsNotToolWell(dockingManager.ActiveContent))
             {
                 ClearValue(ActiveGlowBrushProperty);
 
@@ -208,7 +209,7 @@ namespace UndertaleModTool
                 isCleanValue = true;
             }
             // On Theme Changed
-            else if (IsActive && IsNotToolWell(DockingManager.ActiveContent))
+            else if (IsActive && IsNotToolWell(dockingManager.ActiveContent))
             {
                 ActiveContentOfDockingManager();
             }
@@ -217,20 +218,20 @@ namespace UndertaleModTool
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private bool IsNotToolWell(object value)
         {
-            return value is UmtCollectionViewModel || value is UmtDocumentWellViewModel;
+            return value is AakCollectionViewModel || value is AakDocumentWellViewModel;
         }
 
-        private void MetroWindow_Activated(object sender, EventArgs e)
+        private void MetroWindow_Activated(object sender, System.EventArgs e)
         {
             ActiveContentOfDockingManager();
         }
-        
+
         private void ActiveContentOfDockingManager()
         {
             // if the window is activated, then active the last actived item in docking manager
             var hasFloatingWindow = false;
 
-            var items = DockingManager.Layout.Descendents().OfType<LayoutContent>().ToList();
+            var items = dockingManager.Layout.Descendents().OfType<LayoutContent>().ToList();
             for (var i = 0; i < items.Count; i++)
             {
                 var item = items[i];
@@ -253,7 +254,7 @@ namespace UndertaleModTool
                     if (item2.LastActivationTimeStamp > tmpTimeStamp)
                     {
                         tmpTimeStamp = item2.LastActivationTimeStamp;
-                        index        = j;
+                        index = j;
                     }
                 }
 

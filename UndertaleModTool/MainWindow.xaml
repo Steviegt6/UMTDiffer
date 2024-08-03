@@ -6,20 +6,18 @@
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     xmlns:local="clr-namespace:UndertaleModTool"
-                    xmlns:styles="clr-namespace:UndertaleModTool.Styles"
-                    xmlns:shell="clr-namespace:UndertaleModTool.Shell"
-                    xmlns:viewModels="clr-namespace:UndertaleModTool.ViewModels"
+                    xmlns:viewModels="clr-namespace:AakStudio.Shell.UI.Showcase.ViewModels"
+                    xmlns:styles="clr-namespace:AakStudio.Shell.UI.Showcase.Styles"
+                    xmlns:shell="clr-namespace:AakStudio.Shell.UI.Showcase.Shell"
                     Width="1280"
                     Height="720"
                     d:DataContext="{d:DesignInstance Type=viewModels:WorkSpaceViewModel}"
                     Activated="MetroWindow_Activated"
+                    ActiveGlowBrush="Gray"
                     DataContext="{x:Static viewModels:WorkSpaceViewModel.Default}"
-                    Loaded="Window_Loaded"
-                    AllowDrop="True"
-                    Drop="Window_Drop"
                     Icon="pack://application:,,,/icon.ico"
-                    IsShowIcon="false"
-                    IsShowTitle="false"
+                    IsShowIcon="False"
+                    IsShowTitle="False"
                     OnMaximizedPadding="0"
                     RenderOptions.BitmapScalingMode="Fant"
                     ResizeMode="CanResizeWithGrip"
@@ -28,6 +26,9 @@
                     TextOptions.TextRenderingMode="ClearType"
                     UseLayoutRounding="True"
                     WindowStartupLocation="CenterScreen"
+                    Loaded="Window_Loaded"
+                    AllowDrop="True"
+                    Drop="Window_Drop"
                     mc:Ignorable="d">
     <CustomChromeWindow.LeftWindowCommands>
         <Grid Margin="2,3">
@@ -293,17 +294,16 @@
             </ToolBar>
         </ToolBarTray>
         <DockingManager
-            Grid.Row="1"
-            x:Name="DockingManager"
-            ActiveContent="{Binding ActiveDocument, Mode=TwoWay, Converter={StaticResource UmtActiveDocumentConverter}}"
+            x:Name="dockingManager"
+            ActiveContent="{Binding ActiveDocument, Mode=TwoWay, Converter={StaticResource AakActiveDocumentConverter}}"
             ActiveContentChanged="DockingManager_ActiveContentChanged"
             AnchorablesSource="{Binding Anchorables}"
-            DocumentTitleTemplate="{StaticResource UmtDocumentWellTitleTemplate}"
+            DocumentTitleTemplate="{StaticResource AakDocumentWellTitleTemplate}"
             DocumentsSource="{Binding DocumentViews}">
             <DockingManager.LayoutItemTemplateSelector>
-                <styles:UmtTemplateSelector>
-                    <styles:UmtTemplateSelector.UmtDocumentWellTemplate>
-                        <DataTemplate DataType="{x:Type shell:UmtDocumentWell}">
+                <styles:AakTemplateSelector>
+                    <styles:AakTemplateSelector.AakDocumentWellTemplate>
+                        <DataTemplate DataType="{x:Type shell:AakDocumentWell}">
                             <ScrollViewer HorizontalScrollBarVisibility="Auto">
                                 <Grid Margin="15">
                                     <Grid.RowDefinitions>
@@ -319,14 +319,14 @@
                                 </Grid>
                             </ScrollViewer>
                         </DataTemplate>
-                    </styles:UmtTemplateSelector.UmtDocumentWellTemplate>
-                    <styles:UmtTemplateSelector.UmtToolWellTemplate>
-                        <DataTemplate DataType="{x:Type shell:UmtToolWell}">
+                    </styles:AakTemplateSelector.AakDocumentWellTemplate>
+                    <styles:AakTemplateSelector.AakToolWellTemplate>
+                        <DataTemplate DataType="{x:Type shell:AakToolWell}">
                             <ContentPresenter Content="{Binding View}" />
                         </DataTemplate>
-                    </styles:UmtTemplateSelector.UmtToolWellTemplate>
-                    <styles:UmtTemplateSelector.UmtCollectionTemplate>
-                        <DataTemplate DataType="{x:Type shell:UmtCollection}">
+                    </styles:AakTemplateSelector.AakToolWellTemplate>
+                    <styles:AakTemplateSelector.AakCollectionTemplate>
+                        <DataTemplate DataType="{x:Type shell:AakCollection}">
                             <ScrollViewer HorizontalScrollBarVisibility="Auto">
                                 <Grid Margin="15">
                                     <StackPanel>
@@ -336,19 +336,19 @@
                                 </Grid>
                             </ScrollViewer>
                         </DataTemplate>
-                    </styles:UmtTemplateSelector.UmtCollectionTemplate>
-                </styles:UmtTemplateSelector>
+                    </styles:AakTemplateSelector.AakCollectionTemplate>
+                </styles:AakTemplateSelector>
             </DockingManager.LayoutItemTemplateSelector>
             <DockingManager.LayoutItemContainerStyleSelector>
-                <styles:UmtStyleSelector>
-                    <styles:UmtStyleSelector.UmtDocumentWellStyle>
+                <styles:AakStyleSelector>
+                    <styles:AakStyleSelector.AakDocumentWellStyle>
                         <Style TargetType="{x:Type LayoutItem}">
                             <Setter Property="Title" Value="{Binding Model.Title}" />
                             <Setter Property="ToolTip" Value="{Binding Model.ToolTip}" />
                             <Setter Property="CloseCommand" Value="{Binding Model.CloseCommand}" />
                         </Style>
-                    </styles:UmtStyleSelector.UmtDocumentWellStyle>
-                    <styles:UmtStyleSelector.UmtToolWellStyle>
+                    </styles:AakStyleSelector.AakDocumentWellStyle>
+                    <styles:AakStyleSelector.AakToolWellStyle>
                         <Style TargetType="{x:Type LayoutAnchorableItem}">
                             <Setter Property="Title" Value="{Binding Model.Title}" />
                             <Setter Property="CanHide" Value="{Binding Model.CanHide, Mode=TwoWay}" />
@@ -356,8 +356,8 @@
                             <Setter Property="IsSelected" Value="{Binding Model.IsSelected, Mode=TwoWay}" />
                             <Setter Property="IsActive" Value="{Binding Model.IsActive, Mode=TwoWay}" />
                         </Style>
-                    </styles:UmtStyleSelector.UmtToolWellStyle>
-                </styles:UmtStyleSelector>
+                    </styles:AakStyleSelector.AakToolWellStyle>
+                </styles:AakStyleSelector>
             </DockingManager.LayoutItemContainerStyleSelector>
             <LayoutRoot>
                 <LayoutPanel Orientation="Horizontal">

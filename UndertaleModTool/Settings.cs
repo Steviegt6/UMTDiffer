@@ -7,7 +7,8 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
 
-using UndertaleModTool.ViewModels;
+using AakStudio.Shell.UI.Showcase;
+using AakStudio.Shell.UI.Showcase.ViewModels;
 
 namespace UndertaleModTool
 {
@@ -57,7 +58,7 @@ namespace UndertaleModTool
         public string Theme
         {
             get => WorkSpaceViewModel.Default.CurrentTheme.Name;
-            set => WorkSpaceViewModel.Default.CurrentTheme = UmtThemeCollection.AllThemes.FirstOrDefault(x => x.Name == value) ?? UmtThemeCollection.AllThemes[^2];
+            set => WorkSpaceViewModel.Default.CurrentTheme = AakThemeCollection.AllThemes.FirstOrDefault(x => x.Name == value) ?? AakThemeCollection.AllThemes[^2];
         }
         public bool ShowDebuggerOption { get; set; } = false;
 
