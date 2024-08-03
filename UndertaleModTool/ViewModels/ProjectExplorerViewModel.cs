@@ -4,6 +4,7 @@ using AakStudio.Shell.UI.Showcase.Shell;
 using AakStudio.Shell.UI.Showcase.ViewModels.Collection;
 using AakStudio.Shell.UI.Showcase.Views;
 
+using UndertaleModTool.Aak.Views;
 using UndertaleModTool.ViewModels.Collection;
 
 namespace UndertaleModTool.ViewModels
@@ -25,7 +26,7 @@ namespace UndertaleModTool.ViewModels
             };
 
             Title = "Project Explorer";
-            View  = new ProjectExplorerView { DataContext = this };
+            View  = new MainView {  };
         }
 
         private readonly WorkSpaceViewModel                           workSpaceViewModel;
