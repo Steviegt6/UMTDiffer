@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 
 namespace UndertaleModTool.ViewModels.Solution;
 
-public class SolutionViewModel : INotifyPropertyChanged
+internal class SolutionViewModel : INotifyPropertyChanged
 {
     public string Name
     {

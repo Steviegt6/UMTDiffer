@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 using System.Windows;
-
-using AakStudio.Shell.UI.Showcase;
-using AakStudio.Shell.UI.Showcase.ViewModels;
 
 using UndertaleModTool.Aak;
 using UndertaleModTool.ViewModels;

@@ -6,7 +6,7 @@ using UndertaleModTool.ViewModels;
 
 namespace UndertaleModTool.Aak.ViewModels.Collection;
 
-internal sealed class AakDocumentViewModel : AakDocument
+internal class AakDocumentViewModel : AakDocument
 {
     private readonly WorkSpaceViewModel parent;
     

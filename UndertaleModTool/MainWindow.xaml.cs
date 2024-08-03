@@ -1,12 +1,10 @@
-﻿using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp.Scripting;
+﻿using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -45,15 +43,11 @@ using System.Net;
 using System.Globalization;
 using System.Windows.Controls.Primitives;
 using System.Runtime.CompilerServices;
-using System.Windows.Interop;
 
 using AakStudio.Shell.UI.Controls;
-using AakStudio.Shell.UI.Showcase.ViewModels.Collection;
+using AakStudio.Shell.UI.Showcase.Shell;
 
 using AvalonDock.Layout;
-
-using UndertaleModTool.Aak.ViewModels.Collection;
-using UndertaleModTool.ViewModels.Collection;
 
 namespace UndertaleModTool
 {
@@ -200,7 +194,7 @@ namespace UndertaleModTool
 
         private void DockingManager_ActiveContentChanged(object sender, System.EventArgs e)
         {
-            if (!isCleanValue && IsNotToolWell(dockingManager.ActiveContent))
+            if (!isCleanValue && IsNotAnchorable(dockingManager.ActiveContent))
             {
                 ClearValue(ActiveGlowBrushProperty);
 
@@ -210,16 +204,16 @@ namespace UndertaleModTool
                 isCleanValue = true;
             }
             // On Theme Changed
-            else if (IsActive && IsNotToolWell(dockingManager.ActiveContent))
+            else if (IsActive && IsNotAnchorable(dockingManager.ActiveContent))
             {
                 ActiveContentOfDockingManager();
             }
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private bool IsNotToolWell(object value)
+        private bool IsNotAnchorable(object value)
         {
-            return value is AakCollectionViewModel || value is AakDocumentViewModel;
+            return value is AakDocument;
         }
 
         private void MetroWindow_Activated(object sender, System.EventArgs e)

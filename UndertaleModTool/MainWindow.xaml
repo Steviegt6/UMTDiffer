@@ -6,7 +6,6 @@
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     xmlns:local="clr-namespace:UndertaleModTool"
-                    xmlns:viewModels="clr-namespace:AakStudio.Shell.UI.Showcase.ViewModels"
                     xmlns:shell="clr-namespace:AakStudio.Shell.UI.Showcase.Shell"
                     xmlns:viewModels1="clr-namespace:UndertaleModTool.ViewModels"
                     xmlns:styles1="clr-namespace:UndertaleModTool.Aak.Styles"
@@ -311,7 +310,7 @@
                             <ContentPresenter Content="{Binding View}" />
                         </DataTemplate>
                     </styles1:AakTemplateSelector.AakToolWellTemplate>
-                    <styles1:AakTemplateSelector.AakCollectionTemplate>
+                    <!--<styles1:AakTemplateSelector.AakCollectionTemplate>
                         <DataTemplate DataType="{x:Type shell:AakCollection}">
                             <ScrollViewer HorizontalScrollBarVisibility="Auto">
                                 <Grid Margin="15">
@@ -322,7 +321,7 @@
                                 </Grid>
                             </ScrollViewer>
                         </DataTemplate>
-                    </styles1:AakTemplateSelector.AakCollectionTemplate>
+                    </styles1:AakTemplateSelector.AakCollectionTemplate>-->
                 </styles1:AakTemplateSelector>
             </DockingManager.LayoutItemTemplateSelector>
             <DockingManager.LayoutItemContainerStyleSelector>

@@ -2,14 +2,13 @@
 using System.Linq;
 using System.Windows.Input;
 
-using AakStudio.Shell.UI.Showcase;
 using AakStudio.Shell.UI.Showcase.Shell;
-using AakStudio.Shell.UI.Showcase.ViewModels;
 
 using UndertaleModTool.Aak;
 using UndertaleModTool.Aak.Commands;
 using UndertaleModTool.Aak.Shell;
 using UndertaleModTool.Aak.ViewModels;
+using UndertaleModTool.ViewModels.Solution;
 
 namespace UndertaleModTool.ViewModels;
 
@@ -53,14 +52,14 @@ internal sealed class WorkSpaceViewModel : ViewModelBase
 
     private WorkSpaceViewModel()
     {
-        ProjectExplorer = new ProjectExplorerViewModel(this);
+        // ProjectExplorer = new ProjectExplorerViewModel(this);
         currentTheme    = AakXamlUIResource.Instance.Theme;
 
-        anchorables   = new ObservableCollection<AakAnchorable>() { ProjectExplorer };
+        anchorables   = new ObservableCollection<AakAnchorable> { new MainViewModel(this) };
         documentViews = new ObservableCollection<AakDocument>();
     }
 
-    public ProjectExplorerViewModel ProjectExplorer { get; }
+    // public ProjectExplorerViewModel ProjectExplorer { get; }
 
     private ObservableCollection<AakAnchorable>     anchorables;
     private ObservableCollection<AakDocument> documentViews;

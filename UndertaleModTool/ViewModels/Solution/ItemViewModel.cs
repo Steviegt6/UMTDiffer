@@ -2,10 +2,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
+
+using UndertaleModTool.Aak.ViewModels.Collection;
 
 namespace UndertaleModTool.ViewModels.Solution;
 
-public class ItemViewModel : INotifyPropertyChanged
+internal class ItemViewModel : AakDocumentViewModel, INotifyPropertyChanged
 {
     public string Name
     {
@@ -26,7 +29,7 @@ public class ItemViewModel : INotifyPropertyChanged
     private ObservableCollection<ItemViewModel> children = new();
     private string                              name;
 
-    public ItemViewModel(string name)
+    public ItemViewModel(string name, UIElement view, string title, WorkSpaceViewModel parent) : base(view, title, parent)
     {
         this.name = name;
     }
