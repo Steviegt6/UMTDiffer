@@ -31,7 +31,7 @@ internal class ItemViewModel : AakDocumentViewModel, INotifyPropertyChanged
 
     public ItemViewModel(string name, UIElement view, string title, WorkSpaceViewModel parent) : base(view, title, parent)
     {
-        this.name = name;
+        Title = this.name = name;
     }
 
     protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

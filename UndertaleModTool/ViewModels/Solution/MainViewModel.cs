@@ -26,5 +26,7 @@ internal class MainViewModel : AakAnchorable
         var project2 = new ProjectViewModel("Project2", new Button(), "Project 2", parent);
         project2.Items.Add(new ItemViewModel("File4.cs", new Button(), "File 4", parent));
         Solution.Projects.Add(project2);
+        
+        View = new SolutionView { DataContext = Solution };
     }
 }
