@@ -218,10 +218,71 @@
     </Window.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <DockPanel>
+        <ToolBarTray>
+            <ToolBar BandIndex="1">
+                <Button ToolTip="Back" Margin="0,0,2,0" x:Name="BackButton" Click="BackButton_Click">
+                    <Button.Style>
+                        <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding CurrentTab.HistoryPosition}" Value="0">
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <Image Name="BackButtonImage">
+                        <Image.Style>
+                            <Style TargetType="Image">
+                                <Style.Triggers>
+                                    <Trigger Property="IsEnabled" Value="False">
+                                        <Setter Property="Opacity" Value="0.2" />
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver" Value="False">
+                                        <Setter Property="Source" Value="/Resources/arrow_blue.png" />
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Source" Value="/Resources/arrow_red.png" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image>
+                </Button>
+                <Button ToolTip="Forward" x:Name="ForwardButton" Click="ForwardButton_Click">
+                    <Button.IsEnabled>
+                        <MultiBinding Converter="{StaticResource ForwardButtonEnabledConverter}" Mode="OneWay">
+                            <Binding Path="CurrentTab.HistoryPosition" Mode="OneWay"/>
+                            <Binding Path="CurrentTab.History.Count" Mode="OneWay"/>
+                        </MultiBinding>
+                    </Button.IsEnabled>
+                    <Image Name="ForwardButtonImage" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <ScaleTransform ScaleX="-1" ScaleY="-1"/>
+                        </Image.RenderTransform>
+                        <Image.Style>
+                            <Style TargetType="Image">
+                                <Style.Triggers>
+                                    <Trigger Property="IsEnabled" Value="False">
+                                        <Setter Property="Opacity" Value="0.2" />
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver" Value="False">
+                                        <Setter Property="Source" Value="/Resources/arrow_blue.png" />
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Source" Value="/Resources/arrow_red.png" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image>
+                </Button>
+            </ToolBar>
+        </ToolBarTray>
+        <DockPanel Grid.Row="1">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -237,65 +298,6 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <StackPanel Grid.Row="0" Margin="0,0,0,5" Orientation="Horizontal">
-                        <Button ToolTip="Back" Margin="0,0,2,0" x:Name="BackButton" Click="BackButton_Click">
-                            <Button.Style>
-                                <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding CurrentTab.HistoryPosition}" Value="0">
-                                            <Setter Property="IsEnabled" Value="False" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Button.Style>
-                            <Image Name="BackButtonImage">
-                                <Image.Style>
-                                    <Style TargetType="Image">
-                                        <Style.Triggers>
-                                            <Trigger Property="IsEnabled" Value="False">
-                                                <Setter Property="Opacity" Value="0.2" />
-                                            </Trigger>
-                                            <Trigger Property="IsMouseOver" Value="False">
-                                                <Setter Property="Source" Value="/Resources/arrow_blue.png" />
-                                            </Trigger>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="Source" Value="/Resources/arrow_red.png" />
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Image.Style>
-                            </Image>
-                        </Button>
-                        <Button ToolTip="Forward" x:Name="ForwardButton" Click="ForwardButton_Click">
-                            <Button.IsEnabled>
-                                <MultiBinding Converter="{StaticResource ForwardButtonEnabledConverter}" Mode="OneWay">
-                                    <Binding Path="CurrentTab.HistoryPosition" Mode="OneWay"/>
-                                    <Binding Path="CurrentTab.History.Count" Mode="OneWay"/>
-                                </MultiBinding>
-                            </Button.IsEnabled>
-                            <Image Name="ForwardButtonImage" RenderTransformOrigin="0.5,0.5">
-                                <Image.RenderTransform>
-                                    <ScaleTransform ScaleX="-1" ScaleY="-1"/>
-                                </Image.RenderTransform>
-                                <Image.Style>
-                                    <Style TargetType="Image">
-                                        <Style.Triggers>
-                                            <Trigger Property="IsEnabled" Value="False">
-                                                <Setter Property="Opacity" Value="0.2" />
-                                            </Trigger>
-                                            <Trigger Property="IsMouseOver" Value="False">
-                                                <Setter Property="Source" Value="/Resources/arrow_blue.png" />
-                                            </Trigger>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="Source" Value="/Resources/arrow_red.png" />
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Image.Style>
-                            </Image>
-                        </Button>
-                    </StackPanel>
-
                     <TextBox Grid.Row="1" x:Name="SearchBox" ToolTip="Search" TextChanged="SearchBox_TextChanged">
                         <!-- Source - https://stackoverflow.com/a/7433840/12136394 -->
                         <TextBox.Style>
@@ -793,7 +795,7 @@
         </DockPanel>
         <StatusBar
             x:Name="mainStatusBar"
-            Grid.Row="1"
+            Grid.Row="2"
             Background="{x:Null}"
             Foreground="{DynamicResource SystemColorsWindowText}">
             <StatusBar.ItemsPanel>
