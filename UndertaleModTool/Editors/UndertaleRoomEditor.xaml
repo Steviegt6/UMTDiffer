@@ -43,7 +43,7 @@
                 <x:Type TypeName="undertale:AnimationSpeedType" />
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
-        <Style x:Key="Centered" TargetType="FrameworkElement" BasedOn="{StaticResource {x:Type FrameworkElement}}">
+        <Style x:Key="Centered" TargetType="FrameworkElement">
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
     </UserControl.Resources>
