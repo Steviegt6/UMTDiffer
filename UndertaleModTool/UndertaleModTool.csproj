@@ -52,6 +52,7 @@
     <ItemGroup>
         <Resource Include="Resources\arrow_blue.png" />
         <Resource Include="Resources\arrow_red.png" />
+        <Resource Include="Resources\icon.png" />
     </ItemGroup>
     <ItemGroup>
         <Resource Include="icon.ico" />

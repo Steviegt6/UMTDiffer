@@ -38,10 +38,11 @@
                 Margin="4,2,8,0"
                 VerticalAlignment="Top"
                 IsHitTestVisible="False">
-                <Rectangle
+                <!-- add icon.ico -->
+                <Image
+                    Source="/Resources/icon.png"
                     Width="16"
-                    Height="16"
-                    Style="{StaticResource WindowIconRectangle}" />
+                    Height="16"/>
             </Viewbox>
             <Menu Grid.Column="1" Margin="0,2,0,0">
                 <MenuItem Header="_File">
