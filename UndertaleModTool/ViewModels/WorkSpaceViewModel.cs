@@ -5,7 +5,6 @@ using System.Windows.Input;
 using AakStudio.Shell.UI.Showcase.Shell;
 
 using UndertaleModTool.Aak;
-using UndertaleModTool.Aak.Commands;
 using UndertaleModTool.Aak.Shell;
 using UndertaleModTool.Aak.ViewModels;
 using UndertaleModTool.ViewModels.Solution;
@@ -45,15 +44,10 @@ internal sealed class WorkSpaceViewModel : ViewModelBase
         set => OnPropertyChanged(ref activeDocument, value, nameof(ActiveDocument));
     }
 
-    public ICommand ThemeSwitchCommand
-    {
-        get => themeSwitchCommand ??= new RelayCommand<AakTheme>(OnThemeSwitch);
-    }
-
     private WorkSpaceViewModel()
     {
         // ProjectExplorer = new ProjectExplorerViewModel(this);
-        currentTheme    = AakXamlUIResource.Instance.Theme;
+        currentTheme = AakXamlUIResource.Instance.Theme;
 
         anchorables   = new ObservableCollection<AakAnchorable> { new MainViewModel(this) };
         documentViews = new ObservableCollection<AakDocument>();
@@ -61,20 +55,12 @@ internal sealed class WorkSpaceViewModel : ViewModelBase
 
     // public ProjectExplorerViewModel ProjectExplorer { get; }
 
-    private ObservableCollection<AakAnchorable>     anchorables;
-    private ObservableCollection<AakDocument> documentViews;
-    private AakTheme                              currentTheme;
+    private ObservableCollection<AakAnchorable> anchorables;
+    private ObservableCollection<AakDocument>   documentViews;
+    private AakTheme                            currentTheme;
 
     private AakViewElement? activeDocument;
     private ICommand?       themeSwitchCommand;
-
-    private void OnThemeSwitch(AakTheme? newTheme)
-    {
-        if (newTheme is not null)
-        {
-            CurrentTheme = newTheme;
-        }
-    }
 
     public void AddOrActiveDocument(AakDocument view)
     {
