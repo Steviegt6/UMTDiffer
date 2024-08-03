@@ -32,39 +32,73 @@
                     Style="{StaticResource WindowIconRectangle}" />
             </Viewbox>
             <Menu Grid.Column="1" Margin="0,2,0,0">
-                <MenuItem Header="View(_V)">
-                    <MenuItem
-                        Header="{Binding StyleSelector.Title}"
-                        IsCheckable="True"
-                        IsChecked="{Binding StyleSelector.IsVisible, Mode=TwoWay}" />
-                </MenuItem>
-                <!--<MenuItem Header="Themes(_T)" ItemsSource="{x:Static local:AakThemeCollection.AllThemes}">
+                <local:MenuItemDark Header="_File">
+                    <MenuItem Header="_New" Command="New" InputGestureText="Ctrl+N"/>
+                    <MenuItem Header="_Open" Command="Open" InputGestureText="Ctrl+O"/>
+                    <MenuItem Header="_Save" Command="Save" InputGestureText="Ctrl+S">
+                        <MenuItem.Style>
+                            <Style TargetType="{x:Type MenuItem}">
+                                <Setter Property="IsEnabled" Value="{Binding CanSave}"/>
+                            </Style>
+                        </MenuItem.Style>
+                    </MenuItem>
+                    <Separator/>
+                    <MenuItem Header="_Temp run game" Command="Print" InputGestureText="F5">
+                        <!-- TODO: I think I need a custom command for that... -->
+                        <MenuItem.Style>
+                            <Style TargetType="{x:Type MenuItem}">
+                                <Setter Property="IsEnabled" Value="{Binding CanSave}"/>
+                            </Style>
+                        </MenuItem.Style>
+                    </MenuItem>
+                    <MenuItem Name="RunGMSDebuggerItem" Header="Run game under GMS _debugger" Command="PrintPreview" InputGestureText="Shift+F5">
+                        <MenuItem.Style>
+                            <Style TargetType="{x:Type MenuItem}">
+                                <Setter Property="IsEnabled" Value="{Binding CanSave}"/>
+                            </Style>
+                        </MenuItem.Style>
+                    </MenuItem>
+                    <MenuItem Header="Run game with other runner" Command="CancelPrint" InputGestureText="Alt+F5">
+                        <MenuItem.Style>
+                            <Style TargetType="{x:Type MenuItem}">
+                                <Setter Property="IsEnabled" Value="{Binding CanSave}"/>
+                            </Style>
+                        </MenuItem.Style>
+                    </MenuItem>
+                    <Separator/>
+                    <MenuItem Header="Generate o_ffset map" Click="MenuItem_OffsetMap_Click"/>
+                    <Separator/>
+                    <MenuItem Header="S_ettings" Command="Properties"/>
+                    <MenuItem Header="_Close" Command="Close" InputGestureText="Ctrl+Q"/>
+                </local:MenuItemDark>
+                <local:MenuItemDark x:Name="RootScriptItem" Header="_Scripts" SubmenuOpened="RootMenuItem_SubmenuOpened">
+                    <MenuItem Header="(...loading...)" IsEnabled="False"/>
+                </local:MenuItemDark>
+                <local:MenuItemDark Header="_Find">
                     <MenuItem.Resources>
-                        <Style x:Key="BindingCommandsMenuItem" TargetType="{x:Type MenuItem}">
-                            <Setter Property="Command" Value="{Binding ThemeSwitchCommand, Source={x:Static vm:WorkSpaceViewModel.Default}}" />
-                            <Setter Property="CommandParameter" Value="{Binding .}" />
-                            <Setter Property="Header" Value="{Binding Name}" />
-                            <Setter Property="IsCheckable" Value="True" />
-                            <Setter Property="IsChecked">
-                                <Setter.Value>
-                                    <MultiBinding Converter="{StaticResource AakThemeIsEqualsConverter}" Mode="OneWay">
-                                        <MultiBinding.Bindings>
-                                            <Binding Path="CurrentTheme" Source="{x:Static vm:WorkSpaceViewModel.Default}" />
-                                            <Binding Path="." />
-                                        </MultiBinding.Bindings>
-                                    </MultiBinding>
-                                </Setter.Value>
-                            </Setter>
+                        <Style TargetType="MenuItem">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Data, Mode=OneWay}" Value="{x:Null}">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+                            </Style.Triggers>
                         </Style>
                     </MenuItem.Resources>
-                    <MenuItem.ItemContainerStyle>
-                        <Style TargetType="{x:Type MenuItem}">
-                            <Setter Property="DynamicStyleProvider.BasedOn" Value="{DynamicResource MenuItemBaseStyle}" />
-                            <Setter Property="DynamicStyleProvider.Derived" Value="{DynamicResource BindingCommandsMenuItem}" />
-                        </Style>
-                    </MenuItem.ItemContainerStyle>
-                </MenuItem>-->
 
+                    <MenuItem Header="Find unreferenced _assets" Name="FindUnreferencedAssetsItem" Click="MenuItem_FindUnreferencedAssets_Click"/>
+                    <Separator/>
+                    <MenuItem Header="(script links)" FontStyle="Italic" IsEnabled="False"/>
+                    <MenuItem Header="Search in _code (&quot;Search.csx&quot;)"
+                              Click="MenuItem_RunBuiltinScript_Item_Click" CommandParameter="Scripts\Builtin Scripts\Search.csx"/>
+                    <MenuItem Header="Search in _assembly (&quot;SearchASM.csx&quot;)"
+                              Click="MenuItem_RunBuiltinScript_Item_Click" CommandParameter="Scripts\Builtin Scripts\SearchASM.csx"/>
+                    <MenuItem Header="Search in _specific code (&quot;SearchLimited.csx&quot;)"
+                              Click="MenuItem_RunBuiltinScript_Item_Click" CommandParameter="Scripts\Builtin Scripts\SearchLimited.csx"/>
+                </local:MenuItemDark>
+                <local:MenuItemDark Header="_Help">
+                    <MenuItem Header="_GitHub" Click="MenuItem_GitHub_Click"/>
+                    <MenuItem Header="_About" Click="MenuItem_About_Click"/>
+                </local:MenuItemDark>
             </Menu>
             <Border
                 Grid.Column="2"
@@ -172,77 +206,6 @@
     </Window.InputBindings>
     <Grid>
         <DockPanel>
-            <Menu DockPanel.Dock="Top"
-                  Foreground="{DynamicResource {x:Static SystemColors.MenuTextBrushKey}}"
-                  Background="{DynamicResource {x:Static SystemColors.MenuBrushKey}}">
-                <local:MenuItemDark Header="_File">
-                    <MenuItem Header="_New" Command="New" InputGestureText="Ctrl+N"/>
-                    <MenuItem Header="_Open" Command="Open" InputGestureText="Ctrl+O"/>
-                    <MenuItem Header="_Save" Command="Save" InputGestureText="Ctrl+S">
-                        <MenuItem.Style>
-                            <Style TargetType="{x:Type MenuItem}">
-                                <Setter Property="IsEnabled" Value="{Binding CanSave}"/>
-                            </Style>
-                        </MenuItem.Style>
-                    </MenuItem>
-                    <Separator/>
-                    <MenuItem Header="_Temp run game" Command="Print" InputGestureText="F5">
-                        <!-- TODO: I think I need a custom command for that... -->
-                        <MenuItem.Style>
-                            <Style TargetType="{x:Type MenuItem}">
-                                <Setter Property="IsEnabled" Value="{Binding CanSave}"/>
-                            </Style>
-                        </MenuItem.Style>
-                    </MenuItem>
-                    <MenuItem Name="RunGMSDebuggerItem" Header="Run game under GMS _debugger" Command="PrintPreview" InputGestureText="Shift+F5">
-                        <MenuItem.Style>
-                            <Style TargetType="{x:Type MenuItem}">
-                                <Setter Property="IsEnabled" Value="{Binding CanSave}"/>
-                            </Style>
-                        </MenuItem.Style>
-                    </MenuItem>
-                    <MenuItem Header="Run game with other runner" Command="CancelPrint" InputGestureText="Alt+F5">
-                        <MenuItem.Style>
-                            <Style TargetType="{x:Type MenuItem}">
-                                <Setter Property="IsEnabled" Value="{Binding CanSave}"/>
-                            </Style>
-                        </MenuItem.Style>
-                    </MenuItem>
-                    <Separator/>
-                    <MenuItem Header="Generate o_ffset map" Click="MenuItem_OffsetMap_Click"/>
-                    <Separator/>
-                    <MenuItem Header="S_ettings" Command="Properties"/>
-                    <MenuItem Header="_Close" Command="Close" InputGestureText="Ctrl+Q"/>
-                </local:MenuItemDark>
-                <local:MenuItemDark x:Name="RootScriptItem" Header="_Scripts" SubmenuOpened="RootMenuItem_SubmenuOpened">
-                    <MenuItem Header="(...loading...)" IsEnabled="False"/>
-                </local:MenuItemDark>
-                <local:MenuItemDark Header="_Find">
-                    <MenuItem.Resources>
-                        <Style TargetType="MenuItem">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Data, Mode=OneWay}" Value="{x:Null}">
-                                    <Setter Property="IsEnabled" Value="False"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </MenuItem.Resources>
-
-                    <MenuItem Header="Find unreferenced _assets" Name="FindUnreferencedAssetsItem" Click="MenuItem_FindUnreferencedAssets_Click"/>
-                    <Separator/>
-                    <MenuItem Header="(script links)" FontStyle="Italic" IsEnabled="False"/>
-                    <MenuItem Header="Search in _code (&quot;Search.csx&quot;)"
-                              Click="MenuItem_RunBuiltinScript_Item_Click" CommandParameter="Scripts\Builtin Scripts\Search.csx"/>
-                    <MenuItem Header="Search in _assembly (&quot;SearchASM.csx&quot;)"
-                              Click="MenuItem_RunBuiltinScript_Item_Click" CommandParameter="Scripts\Builtin Scripts\SearchASM.csx"/>
-                    <MenuItem Header="Search in _specific code (&quot;SearchLimited.csx&quot;)"
-                              Click="MenuItem_RunBuiltinScript_Item_Click" CommandParameter="Scripts\Builtin Scripts\SearchLimited.csx"/>
-                </local:MenuItemDark>
-                <local:MenuItemDark Header="_Help">
-                    <MenuItem Header="_GitHub" Click="MenuItem_GitHub_Click"/>
-                    <MenuItem Header="_About" Click="MenuItem_About_Click"/>
-                </local:MenuItemDark>
-            </Menu>
             <Grid DockPanel.Dock="Bottom">
                 <local:TextBoxDark x:Name="CommandBox" AcceptsReturn="True" PreviewKeyDown="CommandBox_PreviewKeyDown" Margin="0,0,35,0"/>
                 <Label Content="None" HorizontalAlignment="Right" VerticalAlignment="Top" VerticalContentAlignment="Top" Name="ObjectLabel"
