@@ -26,7 +26,6 @@
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d">
     <!--Activated="MetroWindow_Activated"-->
-
     <CustomChromeWindow.LeftWindowCommands>
         <Grid Margin="4,6">
             <Grid.ColumnDefinitions>
@@ -167,8 +166,7 @@
         </StackPanel>
     </CustomChromeWindow.RightWindowCommands>-->
     <Window.Title>
-        <MultiBinding StringFormat="{}{0} - {1} [{2}]">
-            <Binding Path="TitleMain"/>
+        <MultiBinding StringFormat="{}{0} [{1}]">
             <Binding Path="Data.GeneralInfo" FallbackValue="No game loaded"/>
             <Binding Path="FilePath"/>
         </MultiBinding>
