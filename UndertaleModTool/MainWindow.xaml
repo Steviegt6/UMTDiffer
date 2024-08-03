@@ -164,12 +164,6 @@
                 Content="✨" />
         </StackPanel>
     </CustomChromeWindow.RightWindowCommands>-->
-    <Window.Title>
-        <MultiBinding StringFormat="{}{0} [{1}]">
-            <Binding Path="Data.GeneralInfo" FallbackValue="No game loaded"/>
-            <Binding Path="FilePath"/>
-        </MultiBinding>
-    </Window.Title>
     <Window.Resources>
         <local:ImplementsInterfaceConverter x:Key="ImplementsInterfaceConverter"/>
         <local:FilteredViewConverter x:Key="FilteredViewConverter" Filter="{Binding Text, Source={x:Reference SearchBox}, UpdateSourceTrigger=PropertyChanged}"/>
@@ -179,7 +173,14 @@
         <local:TabTitleConverter x:Key="TabTitleConverter"/>
         <local:StringTitleConverter x:Key="StringTitleConverter"/>
         <local:ForwardButtonEnabledConverter x:Key="ForwardButtonEnabledConverter"/>
+        <local:MainWindowTitleConverter x:Key="MainWindowTitleConverter"/>
     </Window.Resources>
+    <Window.Title>
+        <MultiBinding Converter="{StaticResource MainWindowTitleConverter}">
+            <Binding Path="Data.GeneralInfo" FallbackValue="No game loaded"/>
+            <Binding Path="FilePath"/>
+        </MultiBinding>
+    </Window.Title>
     <Window.CommandBindings>
         <CommandBinding Command="New" Executed="Command_New" />
         <CommandBinding Command="Open" Executed="Command_Open" />
