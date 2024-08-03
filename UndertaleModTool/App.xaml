@@ -5,11 +5,12 @@
              xmlns:showcase="clr-namespace:AakStudio.Shell.UI.Showcase"
              xmlns:converters1="clr-namespace:UndertaleModTool.Aak.Converters"
              xmlns:markup="clr-namespace:UndertaleModTool.Aak.Markup"
+             xmlns:aak="clr-namespace:UndertaleModTool.Aak"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <showcase:AakXamlUIResource />
+                <aak:AakXamlUIResource />
             </ResourceDictionary.MergedDictionaries>
             <BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
 

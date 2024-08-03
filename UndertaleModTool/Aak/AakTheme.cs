@@ -2,23 +2,22 @@
 using System.Collections.Generic;
 using System.Windows;
 
-namespace AakStudio.Shell.UI.Showcase
+namespace UndertaleModTool.Aak;
+
+public abstract class AakTheme : ResourceDictionary
 {
-    public abstract class AakTheme : ResourceDictionary
+    public abstract string Name { get; }
+
+    public abstract IEnumerable<string> ThemeResources { get; }
+
+    protected AakTheme()
     {
-        public abstract string Name { get; }
-
-        public abstract IEnumerable<string> ThemeResources { get; }
-
-        protected AakTheme()
+        foreach (var item in ThemeResources)
         {
-            foreach (var item in ThemeResources)
+            MergedDictionaries.Add(new ResourceDictionary
             {
-                MergedDictionaries.Add(new ResourceDictionary
-                {
-                    Source = new Uri(item, UriKind.Relative)
-                });
-            }
+                Source = new Uri(item, UriKind.Relative)
+            });
         }
     }
 }

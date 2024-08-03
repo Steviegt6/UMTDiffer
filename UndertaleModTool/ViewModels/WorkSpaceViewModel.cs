@@ -6,6 +6,7 @@ using AakStudio.Shell.UI.Showcase;
 using AakStudio.Shell.UI.Showcase.Shell;
 using AakStudio.Shell.UI.Showcase.ViewModels;
 
+using UndertaleModTool.Aak;
 using UndertaleModTool.Aak.Commands;
 using UndertaleModTool.Aak.Shell;
 using UndertaleModTool.Aak.ViewModels;

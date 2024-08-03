@@ -18,6 +18,7 @@ using AakStudio.Shell.UI.Controls;
 using AakStudio.Shell.UI.Showcase;
 using AakStudio.Shell.UI.Showcase.ViewModels;
 
+using UndertaleModTool.Aak;
 using UndertaleModTool.ViewModels;
 
 namespace UndertaleModTool
