@@ -34,11 +34,11 @@
                 </Style.Triggers>
             </Style>
             
-            <local:ContextMenuDark x:Key="textBoxContextMenu">
+            <ContextMenu x:Key="textBoxContextMenu">
                 <MenuItem Command="ApplicationCommands.Cut" />
                 <MenuItem Command="ApplicationCommands.Copy" />
                 <MenuItem Command="ApplicationCommands.Paste" />
-            </local:ContextMenuDark>
+            </ContextMenu>
             
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/AakStudio.Shell.UI;component/themes/visualstudio2022/darktheme.xaml" />
