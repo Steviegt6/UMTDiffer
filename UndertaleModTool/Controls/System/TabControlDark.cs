@@ -18,7 +18,7 @@ namespace UndertaleModTool
 
         private void TabControlDark_Loaded(object sender, RoutedEventArgs e)
         {
-            SetDarkMode(Settings.Instance is not null ? Settings.Instance.EnableDarkMode : false);
+            // SetDarkMode(Settings.Instance is not null ? Settings.Instance.EnableDarkMode : false);
         }
 
         /// <inheritdoc/>
@@ -73,7 +73,7 @@ namespace UndertaleModTool
                 innerBd?.SetResourceReference(BackgroundProperty, SystemColors.WindowBrushKey);
             }
 
-            SetDarkMode(Settings.Instance.EnableDarkMode);
+            // SetDarkMode(Settings.Instance.EnableDarkMode);
         }
 
         public void SetDarkMode(bool enable)
@@ -84,14 +84,14 @@ namespace UndertaleModTool
         /// <inheritdoc/>
         protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
         {
-            if (e.Property == IsMouseOverProperty
+            /*if (e.Property == IsMouseOverProperty
                 && Settings.Instance.EnableDarkMode)
             {
                 if ((bool)e.NewValue)
                     border?.SetValue(BackgroundProperty, itemHighlightDarkBrush);
                 else
                     border?.ClearValue(BackgroundProperty);
-            }
+            }*/
 
             base.OnPropertyChanged(e);
         }

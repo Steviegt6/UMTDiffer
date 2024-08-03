@@ -49,8 +49,8 @@ namespace UndertaleModTool
             {
                 // If the object is the same and the style is also the same
                 // (0 - light mode, 1 - dark mode)
-                if (v == 0 && !Settings.Instance.EnableDarkMode
-                    || v == 1 && Settings.Instance.EnableDarkMode)
+                /*if (v == 0 && !Settings.Instance.EnableDarkMode
+                    || v == 1 && Settings.Instance.EnableDarkMode)*/
                     return;
             }
 
@@ -65,7 +65,7 @@ namespace UndertaleModTool
             if (parent is null)
                 return;
 
-            if (Settings.Instance.EnableDarkMode)
+            /*if (Settings.Instance.EnableDarkMode)
             {
                 var rects = GetSortedRectList(parent);
                 if (rects is null)
@@ -85,7 +85,7 @@ namespace UndertaleModTool
 
                 Tag = 1;
             }
-            else
+            else*/
             {
                 var rects = GetSortedRectList(parent);
                 if (rects is null)

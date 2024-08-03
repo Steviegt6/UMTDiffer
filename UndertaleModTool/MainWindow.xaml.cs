@@ -47,12 +47,14 @@ using System.Windows.Controls.Primitives;
 using System.Runtime.CompilerServices;
 using System.Windows.Interop;
 
+using AakStudio.Shell.UI.Controls;
+
 namespace UndertaleModTool
 {
     /// <summary>
     /// Logika interakcji dla klasy MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window, INotifyPropertyChanged, IScriptInterface
+    public partial class MainWindow : CustomChromeWindow, INotifyPropertyChanged, IScriptInterface
     {
         /// Note for those who don't know what is "PropertyChanged.Fody" -
         /// it automatically adds "OnPropertyChanged()" to every property (or modify existing) of the class that implements INotifyPropertyChanged.
@@ -248,10 +250,10 @@ namespace UndertaleModTool
                                 .WithEmitDebugInformation(true); //when script throws an exception, add a exception location (line number)
             });
 
-            var resources = Application.Current.Resources;
+            /*var resources = Application.Current.Resources;
             resources["CustomTextBrush"] = SystemColors.ControlTextBrush;
             resources[SystemColors.GrayTextBrushKey] = grayTextBrush;
-            resources[SystemColors.InactiveSelectionHighlightBrushKey] = inactiveSelectionBrush;
+            resources[SystemColors.InactiveSelectionHighlightBrushKey] = inactiveSelectionBrush;*/
         }
 
         private void SetIDString(string str)
@@ -302,11 +304,11 @@ namespace UndertaleModTool
                 return;
 
             Settings.Load();
-            if (Settings.Instance.EnableDarkMode)
+            /*if (Settings.Instance.EnableDarkMode)
             {
                 SetDarkMode(true, true);
                 SetDarkTitleBarForWindow(this, true, false);
-            }
+            }*/
         }
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -555,8 +557,8 @@ namespace UndertaleModTool
                 Windows.TextInput.TextColor = System.Drawing.SystemColors.ControlText;
             }
 
-            if (!isStartup)
-                SetDarkTitleBarForWindows(enable);
+            /*if (!isStartup)
+                SetDarkTitleBarForWindows(enable);*/
         }
         private static void SetDarkTitleBarForWindows(bool enable)
         {
@@ -570,8 +572,8 @@ namespace UndertaleModTool
                 }
             }
 
-            foreach (Window w in Application.Current.Windows)
-                SetDarkTitleBarForWindow(w, enable);
+            /*foreach (Window w in Application.Current.Windows)
+                SetDarkTitleBarForWindow(w, enable);*/
 
             activeWindow?.Activate();
         }
@@ -2171,10 +2173,10 @@ namespace UndertaleModTool
             var content = popup?.Child as Border;
             if (content is not null)
             {
-                if (Settings.Instance.EnableDarkMode)
+                /*if (Settings.Instance.EnableDarkMode)
                     content.Background = appDarkStyle[SystemColors.MenuBrushKey] as SolidColorBrush;
                 else
-                    content.Background = SystemColors.MenuBrush;
+                    content.Background = SystemColors.MenuBrush;*/
             }
 
             // If we're at the complete root, we need to add the "Run other script" button as well

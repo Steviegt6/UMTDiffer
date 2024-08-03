@@ -68,8 +68,8 @@ namespace UndertaleModTool
             if (!IsVisible || IsLoaded)
                 return;
 
-            if (Settings.Instance.EnableDarkMode)
-                MainWindow.SetDarkTitleBarForWindow(this, true, false);
+            /*if (Settings.Instance.EnableDarkMode)
+                MainWindow.SetDarkTitleBarForWindow(this, true, false);*/
         }
 
         protected override void OnClosing(CancelEventArgs e)

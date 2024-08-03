@@ -78,8 +78,8 @@ namespace UndertaleModTool.Editors.UndertaleFontEditor
             if (!IsVisible || IsLoaded)
                 return;
 
-            if (Settings.Instance.EnableDarkMode)
-                MainWindow.SetDarkTitleBarForWindow(this, true, false);
+            /*if (Settings.Instance.EnableDarkMode)
+                MainWindow.SetDarkTitleBarForWindow(this, true, false);*/
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

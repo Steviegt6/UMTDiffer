@@ -37,8 +37,8 @@ namespace UndertaleModTool.Windows
                 return;
             }
 
-            if (Settings.Instance.EnableDarkMode)
-                MainWindow.SetDarkTitleBarForWindow(this, true, false);
+            /*if (Settings.Instance.EnableDarkMode)
+                MainWindow.SetDarkTitleBarForWindow(this, true, false);*/
         }
 
         public FindReferencesTypesDialog(UndertaleResource obj, UndertaleData data)

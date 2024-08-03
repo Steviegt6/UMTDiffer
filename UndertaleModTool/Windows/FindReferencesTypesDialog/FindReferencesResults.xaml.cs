@@ -35,8 +35,8 @@ namespace UndertaleModTool.Windows
             if (!IsVisible || IsLoaded)
                 return;
 
-            if (Settings.Instance.EnableDarkMode)
-                MainWindow.SetDarkTitleBarForWindow(this, true, false);
+            /*if (Settings.Instance.EnableDarkMode)
+                MainWindow.SetDarkTitleBarForWindow(this, true, false);*/
         }
 
         public FindReferencesResults(object sourceObj, UndertaleData data, Dictionary<string, List<object>> results)

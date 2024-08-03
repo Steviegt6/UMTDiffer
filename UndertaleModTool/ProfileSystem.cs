@@ -11,11 +11,13 @@ using UndertaleModLib.Models;
 using UndertaleModLib.Decompiler;
 using System.Threading.Tasks;
 
+using AakStudio.Shell.UI.Controls;
+
 namespace UndertaleModTool
 {
     // Handles a majority of profile-system functionality
 
-    public partial class MainWindow : Window, INotifyPropertyChanged, IScriptInterface
+    public partial class MainWindow : CustomChromeWindow, INotifyPropertyChanged, IScriptInterface
     {
         public string GetDecompiledText(string codeName, GlobalDecompileContext context = null)
         {

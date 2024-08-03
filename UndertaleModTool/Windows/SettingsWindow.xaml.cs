@@ -181,7 +181,7 @@ namespace UndertaleModTool
             }
         }
 
-        public static bool EnableDarkMode
+        /*public static bool EnableDarkMode
         {
             get => Settings.Instance.EnableDarkMode;
             set
@@ -195,7 +195,7 @@ namespace UndertaleModTool
                     mainWindow.ShowWarning("The message boxes (like this one) aren't compatible with the dark mode.\n" +
                                            "This will be fixed in future versions.");
             }
-        }
+        }*/
 
         public static bool ShowDebuggerOption
         {
@@ -226,8 +226,8 @@ namespace UndertaleModTool
             if (!IsVisible || IsLoaded)
                 return;
 
-            if (Settings.Instance.EnableDarkMode)
-                MainWindow.SetDarkTitleBarForWindow(this, true, false);
+            /*if (Settings.Instance.EnableDarkMode)
+                MainWindow.SetDarkTitleBarForWindow(this, true, false);*/
         }
 
         private void AppDataButton_Click(object sender, RoutedEventArgs e)

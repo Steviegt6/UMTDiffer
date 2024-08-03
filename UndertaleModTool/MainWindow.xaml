@@ -1,4 +1,4 @@
-﻿<Window x:Class="UndertaleModTool.MainWindow"
+﻿<CustomChromeWindow x:Class="UndertaleModTool.MainWindow"
         Closing="DataWindow_Closing"
         IsVisibleChanged="Window_IsVisibleChanged"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -13,6 +13,111 @@
         mc:Ignorable="d"
         Height="450" Width="800" Loaded="Window_Loaded"
         AllowDrop="True" Drop="Window_Drop">
+    <CustomChromeWindow.LeftWindowCommands>
+        <Grid Margin="4,6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Viewbox
+                Width="16"
+                Height="16"
+                Margin="4,2,8,0"
+                VerticalAlignment="Top"
+                IsHitTestVisible="False">
+                <Rectangle
+                    Width="16"
+                    Height="16"
+                    Style="{StaticResource WindowIconRectangle}" />
+            </Viewbox>
+            <Menu Grid.Column="1" Margin="0,2,0,0">
+                <MenuItem Header="View(_V)">
+                    <MenuItem
+                        Header="{Binding StyleSelector.Title}"
+                        IsCheckable="True"
+                        IsChecked="{Binding StyleSelector.IsVisible, Mode=TwoWay}" />
+                </MenuItem>
+                <!--<MenuItem Header="Themes(_T)" ItemsSource="{x:Static local:AakThemeCollection.AllThemes}">
+                    <MenuItem.Resources>
+                        <Style x:Key="BindingCommandsMenuItem" TargetType="{x:Type MenuItem}">
+                            <Setter Property="Command" Value="{Binding ThemeSwitchCommand, Source={x:Static vm:WorkSpaceViewModel.Default}}" />
+                            <Setter Property="CommandParameter" Value="{Binding .}" />
+                            <Setter Property="Header" Value="{Binding Name}" />
+                            <Setter Property="IsCheckable" Value="True" />
+                            <Setter Property="IsChecked">
+                                <Setter.Value>
+                                    <MultiBinding Converter="{StaticResource AakThemeIsEqualsConverter}" Mode="OneWay">
+                                        <MultiBinding.Bindings>
+                                            <Binding Path="CurrentTheme" Source="{x:Static vm:WorkSpaceViewModel.Default}" />
+                                            <Binding Path="." />
+                                        </MultiBinding.Bindings>
+                                    </MultiBinding>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </MenuItem.Resources>
+                    <MenuItem.ItemContainerStyle>
+                        <Style TargetType="{x:Type MenuItem}">
+                            <Setter Property="DynamicStyleProvider.BasedOn" Value="{DynamicResource MenuItemBaseStyle}" />
+                            <Setter Property="DynamicStyleProvider.Derived" Value="{DynamicResource BindingCommandsMenuItem}" />
+                        </Style>
+                    </MenuItem.ItemContainerStyle>
+                </MenuItem>-->
+
+            </Menu>
+            <Border
+                Grid.Column="2"
+                Margin="5,2,0,0"
+                VerticalAlignment="Top"
+                IsHitTestVisible="False">
+                <Border.Style>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="Background" Value="Transparent" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource SystemColorsWindowPanel}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <TextBlock
+                    Margin="6,4,6,4"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontWeight="Bold"
+                    Text="{Binding Title, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                    TextTrimming="CharacterEllipsis">
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" Value="False">
+                                    <Setter Property="TextElement.Foreground" Value="{DynamicResource EnvironmentMainWindowInactiveCaptionText}" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Border>
+        </Grid>
+    </CustomChromeWindow.LeftWindowCommands>
+    <CustomChromeWindow.RightWindowCommands>
+        <StackPanel Orientation="Horizontal">
+            <!--<ComboBox
+                Width="160"
+                Margin="6"
+                VerticalAlignment="Top"
+                DisplayMemberPath="Name"
+                ItemsSource="{x:Static local:AakThemeCollection.AllThemes}"
+                SelectedItem="{Binding CurrentTheme, Mode=TwoWay}" />-->
+            <Button
+                Width="45"
+                Height="32"
+                VerticalAlignment="Top"
+                BorderBrush="{Binding Background, RelativeSource={RelativeSource Self}}"
+                Content="✨" />
+        </StackPanel>
+    </CustomChromeWindow.RightWindowCommands>
     <Window.Title>
         <MultiBinding StringFormat="{}{0} - {1} [{2}]">
             <Binding Path="TitleMain"/>
@@ -714,4 +819,4 @@
             </Grid>
         </DockPanel>
     </Grid>
-</Window>
+</CustomChromeWindow>

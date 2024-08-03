@@ -94,8 +94,8 @@ namespace UndertaleModTool.Windows
             textCommandsMenu.BackColor = TextBoxBGColor;
             textCopyMenu.ForeColor = TextColor;
             textCopyMenu.BackColor = TextBoxBGColor;
-            if (Settings.Instance.EnableDarkMode)
-                MainWindow.SetDarkTitleBarForWindow(this, true, false);
+            /*if (Settings.Instance.EnableDarkMode)
+                MainWindow.SetDarkTitleBarForWindow(this, true, false);*/
         }
 
         private void TextInput_Load(object sender, EventArgs e)
