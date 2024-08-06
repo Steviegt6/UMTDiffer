@@ -13,12 +13,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+using AakStudio.Shell.UI.Controls;
+
 namespace UndertaleModTool
 {
     /// <summary>
     /// Interaction logic for GMLSettingsWindow.xaml
     /// </summary>
-    public partial class GMLSettingsWindow : Window
+    public partial class GMLSettingsWindow : CustomChromeWindow
     {
         public GMLSettingsWindow(Settings settings)
         {
@@ -31,8 +33,8 @@ namespace UndertaleModTool
             if (!IsVisible || IsLoaded)
                 return;
 
-            if (Settings.Instance.EnableDarkMode)
-                MainWindow.SetDarkTitleBarForWindow(this, true, false);
+            /*if (Settings.Instance.EnableDarkMode)
+                MainWindow.SetDarkTitleBarForWindow(this, true, false);*/
         }
     }
 
