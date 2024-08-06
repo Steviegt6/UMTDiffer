@@ -13,6 +13,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+
+using AakStudio.Shell.UI.Controls;
+
 using UndertaleModLib.Models;
 using static UndertaleModTool.Editors.UndertaleFontEditor.RectangleHelper;
 
@@ -21,7 +24,7 @@ namespace UndertaleModTool.Editors.UndertaleFontEditor
     /// <summary>
     /// Interaction logic for EditGlyphRectangleWindow.xaml
     /// </summary>
-    public partial class EditGlyphRectangleWindow : Window, INotifyPropertyChanged
+    public partial class EditGlyphRectangleWindow : CustomChromeWindow, INotifyPropertyChanged
     {
         public UndertaleFont Font { get; set; }
         public UndertaleFont.Glyph[] Glyphs { get; set; }
@@ -78,8 +81,8 @@ namespace UndertaleModTool.Editors.UndertaleFontEditor
             if (!IsVisible || IsLoaded)
                 return;
 
-            if (Settings.Instance.EnableDarkMode)
-                MainWindow.SetDarkTitleBarForWindow(this, true, false);
+            /*if (Settings.Instance.EnableDarkMode)
+                MainWindow.SetDarkTitleBarForWindow(this, true, false);*/
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

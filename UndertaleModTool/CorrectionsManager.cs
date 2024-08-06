@@ -2,12 +2,15 @@
 using System.ComponentModel;
 using System.IO;
 using System.Windows;
+
+using AakStudio.Shell.UI.Controls;
+
 using UndertaleModLib.Scripting;
 
 namespace UndertaleModTool
 {
     //Make new GUID helper functions
-    public partial class MainWindow : Window, INotifyPropertyChanged, IScriptInterface
+    public partial class MainWindow : CustomChromeWindow, INotifyPropertyChanged, IScriptInterface
     {
         public void ReplaceTempWithMain(bool imAnExpertBtw = false)
         {

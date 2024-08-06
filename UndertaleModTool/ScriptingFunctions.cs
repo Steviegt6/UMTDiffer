@@ -16,10 +16,12 @@ using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
 using System.IO.Pipes;
 
+using AakStudio.Shell.UI.Controls;
+
 namespace UndertaleModTool
 {
     // Adding misc. scripting functions here
-    public partial class MainWindow : Window, INotifyPropertyChanged, IScriptInterface
+    public partial class MainWindow : CustomChromeWindow, INotifyPropertyChanged, IScriptInterface
     {
         public bool RunUMTScript(string path)
         {

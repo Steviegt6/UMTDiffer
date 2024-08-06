@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
 using Underanalyzer.Decompiler;
+using AakStudio.Shell.UI.Controls;
 using UndertaleModLib;
 using UndertaleModLib.Decompiler;
 using UndertaleModLib.Models;
@@ -14,7 +15,7 @@ using UndertaleModLib.Scripting;
 namespace UndertaleModTool
 {
     // System for importing GML files with more ease than other functions
-    public partial class MainWindow : Window, INotifyPropertyChanged, IScriptInterface
+    public partial class MainWindow : CustomChromeWindow, INotifyPropertyChanged, IScriptInterface
     {
         enum EventTypes
         {

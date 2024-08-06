@@ -54,11 +54,15 @@
     <ItemGroup>
         <Resource Include="Resources\arrow_blue.png" />
         <Resource Include="Resources\arrow_red.png" />
+        <Resource Include="Resources\icon.png" />
     </ItemGroup>
     <ItemGroup>
         <Resource Include="icon.ico" />
     </ItemGroup>
     <ItemGroup>
+        <PackageReference Include="AakStudio.Shell.UI">
+          <Version>0.1.6-beta-0328</Version>
+        </PackageReference>
         <PackageReference Include="AvalonEdit">
             <Version>6.3.0.90</Version>
         </PackageReference>

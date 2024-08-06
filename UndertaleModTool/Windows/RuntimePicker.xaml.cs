@@ -15,6 +15,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+
+using AakStudio.Shell.UI.Controls;
+
 using UndertaleModLib;
 
 namespace UndertaleModTool
@@ -22,7 +25,7 @@ namespace UndertaleModTool
     /// <summary>
     /// Logika interakcji dla klasy RuntimePicker.xaml
     /// </summary>
-    public partial class RuntimePicker : Window
+    public partial class RuntimePicker : CustomChromeWindow
     {
         public class Runtime
         {
@@ -44,8 +47,8 @@ namespace UndertaleModTool
             if (!IsVisible || IsLoaded)
                 return;
 
-            if (Settings.Instance.EnableDarkMode)
-                MainWindow.SetDarkTitleBarForWindow(this, true, false);
+            /*if (Settings.Instance.EnableDarkMode)
+                MainWindow.SetDarkTitleBarForWindow(this, true, false);*/
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
